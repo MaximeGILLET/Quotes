@@ -1,44 +1,74 @@
-﻿
+﻿@using Quotes.Models
 @{
     ViewBag.Title = "MyQuotes";
 }
+@model UserQuoteListModel
 
 <h2>MyQuotes</h2>
 
-<div class="media">
-    <div class="media-left">
-        <a href="#">
-            <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
-        </a>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">"</span>
+            <input type="text" class="form-control" placeholder="Express yourself...">
+            <span class="input-group-addon">"</span>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Post!</button>
+            </span>
+        </div>
     </div>
-    <div class="media-body">
-        <h4 class="media-heading">Media heading</h4>
-        ...
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="media-list">
+            @if(@Model != null){
+                foreach (var item in @Model.UserQuotes)
+                {
+                        <li class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="@Model.User.ProfileIconPath" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">@item.OriginalDate<a href="#">Reactions <span class="badge">42</span></a></h4>
+                                @item.QuoteText
+                            </div>
+                        </li>
+
+                }
+            }
+           
+            <li class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">2016-07-15 <a href="#">Reactions <span class="badge">42</span></a></h4>
+                    J'ai mangé une pomme 
+                </div>
+                
+            </li>
+            <li class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">2016-07-01 <a href="#">Reactions <span class="badge">23</span></a></h4>
+                    Qr7hur est un ****
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 
 
-<ul class="media-list">
-    <li class="media">
-        <div class="media-left">
-            <a href="#">
-                <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
-            </a>
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            ...
-        </div>
-    </li>
-    <li class="media">
-        <div class="media-left">
-            <a href="#">
-                <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
-            </a>
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            ...
-        </div>
-    </li>
-</ul>
+
+
+

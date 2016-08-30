@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Quotes.DAL;
 
 namespace Quotes.Controllers
 {
@@ -16,7 +17,8 @@ namespace Quotes.Controllers
 
         public ActionResult MyQuotes()
         {
-            return View();
+
+            return View(QuoteDAL.FindUserQuotes(HttpContext.User.Identity.Name));
         }
     }
 }
