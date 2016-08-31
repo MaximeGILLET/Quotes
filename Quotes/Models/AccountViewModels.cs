@@ -64,6 +64,12 @@ namespace Quotes.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [RegularExpression(@"^[a-zA-Z0-9_]*$", ErrorMessage = "A username can only contain numbers or letters.")]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]

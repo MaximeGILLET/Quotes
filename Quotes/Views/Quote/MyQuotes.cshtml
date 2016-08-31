@@ -33,14 +33,25 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">@item.OriginalDate<a href="#">Reactions <span class="badge">42</span></a></h4>
-                                @item.QuoteText
+                                <h4 class="media-heading">@item.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>                                
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        @item.QuoteText
+                                    </div>
+                                    <div class="panel-footer">
+                                        <span class="badge">@item.likes</span>
+                                        <button id="like" type="button" title="Like!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                        <span class="badge">@item.dislikes</span>
+                                        <button id="dislike" type="button" title="Dislike!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                        <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span></button>
+                                        <button id="report" type="button" title="Report Quote!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>           
+                                    </div>
+                                </div>
                             </div>
                         </li>
 
                 }
-            }
-           
+            }           
             <li class="media">
                 <div class="media-left">
                     <a href="#">
@@ -49,9 +60,21 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">2016-07-15 <a href="#">Reactions <span class="badge">42</span></a></h4>
-                    J'ai mangé une pomme 
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            J'ai mangé une pomme
+                        </div>
+                        <div class="panel-footer">
+                            <span class="badge">2</span>
+                            <button id="like" type="button" title="Like!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button> 
+                            <span class="badge">42</span>
+                            <button id="dislike" type="button" title="Dislike!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>                               
+                            <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span></button>                                
+                            <button id="report" type="button" title="Report Quote!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
+                        
+                        </div>
+                    </div>
                 </div>
-                
             </li>
             <li class="media">
                 <div class="media-left">
@@ -60,8 +83,21 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">2016-07-01 <a href="#">Reactions <span class="badge">23</span></a></h4>
-                    Qr7hur est un ****
+                    <h4 class="media-heading">2016-07-15 <a href="#">Reactions <span class="badge">42</span></a></h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            Jeff est une *****
+                        </div>
+                        <div class="panel-footer">
+                            <span class="badge">42</span>
+                            <button id="like" type="button" title="Like!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                            <span class="badge">2</span>
+                            <button id="dislike" type="button" title="Dislike!" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                            <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span></button>
+                            <button id="report" type="button" title="Report Quote!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
+                        </div>
+
+                    </div>
                 </div>
             </li>
         </ul>
