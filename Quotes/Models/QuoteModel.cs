@@ -7,7 +7,7 @@ namespace Quotes.Models
 {
     public class QuoteModel : SocialModel
     {
-        public int QuoteId { get; set; }
+        public int? QuoteId { get; set; }
         public int UserId { get; set; }
         public string QuoteText { get; set; }
         public DateTime OriginalDate { get; set; }
@@ -17,9 +17,9 @@ namespace Quotes.Models
 
     public class SocialModel
     {
-        public int likes { get; set; }
-        public int dislikes { get; set; }
-        public int favorites { get; set; }
-        public int reports { get; set; }
+        public int Likes { get; set; }
+        public int Dislikes { get; set; }
+        public int Favorites { get; set; }
+        public int Reports { get; set; }
     }
 }

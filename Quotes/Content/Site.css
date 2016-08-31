@@ -20,3 +20,37 @@
 
     padding-bottom: 20px;
 }
+
+.badge-like {
+    background-color: #6EB4FF;
+}
+.btn-like :focus{
+     outline-color: #6EB4FF;
+}
+
+.badge-dislike {
+    background-color: #FFA8A8;
+}
+
+.btn-dislike:active:focus{
+     outline-color: #FFA8A8;
+}
+.btn-dislike:active{
+     outline-color: #FFA8A8;
+}
+.btn-dislike:focus{
+     outline-color: #FFA8A8;
+}
+
+.badge-star {
+    background-color: #FFCC00;
+}
+.btn-star:active:focus{
+     outline-color: #FFCC00;
+}
+.btn-star:active{
+     outline-color: #FFCC00;
+}
+.btn-star:focus{
+     outline-color: #FFCC00;
+}
