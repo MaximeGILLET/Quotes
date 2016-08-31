@@ -13,11 +13,30 @@ namespace Quotes.DAL
     public static class QuoteDAL
     {
 
-        public static UserQuoteListModel FindUserQuotes(string userName)
+        public static UserQuoteListModel FindUserQuotes(int UsrId)
         {
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = UsrId}
+                };
 
+            var quotes = new UserQuoteListModel();
+            quotes.UserQuotes = new List<QuoteModel>();
+            quotes.User = new UserModel();
+            var ds= DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", param);
+            foreach (var item in ds.Tables[0].AsEnumerable())
+            {
+                quotes.UserQuotes.Add(
+                    new QuoteModel()
+                    {
+                        QuoteId = item.Field<int>("QuoId"),
+                        QuoteText = item.Field<string>("QuoText"),
+                        OriginalDate = item.Field<DateTime>("QuoDate")
+                    }
+                );
+            }
 
-            return null;
+            return quotes;
         }
 
         public static bool SaveQuote(QuoteModel newQuote)
@@ -26,13 +45,15 @@ namespace Quotes.DAL
             {
                 var param = new List<SqlParameter>
                 {
-                    new SqlParameter() {SqlDbType = SqlDbType.Text, Value = newQuote.QuoteText},
-                    new SqlParameter() {SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
+                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.Text, Value = newQuote.QuoteText},
+                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
                 };
                 if (newQuote.QuoteId != null)
                 {
                     param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
                 }
+
+                DatabaseDAL.ExecuteProcedure("dbo.QuoteSave",param);
 
             }
             catch (Exception e)
