@@ -61,7 +61,6 @@ namespace Quotes.DAL
         {
             using (var command = new SqlCommand(procName, DbInstance) { CommandType = CommandType.StoredProcedure })
             {
-                DataSet ds = null;
                 if (sqlParams != null) foreach (var param in sqlParams) command.Parameters.Add(param);
                 DbInstance.Open();
                 command.ExecuteNonQuery();
