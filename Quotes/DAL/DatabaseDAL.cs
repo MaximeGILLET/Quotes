@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace Quotes.DAL
@@ -36,25 +37,37 @@ namespace Quotes.DAL
         {
             using (var command = new SqlCommand(procName, DbInstance) { CommandType = CommandType.StoredProcedure })
             {
-                DataSet ds = null;
-                if (sqlParams != null) foreach (var param in sqlParams) command.Parameters.Add(param);
-                DbInstance.Open();
-                using (var dr = command.ExecuteReader())
+                try
                 {
+                    DataSet ds = null;
+                    if (sqlParams != null) foreach (var param in sqlParams) command.Parameters.Add(param);
+                    DbInstance.Open();
+                    using (var dr = command.ExecuteReader())
+                    {
 
-                    DataTable dt = new DataTable();
-                    dt.Load(dr);
-                    ds = new DataSet();
-                    ds.Tables.Add(dt);
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        ds = new DataSet();
+                        ds.Tables.Add(dt);
+
+                    }
+
+                    DbInstance.Close();
+
+                    return ds;
 
                 }
+                catch (Exception e)
+                {
+                    //Log
+                }
+                finally
+                {
+                    DbInstance.Close();
+                }
 
-                DbInstance.Close();
-
-                return ds;
+                return null;
             }
-
-
         }
 
         public static void ExecuteProcedure(string procName, List<SqlParameter> sqlParams)

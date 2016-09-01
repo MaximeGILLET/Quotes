@@ -28,7 +28,7 @@ namespace Quotes
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/bundles/Quotes").Include(
-                      "~/Scripts/Quotes/Quotes.js"));
+                      "~/Scripts/UI/Quotes/Quotes.js"));
         }
     }
 }

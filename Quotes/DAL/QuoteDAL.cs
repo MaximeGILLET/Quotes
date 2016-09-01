@@ -24,6 +24,7 @@ namespace Quotes.DAL
             quotes.UserQuotes = new List<QuoteModel>();
             quotes.User = new UserModel();
             var ds= DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", param);
+            if (ds != null)
             foreach (var item in ds.Tables[0].AsEnumerable())
             {
                 quotes.UserQuotes.Add(
