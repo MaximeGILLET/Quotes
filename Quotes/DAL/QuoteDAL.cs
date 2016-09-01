@@ -13,6 +13,11 @@ namespace Quotes.DAL
     public static class QuoteDAL
     {
 
+        /// <summary>
+        /// Find and return all the quotes of a user.
+        /// </summary>
+        /// <param name="UsrId">Id of the user</param>
+        /// <returns> UserQuoteListModel object</returns>
         public static UserQuoteListModel FindUserQuotes(int UsrId)
         {
             var param = new List<SqlParameter>
@@ -40,6 +45,11 @@ namespace Quotes.DAL
             return quotes;
         }
 
+        /// <summary>
+        /// SaveQuote can be used to save a new quote or update an existing one (decided on wether Quote Id is Null or not).
+        /// </summary>
+        /// <param name="newQuote">the Quote to be created or updated.</param>
+        /// <returns></returns>
         public static bool SaveQuote(QuoteModel newQuote)
         {
             try

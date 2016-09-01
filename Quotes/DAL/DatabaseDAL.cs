@@ -70,6 +70,11 @@ namespace Quotes.DAL
             }
         }
 
+        /// <summary>
+        /// Execute a procedure "Non-query" nothing to wait in return.
+        /// </summary>
+        /// <param name="procName"> Name of the procedure to be executed.</param>
+        /// <param name="sqlParams">Sql parameters List</param>
         public static void ExecuteProcedure(string procName, List<SqlParameter> sqlParams)
         {
             using (var command = new SqlCommand(procName, DbInstance) { CommandType = CommandType.StoredProcedure })
