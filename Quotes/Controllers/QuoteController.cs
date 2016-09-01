@@ -29,6 +29,16 @@ namespace Quotes.Controllers
         }
 
         [HttpPost]
+        public ActionResult SearchQuote(string searchText)
+        {
+            //search quote in database
+           
+
+            //Load page
+            return RedirectToAction("MyQuotes");
+        }
+
+        [HttpPost]
         public JsonResult LikeQuote(QuoteModel quote)
         {
             
