@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="Procedures" />
+    <Folder Include="MigrationScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Quote.sql" />
@@ -74,5 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="MigrationScripts\Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>

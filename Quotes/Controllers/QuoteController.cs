@@ -39,31 +39,13 @@ namespace Quotes.Controllers
         }
 
         [HttpPost]
-        public JsonResult LikeQuote(QuoteModel quote)
+        public JsonResult TagQuote(QuoteModel quote)
         {
-            
-            return new JsonResult();
-        }
-
-        [HttpPost]
-        public JsonResult DislikeQuote(QuoteModel quote)
-        {
+            //Increment a Tag on the quote (like, dislike or any other tag).
 
             return new JsonResult();
         }
 
-        [HttpPost]
-        public JsonResult StarQuote(QuoteModel quote)
-        {
 
-            return new JsonResult();
-        }
-
-        [HttpPost]
-        public JsonResult EditQuote(QuoteModel quote)
-        {
-
-            return new JsonResult();
-        }
     }
 }
