@@ -14,7 +14,7 @@
         
             <div class="input-group input-group-lg">
                 <span class="input-group-addon">"</span>
-                <input id="text" name="text" type="text" class="form-control" placeholder="Express yourself...">
+                <input id="text" name="text" type="text" class="form-control quote-form" placeholder="Express yourself...">
                 <span class="input-group-addon">"</span>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">Post!</button>
@@ -50,7 +50,7 @@
                                         <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="QuoteDislike(@item.QuoteId)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                         <span class="badge badge-star">@item.Favorites</span>
                                         <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="QuoteStar(@item.QuoteId)"><span class="glyphicon glyphicon-star-empty"></span></button>
-                                        <button id="report" type="button" title="Report Quote!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>           
+                                        <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>           
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike"><span class="glyphicon glyphicon-thumbs-down"></span></button> 
                             <span class="badge badge-star">0</span>                              
                             <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star"><span class="glyphicon glyphicon-star-empty"></span></button>                                
-                            <button id="report" type="button" title="Report Quote!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
+                            <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
                         </div>
                     </div>
                 </div>

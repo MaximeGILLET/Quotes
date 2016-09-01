@@ -8,8 +8,10 @@
     <ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            @Html.ActionLink("MyQuotes", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Quote" })
         </li>
+        <li>
+            @Html.ActionLink("MyQuotes", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Quote" })
+        </li>           
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
     </ul>
     }

@@ -15,7 +15,7 @@ namespace Quotes.Controllers
         public ActionResult MyQuotes()
         {
 
-            return View(QuoteDAL.FindUserQuotes(HttpContext.User.Identity.Name));
+            return View(QuoteDAL.FindUserQuotes(User.Identity.GetUserId<int>()));
         }
 
         [HttpPost]
