@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Quotes.Models
 {
     public class UserQuoteListModel
     {
-        public List<QuoteModel> UserQuotes { get; set; }
-        public UserModel User { get; set; }
+        public List<QuoteModel> UserQuotes { get; set; } = new List<QuoteModel>();
+
+        public UserModel User { get; set; } = new UserModel();
     }
-
-    public class UserModel
-    {
-        public string ProfileIconPath { get; set; }
-        public string UserName { get; set; }
-
-    }
-
 }

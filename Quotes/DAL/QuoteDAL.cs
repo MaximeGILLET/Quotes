@@ -6,59 +6,68 @@ using Quotes.Models;
 
 namespace Quotes.DAL
 {
-    public static class QuoteDAL
+    public class QuoteDAL
     {
 
-        public static UserQuoteListModel FindUserQuotes(int UsrId)
+        public UserQuoteListModel FindUserQuotes(int userId)
         {
-            var param = new List<SqlParameter>
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter
                 {
-                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = UsrId}
-                };
+                    ParameterName = "@UsrId",
+                    SqlDbType = SqlDbType.Int,
+                    Value = userId
+                }
+            };
 
             var quotes = new UserQuoteListModel();
-            quotes.UserQuotes = new List<QuoteModel>();
-            quotes.User = new UserModel();
-            var ds= DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", param);
-            if (ds != null)
-            foreach (var item in ds.Tables[0].AsEnumerable())
+            
+            var dataSet = DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", parameters);
+
+            if (dataSet.Tables.Count != 0)
             {
-                quotes.UserQuotes.Add(
-                    new QuoteModel()
-                    {
-                        QuoteId = item.Field<int>("QuoId"),
-                        QuoteText = item.Field<string>("QuoText"),
-                        OriginalDate = item.Field<DateTime>("QuoDate")
-                    }
-                );
+                foreach (var item in dataSet.Tables[0].AsEnumerable())
+                {
+                    quotes.UserQuotes.Add(
+                        new QuoteModel
+                        {
+                            QuoteId = item.Field<int>("QuoId"),
+                            QuoteText = item.Field<string>("QuoText"),
+                            OriginalDate = item.Field<DateTime>("QuoDate")
+                        }
+                    );
+                }
             }
+            
 
             return quotes;
         }
 
-        public static bool SaveQuote(QuoteModel newQuote)
+        public bool SaveQuote(QuoteModel newQuote)
         {
+            var result = false;
             try
             {
                 var param = new List<SqlParameter>
                 {
-                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.Text, Value = newQuote.QuoteText},
-                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
+                    new SqlParameter { ParameterName = "@text", SqlDbType = SqlDbType.Text, Value = newQuote.QuoteText },
+                    new SqlParameter { ParameterName = "@UsrId", SqlDbType = SqlDbType.Int, Value = newQuote.UserId }
                 };
+
                 if (newQuote.QuoteId != null)
                 {
-                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
+                    param.Add(new SqlParameter { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
                 }
 
-                DatabaseDAL.ExecuteProcedure("dbo.QuoteSave",param);
+                DatabaseDAL.ExecuteProcedure("dbo.QuoteSave", param);
 
+                result = true;
             }
-            catch (Exception e)
-            {
+            catch (SqlException)
+            { }
 
-                return false;
-            }
-            return true;
+            return result;
         }
     }
 }

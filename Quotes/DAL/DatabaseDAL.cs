@@ -11,78 +11,67 @@ namespace Quotes.DAL
         /// <summary>
         /// Singleton Database instance
         /// </summary>
-        public static SqlConnection DbInstance
-        {
-            get
-            {
-                if (_DbInstances == null)
-                {
-                    _DbInstances = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                }
-                return _DbInstances;
-            }
-        }
-        private static SqlConnection _DbInstances;
+        public static SqlConnection DbInstance { get; } = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
         /// <summary>
         /// Execute procedure with given parameters
         /// </summary>
-        /// <param name="procName">The procedure name.</param>
-        /// <param name="sqlParams">The sql parameters for the procedure.</param>
+        /// <param name="storedProcedure">The procedure name.</param>
+        /// <param name="storedProcedureParameters">The sql parameters for the procedure.</param>
         /// <returns></returns>
-        public static DataSet ExecuteProcedureDataSet(string procName, List<SqlParameter> sqlParams)
+        public static DataSet ExecuteProcedureDataSet(string storedProcedure, List<SqlParameter> storedProcedureParameters)
         {
-            using (var command = new SqlCommand(procName, DbInstance) { CommandType = CommandType.StoredProcedure })
+            var dataSet = new DataSet();
+
+            using (var command = new SqlCommand(storedProcedure, DbInstance) { CommandType = CommandType.StoredProcedure })
             {
                 try
                 {
-                    DataSet ds = null;
-                    if (sqlParams != null) foreach (var param in sqlParams) command.Parameters.Add(param);
-                    DbInstance.Open();
-                    using (var dr = command.ExecuteReader())
+                    if (storedProcedureParameters != null)
                     {
-
-                        DataTable dt = new DataTable();
-                        dt.Load(dr);
-                        ds = new DataSet();
-                        ds.Tables.Add(dt);
-
+                        foreach (var param in storedProcedureParameters)
+                        {
+                            command.Parameters.Add(param);
+                        }
                     }
 
-                    DbInstance.Close();
+                    DbInstance.Open();
 
-                    return ds;
-
+                    using (var dataReader = command.ExecuteReader())
+                    {
+                        var dataTable = new DataTable();
+                        dataTable.Load(dataReader);
+                        
+                        dataSet.Tables.Add(dataTable);
+                    }
                 }
-                catch (Exception e)
-                {
-                    //Log
-                }
+                catch (SqlException e)
+                { }
                 finally
                 {
                     DbInstance.Close();
                 }
-
-                return null;
             }
+
+            return dataSet;
         }
 
-        public static void ExecuteProcedure(string procName, List<SqlParameter> sqlParams)
+        public static void ExecuteProcedure(string storedProcedure, List<SqlParameter> sqlParameters)
         {
-            using (var command = new SqlCommand(procName, DbInstance) { CommandType = CommandType.StoredProcedure })
+            using (var command = new SqlCommand(storedProcedure, DbInstance) { CommandType = CommandType.StoredProcedure })
             {
-                if (sqlParams != null) foreach (var param in sqlParams) command.Parameters.Add(param);
+                if (sqlParameters != null)
+                {
+                    foreach (var param in sqlParameters)
+                    {
+                        command.Parameters.Add(param);
+                    }
+                }
+
                 DbInstance.Open();
                 command.ExecuteNonQuery();
                 DbInstance.Close();
-                
             }
-        }
-
-        public static DataSet ExecuteProcedureDataSet(string procName)
-        {
-            return ExecuteProcedureDataSet(procName, null);
-
         }
     }
 }
