@@ -1,9 +1,22 @@
-﻿<div class="media-left">
-    <a href="#">
-        <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="...">
-    </a>
-</div>
-<div class="media-body">
-    <h4 class="media-heading">Media heading</h4>
-    ...
-</div>
+﻿@using Quotes.Models
+@model QuoteModel
+
+<li class="media">
+    <div class="media-body">
+        <h4 class="media-heading">@Model.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @Model.QuoteText
+            </div>
+            <div class="panel-footer">
+                <span class="badge badge-like">@Model.Likes</span>
+                <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="QuoteLike(@Model.QuoteId)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                <span class="badge badge-dislike">@Model.Dislikes</span>
+                <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="QuoteDislike(@Model.QuoteId)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                <span class="badge badge-star">@Model.Favorites</span>
+                <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="QuoteStar(@Model.QuoteId)"><span class="glyphicon glyphicon-star-empty"></span></button>
+                <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
+            </div>
+        </div>
+    </div>
+</li>

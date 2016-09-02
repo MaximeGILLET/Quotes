@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -45,7 +44,7 @@ namespace Quotes.DAL
                         dataSet.Tables.Add(dataTable);
                     }
                 }
-                catch (SqlException e)
+                catch (SqlException)
                 { }
                 finally
                 {
@@ -56,6 +55,11 @@ namespace Quotes.DAL
             return dataSet;
         }
 
+        /// <summary>
+        /// Execute a procedure "Non-query" nothing to wait in return.
+        /// </summary>
+        /// <param name="procName"> Name of the procedure to be executed.</param>
+        /// <param name="sqlParams">Sql parameters List</param>
         public static void ExecuteProcedure(string storedProcedure, List<SqlParameter> sqlParameters)
         {
             using (var command = new SqlCommand(storedProcedure, DbInstance) { CommandType = CommandType.StoredProcedure })
