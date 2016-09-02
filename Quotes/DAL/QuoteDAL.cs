@@ -99,5 +99,32 @@ namespace Quotes.DAL
             }
             return true;
         }
+
+        public static List<UserQuoteModel> FindQuote(string text)
+        {
+
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.NVarChar, Value = text}
+                };
+
+            var quoteList = new List<UserQuoteModel>();
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.QuoteFind", param);
+            if (ds != null)
+                quoteList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new UserQuoteModel()
+                {
+                    Quote = new QuoteModel()
+                    {
+                        QuoteId = item.Field<int>("QuoId"), 
+                        QuoteText = item.Field<string>("QuoText"), 
+                        OriginalDate = item.Field<DateTime>("QuoDate")
+                    },
+                    User = new UserModel()
+                    {
+                        UserName = item.Field<string>("UserName"), ProfileIconPath = "" //Not implemented yet
+                    }
+                }));
+            return quoteList;
+        }
     }
 }

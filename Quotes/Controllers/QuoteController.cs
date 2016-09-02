@@ -31,10 +31,8 @@ namespace Quotes.Controllers
         [HttpPost]
         public ActionResult SearchQuote(string searchText)
         {
-            //search quote in database
-            
-            //Load page
-            return View("SearchResultQuotes");
+            //search quote in database and Load result page
+            return View("SearchResultQuotes",QuoteDAL.FindQuote(searchText));
         }
 
         [HttpPost]
