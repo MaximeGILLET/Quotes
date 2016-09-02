@@ -1,0 +1,39 @@
+﻿@using Quotes.Models
+@model List<UserQuoteModel>
+
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="media-list">
+            @if (@Model != null)
+            {
+                foreach (var item in @Model)
+                {
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="@item.User.ProfileIconPath" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">@item.Quote.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    @item.Quote.QuoteText
+                                </div>
+                                <div class="panel-footer">
+                                    <span class="badge badge-like">@item.Quote.Likes</span>
+                                    <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="TagQuote(@item.Quote.QuoteId,'Like')"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                    <span class="badge badge-dislike">@item.Quote.Dislikes</span>
+                                    <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="TagQuote(@item.Quote.QuoteId,'Dislike')"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                    <span class="badge badge-star">@item.Quote.Favorites</span>
+                                    <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="TagQuote(@item.Quote.QuoteId,'Star')"><span class="glyphicon glyphicon-star-empty"></span></button>
+                                    <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right" onclick="TagQuote(@item.Quote.QuoteId,'Flag')"><span class="glyphicon glyphicon-flag"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

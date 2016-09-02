@@ -178,8 +178,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\QuoteModel.cs" />
-    <Compile Include="Models\UserQuoteListModel.cs" />
+    <Compile Include="Models\QuoteModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -254,6 +253,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Quote\MyQuotes.cshtml" />
     <Content Include="Views\Quote\_Quote.cshtml" />
+    <Content Include="Views\Quote\SearchResultQuotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

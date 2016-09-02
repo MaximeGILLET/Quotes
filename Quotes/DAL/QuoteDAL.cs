@@ -74,5 +74,30 @@ namespace Quotes.DAL
             }
             return true;
         }
+
+        public static bool TagQuote(QuoteModel newQuote,string tag)
+        {
+            try
+            {
+                var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@tag",SqlDbType = SqlDbType.VarChar, Value = tag},
+                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
+                };
+                if (newQuote.QuoteId != null)
+                {
+                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
+                }
+
+                DatabaseDAL.ExecuteProcedure("dbo.QuoteTag", param);
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+            return true;
+        }
     }
 }
