@@ -72,7 +72,7 @@ namespace Quotes.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]

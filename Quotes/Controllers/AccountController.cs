@@ -74,7 +74,7 @@ namespace Quotes.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -82,11 +82,15 @@ namespace Quotes.Controllers
                     ViewBag.errorMessage = "You must have a confirmed email to log on.";
                     return View("Error");
                 }
+            }else
+            {
+                ViewBag.errorMessage = "UserName not found in database.";
+                return View("Error");
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:

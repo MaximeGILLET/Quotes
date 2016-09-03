@@ -35,6 +35,13 @@ namespace Quotes.Controllers
             return View("SearchResultQuotes",QuoteDAL.FindQuote(searchText));
         }
 
+        //Api
+        public JsonResult Search(string searchText)
+        {
+            //search quote in database and Load result page
+            return Json(QuoteDAL.FindQuote(searchText), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult TagQuote(int quoteId,string tag)
         {
