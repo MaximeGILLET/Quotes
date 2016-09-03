@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - MyQuotes</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 </head>
 <body>
@@ -27,7 +30,7 @@
                         {
                             <div class="input-group">
                                 <span class="input-group-addon">Find Quotes :</span>
-                                <input id="search" name="search" type="text" class="form-control" placeholder="Type anything...">
+                                <input id="searchText" name="searchText" type="text" class="form-control" placeholder="Type anything...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">Find!</button>
                                 </span>
@@ -40,24 +43,20 @@
          </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+         @RenderBody()
         <hr />
-        <footer>
+        <footer class="col-lg-12" style="display: inline-block">
             <div style="float: left">
                 <p>&copy; @DateTime.Now.Year - MyQuotes Website</p>
             </div>
             <div style="float: right">
                 <p>
-                @Html.ActionLink(" About", "About", "Home")&nbsp;
-                @Html.ActionLink("Contact ", "Contact", "Home")
-            </p>
+                    @Html.ActionLink(" About ", "About", "Home")&nbsp;
+                    @Html.ActionLink(" Contact ", "Contact", "Home")
+                </p>
             </div>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-   
+    
 </body>
 </html>

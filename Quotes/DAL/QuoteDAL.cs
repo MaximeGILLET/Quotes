@@ -74,5 +74,57 @@ namespace Quotes.DAL
             }
             return true;
         }
+
+        public static bool TagQuote(QuoteModel newQuote,string tag)
+        {
+            try
+            {
+                var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@tag",SqlDbType = SqlDbType.VarChar, Value = tag},
+                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
+                };
+                if (newQuote.QuoteId != null)
+                {
+                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
+                }
+
+                DatabaseDAL.ExecuteProcedure("dbo.QuoteTag", param);
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+            return true;
+        }
+
+        public static List<UserQuoteModel> FindQuote(string text)
+        {
+
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.NVarChar, Value = text}
+                };
+
+            var quoteList = new List<UserQuoteModel>();
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.QuoteFind", param);
+            if (ds != null)
+                quoteList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new UserQuoteModel()
+                {
+                    Quote = new QuoteModel()
+                    {
+                        QuoteId = item.Field<int>("QuoId"), 
+                        QuoteText = item.Field<string>("QuoText"), 
+                        OriginalDate = item.Field<DateTime>("QuoDate")
+                    },
+                    User = new UserModel()
+                    {
+                        UserName = item.Field<string>("UserName"), ProfileIconPath = "" //Not implemented yet
+                    }
+                }));
+            return quoteList;
+        }
     }
 }

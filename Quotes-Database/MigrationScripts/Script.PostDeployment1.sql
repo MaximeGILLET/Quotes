@@ -9,4 +9,5 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+DELETE dbo.Tag WHERE TagLabel IN ('Like','Dislike','Star','Flag');
 INSERT INTO dbo.Tag (TagLabel) VALUES ('Like'),('Dislike'),('Star'),('Flag')

@@ -31,19 +31,15 @@ namespace Quotes.Controllers
         [HttpPost]
         public ActionResult SearchQuote(string searchText)
         {
-            //search quote in database
-           
-
-            //Load page
-            return RedirectToAction("MyQuotes");
+            //search quote in database and Load result page
+            return View("SearchResultQuotes",QuoteDAL.FindQuote(searchText));
         }
 
         [HttpPost]
-        public JsonResult TagQuote(QuoteModel quote)
+        public JsonResult TagQuote(int quoteId,string tag)
         {
-            //Increment a Tag on the quote (like, dislike or any other tag).
-
-            return new JsonResult();
+            //Increment a Tag on the quote (like, dislike or any other tag), return the json result of the request.
+            return Json(new { success = QuoteDAL.TagQuote(new QuoteModel() { QuoteId = quoteId, UserId = User.Identity.GetUserId<int>() }, tag), responseText = "" }, JsonRequestBehavior.AllowGet);
         }
 
 
