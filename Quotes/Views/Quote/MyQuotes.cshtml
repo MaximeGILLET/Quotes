@@ -3,20 +3,25 @@
     ViewBag.Title = "MyQuotes";
 }
 @model UserQuoteListModel
+@Scripts.Render("~/bundles/Quotes")
 
 <h2>MyQuotes</h2>
 
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon">"</span>
-            <input type="text" class="form-control" placeholder="Express yourself...">
-            <span class="input-group-addon">"</span>
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Post!</button>
-            </span>
-        </div>
+        @using(Html.BeginForm("PostQuote","Quote",FormMethod.Post)){
+        
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">"</span>
+                <input id="text" name="text" type="text" class="form-control quote-form" placeholder="Express yourself...">
+                <span class="input-group-addon">"</span>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Post!</button>
+                </span>
+            </div>
+        }
+        
     </div>
 </div>
 
@@ -33,14 +38,26 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">@item.OriginalDate<a href="#">Reactions <span class="badge">42</span></a></h4>
-                                @item.QuoteText
+                                <h4 class="media-heading">@item.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>                                
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        @item.QuoteText
+                                    </div>
+                                    <div class="panel-footer">
+                                        <span class="badge badge-like">@item.Likes</span>
+                                        <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="TagQuote(@item.QuoteId,'Like')"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                        <span class="badge badge-dislike">@item.Dislikes</span>
+                                        <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="TagQuote(@item.QuoteId,'Dislike')"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                        <span class="badge badge-star">@item.Favorites</span>
+                                        <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="TagQuote(@item.QuoteId,'Star')"><span class="glyphicon glyphicon-star-empty"></span></button>
+                                        <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right" onclick="TagQuote(@item.QuoteId,'Flag')"><span class="glyphicon glyphicon-flag"></span></button>           
+                                    </div>
+                                </div>
                             </div>
                         </li>
 
                 }
-            }
-           
+            }           
             <li class="media">
                 <div class="media-left">
                     <a href="#">
@@ -48,20 +65,21 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">2016-07-15 <a href="#">Reactions <span class="badge">42</span></a></h4>
-                    J'ai mangé une pomme 
-                </div>
-                
-            </li>
-            <li class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="../../Content/Images/anonymous-128.png" alt="">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">2016-07-01 <a href="#">Reactions <span class="badge">23</span></a></h4>
-                    Qr7hur est un ****
+                    <h4 class="media-heading">2016-07-15 <a href="#">Reactions <span class="badge">44</span></a></h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            J'ai mangé une pomme
+                        </div>
+                        <div class="panel-footer">
+                            <span class="badge badge-like">2</span>
+                            <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="QuoteLike()"><span class="glyphicon glyphicon-thumbs-up"></span></button> 
+                            <span class="badge badge-dislike">42</span>
+                            <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike"><span class="glyphicon glyphicon-thumbs-down"></span></button> 
+                            <span class="badge badge-star">0</span>                              
+                            <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star"><span class="glyphicon glyphicon-star-empty"></span></button>                                
+                            <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>

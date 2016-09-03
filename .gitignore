@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+*.csproj
+/Quotes/Properties/PublishProfiles/MyQuote.pubxml

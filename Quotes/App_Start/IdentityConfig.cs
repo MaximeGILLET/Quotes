@@ -11,15 +11,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Quotes.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace Quotes
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Indiquez votre service de messagerie ici pour envoyer un e-mail.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        // Use NuGet to install SendGrid (Basic C# client lib) 
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var sg = new SendGridAPIClient("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", "https://api.sendgrid.com");
+            Email from = new Email("confirm@myquotes.com");
+            string subject = message.Subject;
+            Email to = new Email(message.Destination);
+            Content content = new Content("text/plain", message.Body);
+            Mail mail = new Mail(from, subject, to, content);
+
+            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.Body.ReadAsStringAsync().Result);
+            Console.WriteLine(response.Headers.ToString());
+
+            Trace.TraceError("Failed to create Web transport.");
+            await Task.FromResult(0);
+
         }
     }
 
@@ -33,24 +55,25 @@ namespace Quotes
     }
 
     // Configurer l'application que le gestionnaire des utilisateurs a utilisée dans cette application. UserManager est défini dans ASP.NET Identity et est utilisé par l'application.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, int>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
             : base(store)
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(
+            IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Configurer la logique de validation pour les noms d'utilisateur
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+            var manager = new ApplicationUserManager(
+                new CustomUserStore(context.Get<ApplicationDbContext>()));
+            // Configure validation logic for usernames 
+            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-
-            // Configurer la logique de validation pour les mots de passe
+            // Configure validation logic for passwords 
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -59,37 +82,35 @@ namespace Quotes
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
-
-            // Configurer les valeurs par défaut du verrouillage de l'utilisateur
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-
-            // Inscrire les fournisseurs d'authentification à 2 facteurs. Cette application utilise le téléphone et les e-mails comme procédure de réception de code pour confirmer l'utilisateur
-            // Vous pouvez écrire votre propre fournisseur et le connecter ici.
-            manager.RegisterTwoFactorProvider("Code téléphonique ", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "Votre code de sécurité est {0}"
-            });
-            manager.RegisterTwoFactorProvider("Code d'e-mail", new EmailTokenProvider<ApplicationUser>
-            {
-                Subject = "Code de sécurité",
-                BodyFormat = "Votre code de sécurité est {0}"
-            });
+            // Register two factor authentication providers. This application uses Phone 
+            // and Emails as a step of receiving a code for verifying the user 
+            // You can write your own provider and plug in here. 
+            manager.RegisterTwoFactorProvider("PhoneCode",
+                new PhoneNumberTokenProvider<ApplicationUser, int>
+                {
+                    MessageFormat = "Your security code is: {0}"
+                });
+            manager.RegisterTwoFactorProvider("EmailCode",
+                new EmailTokenProvider<ApplicationUser, int>
+                {
+                    Subject = "Security Code",
+                    BodyFormat = "Your security code is: {0}"
+                });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser, int>(
+                        dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
 
     // Configurer le gestionnaire de connexion d'application qui est utilisé dans cette application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, int>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
