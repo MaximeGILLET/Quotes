@@ -44,8 +44,10 @@ namespace Quotes.DAL
                         dataSet.Tables.Add(dataTable);
                     }
                 }
-                catch (SqlException)
-                { }
+                catch (SqlException e)
+                {
+                    //TODO
+                }
                 finally
                 {
                     DbInstance.Close();

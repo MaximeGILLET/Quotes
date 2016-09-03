@@ -132,5 +132,47 @@ namespace Quotes.DAL
                 }));
             return quoteList;
         }
+
+        /// <summary>
+        /// Returns a list of quotes filtered on several optional criterias
+        /// </summary>
+        /// <param name="text"> Text that should occures once in the quote.</param>
+        /// <param name="userName">Quotes posted by specific user only</param>
+        /// <param name="fromDate">from date</param>
+        /// <param name="toDate">to date</param>
+        /// <param name="maxRecords">max number of records returned</param>
+        /// <param name="order">order by date ASC or DESC</param>
+        /// <returns></returns>
+        public static List<UserQuoteModel> QuoteFilterList(string text, string userName, DateTime? fromDate, DateTime? toDate, int maxRecords, string order)
+        {
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.NVarChar, Value = text},
+                    new SqlParameter() {ParameterName = "@userName",SqlDbType = SqlDbType.VarChar, Value = userName},
+                    new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.DateTime2, Value = fromDate},
+                    new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.DateTime2, Value = toDate},
+                    new SqlParameter() {ParameterName = "@maxRecords",SqlDbType = SqlDbType.Int, Value = maxRecords}
+                };
+
+            var quoteList = new List<UserQuoteModel>();
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.QuoteFilterList", param);
+            if (ds != null)
+                quoteList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new UserQuoteModel()
+                {
+                    Quote = new QuoteModel()
+                    {
+                        QuoteId = item.Field<int>("QuoId"),
+                        UserId = item.Field<int>("QuousrId"),
+                        QuoteText = item.Field<string>("QuoText"),
+                        OriginalDate = item.Field<DateTime>("QuoDate")
+                    },
+                    User = new UserModel()
+                    {
+                        UserName = item.Field<string>("UserName"),
+                        ProfileIconPath = "Coming soon!" //Not implemented yet
+                    }
+                }));
+            return quoteList;
+        }
     }
 }

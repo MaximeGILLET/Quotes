@@ -84,7 +84,7 @@ namespace Quotes.Controllers
                 }
             }else
             {
-                ViewBag.errorMessage = "UserName not found in database.";
+                ViewBag.errorMessage = "E-mail not found in database.";
                 return View("Error");
             }
 

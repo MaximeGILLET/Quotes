@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[QuoteFind]
-	@text nvarchar(MAX)
+	@text nvarchar(256)
 AS
 	SELECT  QuoId,QuoUsrId,QuoText,QuoDate , Usr.UserName FROM dbo.Quote 
 	INNER JOIN dbo.AspNetUsers Usr ON Usr.Id = QuoUsrId 

@@ -73,6 +73,7 @@
     <Build Include="Tables\Tag.sql" />
     <Build Include="Tables\QuoteUserTag.sql" />
     <Build Include="Procedures\QuoteFind.sql" />
+    <Build Include="Procedures\QuoteFilterList.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />
@@ -82,5 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Quotes-Database.publish.xml" />
+    <None Include="Quotes-Database_1.publish.xml" />
   </ItemGroup>
 </Project>

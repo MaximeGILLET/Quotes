@@ -13,7 +13,7 @@ namespace Quotes.Models
         public int UserId { get; set; }
         public string QuoteText { get; set; }
         public DateTime OriginalDate { get; set; }
-        public string FormatedDate => OriginalDate.ToString("yyyy-MM-dd");
+        public string FormatedDate => OriginalDate.ToString("yyyy-MM-dd hh:mm:ss");
     }
 
     /// <summary>
