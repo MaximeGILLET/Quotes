@@ -11,15 +11,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Quotes.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace Quotes
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Indiquez votre service de messagerie ici pour envoyer un e-mail.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        // Use NuGet to install SendGrid (Basic C# client lib) 
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var sg = new SendGridAPIClient("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", "https://api.sendgrid.com");
+            Email from = new Email("confirm@myquotes.com");
+            string subject = message.Subject;
+            Email to = new Email(message.Destination);
+            Content content = new Content("text/plain", message.Body);
+            Mail mail = new Mail(from, subject, to, content);
+
+            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.Body.ReadAsStringAsync().Result);
+            Console.WriteLine(response.Headers.ToString());
+
+            Trace.TraceError("Failed to create Web transport.");
+            await Task.FromResult(0);
+
         }
     }
 
