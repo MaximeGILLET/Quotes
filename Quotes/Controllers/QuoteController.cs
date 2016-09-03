@@ -7,18 +7,17 @@ namespace Quotes.Controllers
 {
     public class QuoteController : Controller
     {
-        private readonly QuoteDAL quoteDAL = new QuoteDAL();
 
         public ActionResult MyQuotes()
         {
-            return View(quoteDAL.FindUserQuotes(User.Identity.GetUserId<int>()));
+            return View(QuoteDAL.FindUserQuotes(User.Identity.GetUserId<int>()));
         }
 
         [HttpPost]
         public ActionResult PostQuote(string text)
         {
             //Save new quote in database
-            quoteDAL.SaveQuote(new QuoteModel
+            QuoteDAL.SaveQuote(new QuoteModel
             {
                 QuoteText = text,
                 UserId = User.Identity.GetUserId<int>()

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace Quotes.DAL
 {
-    public class DatabaseDAL
+    public static class DatabaseDAL
     {
         /// <summary>
         /// Singleton Database instance

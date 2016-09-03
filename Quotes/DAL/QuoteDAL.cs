@@ -7,7 +7,7 @@ using Quotes.Models;
 
 namespace Quotes.DAL
 {
-    public class QuoteDAL
+    public static class QuoteDAL
     {
 
         /// <summary>
@@ -15,7 +15,7 @@ namespace Quotes.DAL
         /// </summary>
         /// <param name="userId">Id of the user</param>
         /// <returns> UserQuoteListModel object</returns>
-        public UserQuoteListModel FindUserQuotes(int userId)
+        public static UserQuoteListModel FindUserQuotes(int userId)
         {
             var parameters = new List<SqlParameter>
             {
@@ -55,7 +55,7 @@ namespace Quotes.DAL
         /// </summary>
         /// <param name="newQuote">the Quote to be created or updated.</param>
         /// <returns></returns>
-        public bool SaveQuote(QuoteModel newQuote)
+        public static bool SaveQuote(QuoteModel newQuote)
         {
             var result = false;
             try
