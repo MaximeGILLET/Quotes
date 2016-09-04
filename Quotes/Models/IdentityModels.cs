@@ -57,5 +57,6 @@ namespace Quotes.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

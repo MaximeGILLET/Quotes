@@ -189,9 +189,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuoteController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\DatabaseDAL.cs" />
     <Compile Include="DAL\QuoteDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -210,6 +213,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\anonymous-128.png" />
+    <Content Include="Content\Images\charts.jpg" />
     <Content Include="Content\speech-bubble-dots-outline-128.png" />
     <Content Include="Content\speech32x32.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -284,6 +288,19 @@
     <Content Include="Views\Quote\_Quote.cshtml" />
     <Content Include="Views\Quote\SearchResultQuotes.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

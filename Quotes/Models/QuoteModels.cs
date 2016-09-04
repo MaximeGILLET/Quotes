@@ -43,19 +43,10 @@ namespace Quotes.Models
         public UserModel User { get; set; } = new UserModel();
     }
 
-    /// <summary>
-    /// User Model
-    /// </summary>
     public class UserModel
     {
-        /// <summary>
-        /// Get or Set the Path of the profile icon.
-        /// </summary>
-        public string ProfileIconPath { get; set; }
 
-        /// <summary>
-        /// Get or Set the User Name
-        /// </summary>
+        public string ProfileIconPath { get; set; }
         public string UserName { get; set; }
 
     }

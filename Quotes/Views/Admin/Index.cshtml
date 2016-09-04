@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Administration Index</h2>
+
+<div class="col-lg-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">Users Management</div>
+        <div class="panel-body">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                @Html.ActionLink("Manage Users", "Index", "Users", new { area = "" }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Manage Roles", "Index", "Roles", new { area = "" }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Quotes Moderation</div>
+        <div class="panel-body">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <button class="btn btn-default" type="button">Reported Quotes</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-8">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Display here some charts and graphs about the website activity</p>
+            <img class="img-responsive" src="~/Content/Images/charts.jpg" />
+            <a href="http://www.chartjs.org/"> http://www.chartjs.org/ </a>            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

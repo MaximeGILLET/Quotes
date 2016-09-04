@@ -11,7 +11,10 @@
         </li>
         <li>
             @Html.ActionLink("MyQuotes", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Quote" })
-        </li>           
+        </li>  
+        <li>
+            @Html.ActionLink("Administration", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
+        </li>          
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
     </ul>
     }
