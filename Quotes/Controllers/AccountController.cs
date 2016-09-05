@@ -76,6 +76,13 @@ namespace Quotes.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult LoginModal(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("_LoginModal");
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]

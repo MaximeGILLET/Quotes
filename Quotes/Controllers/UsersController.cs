@@ -8,12 +8,28 @@ using System.Web;
 using System.Web.Mvc;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
+using Quotes.DAL;
+using System.Web.Security;
 
 namespace Quotes.Controllers
 {
     [CustomAuthorize(Roles = "test")]
     public class UsersController : Controller
     {
+
+        private ApplicationRoleManager _roleManager;
+        private ApplicationUserManager _userManager;
+
+        public UsersController()
+        {
+
+
+        }
+        public UsersController(ApplicationRoleManager roleManager, ApplicationUserManager userManager)
+        {
+            _roleManager = roleManager;
+            _userManager = userManager;
+        }
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: UserModels
@@ -34,7 +50,10 @@ namespace Quotes.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userModel);
+            var userDetail = new UserDetailModel(userModel);
+            userDetail.roles = userModel.Roles.ToList();
+
+            return View(userDetail);
         }
 
         // GET: UserModels/Create
@@ -72,7 +91,10 @@ namespace Quotes.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userModel);
+            var userDetail = new UserDetailModel(userModel);
+            userDetail.roles = userModel.Roles.ToList();
+            userDetail.roleList = db.Roles.ToList();
+            return View(userDetail);
         }
 
         // POST: UserModels/Edit/5
@@ -80,7 +102,7 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserModelId,ProfileIconPath")] ApplicationUser userModel)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] UserDetailModel userModel)
         {
             if (ModelState.IsValid)
             {
