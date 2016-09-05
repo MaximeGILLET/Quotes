@@ -197,6 +197,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\DatabaseDAL.cs" />
     <Compile Include="DAL\QuoteDAL.cs" />
+    <Compile Include="FrameworkExtension\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,6 +304,7 @@
     </Content>
     <Content Include="Unauthorized.htm" />
     <Content Include="NotFound.htm" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

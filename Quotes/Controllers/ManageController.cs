@@ -55,12 +55,12 @@ namespace Quotes.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Votre mot de passe a été changé."
-                : message == ManageMessageId.SetPasswordSuccess ? "Votre mot de passe a été défini."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Votre fournisseur d'authentification à 2 facteurs a été défini."
-                : message == ManageMessageId.Error ? "Une erreur s'est produite."
-                : message == ManageMessageId.AddPhoneSuccess ? "Votre numéro de téléphone a été ajouté."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Votre numéro de téléphone a été supprimé."
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Your 2 factor authentication provider has been set."
+                : message == ManageMessageId.Error ? "An Error Ocurred."
+                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number has been added."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number has been deleted."
                 : "";
 
             var userId = User.Identity.GetUserId<int>();
@@ -190,7 +190,7 @@ namespace Quotes.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             //Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
-            ModelState.AddModelError("", "La vérification du téléphone a échoué");
+            ModelState.AddModelError("", "Phone number verification failed.");
             return View(model);
         }
 
@@ -279,8 +279,8 @@ namespace Quotes.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "La connexion externe a été supprimée."
-                : message == ManageMessageId.Error ? "Une erreur s'est produite."
+                message == ManageMessageId.RemoveLoginSuccess ? "External Login has bee deleted."
+                : message == ManageMessageId.Error ? "An Error Occured."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (user == null)
