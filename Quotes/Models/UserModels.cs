@@ -29,13 +29,13 @@ namespace Quotes.Models
         }
 
         //Profiles of the user
-        public List<CustomUserRole> roles { get; set; }
+        public List<CustomUserRole> assignedRoles { get; set; }
         //Static list of profiles
         public IEnumerable<CustomRole> roleList { get; set; }
 
         public List<int> selectedRoles
         {
-            get { return roles.Select(x => x.RoleId).ToList(); }
+            get { return assignedRoles.Select(x => x.RoleId).ToList(); }
         }
 
     }

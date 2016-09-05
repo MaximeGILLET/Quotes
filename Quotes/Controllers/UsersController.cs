@@ -51,7 +51,7 @@ namespace Quotes.Controllers
                 return HttpNotFound();
             }
             var userDetail = new UserDetailModel(userModel);
-            userDetail.roles = userModel.Roles.ToList();
+            userDetail.assignedRoles = userModel.Roles.ToList();
 
             return View(userDetail);
         }
@@ -92,7 +92,7 @@ namespace Quotes.Controllers
                 return HttpNotFound();
             }
             var userDetail = new UserDetailModel(userModel);
-            userDetail.roles = userModel.Roles.ToList();
+            userDetail.assignedRoles = userModel.Roles.ToList();
             userDetail.roleList = db.Roles.ToList();
             return View(userDetail);
         }
@@ -102,8 +102,9 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] UserDetailModel userModel)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] ApplicationUser userModel)
         {
+            //TODO carefull with the binding, some values are missing and those we erase the value in database, to be fixed!!
             if (ModelState.IsValid)
             {
                 db.Entry(userModel).State = EntityState.Modified;
