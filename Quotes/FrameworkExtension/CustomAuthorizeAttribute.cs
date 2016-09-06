@@ -25,6 +25,8 @@ namespace Quotes.FrameworkExtension
             }
         }
 
+
+
         private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
         {
             validationStatus = this.OnCacheAuthorization(new HttpContextWrapper(context));
@@ -44,8 +46,17 @@ namespace Quotes.FrameworkExtension
                 cache.AddValidationCallback(new HttpCacheValidateHandler(this.CacheValidateHandler), null);
                 isAuthorized = true;
             }
+            else if (filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
 
-            filterContext.Controller.ViewData["OpenAuthorizationPopup"] = !isAuthorized;
+                filterContext.Result = new RedirectResult("forbidden.htm");
+                return;
+
+            }
+            
+            if(!isAuthorized)
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index", shouldAuth = true, returnUrl = filterContext.HttpContext.Request.RawUrl }));
+            
         }
     }
 

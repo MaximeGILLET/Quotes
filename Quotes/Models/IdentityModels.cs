@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,8 @@ namespace Quotes.Models
             // Ajouter les revendications personnalisées de l’utilisateur ici
             return userIdentity;
         }
+
+        public DateTime? RegistrationDate { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

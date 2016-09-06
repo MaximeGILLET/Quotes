@@ -7,8 +7,9 @@ using System.Web;
 namespace Quotes.Models
 {
     [NotMapped]
-    public class UserDetailModel : ApplicationUser
+    public sealed class UserDetailModel : ApplicationUser
     {
+
 
         public UserDetailModel()
         {
@@ -20,12 +21,18 @@ namespace Quotes.Models
             this.UserName = userModel.UserName;
             this.Email = userModel.Email;
             this.EmailConfirmed = userModel.EmailConfirmed;
+            this.RegistrationDate = userModel.RegistrationDate;
             this.PhoneNumber = userModel.PhoneNumber;
             this.PhoneNumberConfirmed = userModel.PhoneNumberConfirmed;
             this.TwoFactorEnabled = userModel.TwoFactorEnabled;
             this.LockoutEnabled = userModel.LockoutEnabled;
             this.LockoutEndDateUtc = userModel.LockoutEndDateUtc;
             this.AccessFailedCount = userModel.AccessFailedCount;
+            this.PasswordHash = userModel.PasswordHash;
+            this.SecurityStamp = userModel.SecurityStamp;
+            this.Id = userModel.Id;
+
+
         }
 
         //Profiles of the user

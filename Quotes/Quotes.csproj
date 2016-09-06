@@ -220,6 +220,7 @@
     <Content Include="Content\speech-bubble-dots-outline-128.png" />
     <Content Include="Content\speech32x32.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Forbidden.htm" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -307,7 +308,7 @@
     <Content Include="Unauthorized.htm" />
     <Content Include="NotFound.htm" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
-    <Content Include="Views\Account\_LoginModal.cshtml" />
+    <Content Include="Views\Account\Login2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

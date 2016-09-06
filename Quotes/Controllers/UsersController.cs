@@ -13,7 +13,7 @@ using System.Web.Security;
 
 namespace Quotes.Controllers
 {
-    [CustomAuthorize(Roles = "test")]
+    [CustomAuthorize(Roles = "Admin")]
     public class UsersController : Controller
     {
 
@@ -67,7 +67,7 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserModelId,ProfileIconPath")] ApplicationUser userModel)
+        public ActionResult Create([Bind(Include = "Id,UserName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,ProfileIconPath")] ApplicationUser userModel)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] ApplicationUser userModel)
+        public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] ApplicationUser userModel)
         {
             //TODO carefull with the binding, some values are missing and those we erase the value in database, to be fixed!!
             if (ModelState.IsValid)
@@ -111,7 +111,8 @@ namespace Quotes.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(userModel);
+
+            return View(new UserDetailModel(userModel));
         }
 
         // GET: UserModels/Delete/5

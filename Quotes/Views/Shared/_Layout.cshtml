@@ -47,7 +47,7 @@
             @{
                 if ((bool)(ViewData["OpenAuthorizationPopup"] ?? false))
                 {
-                    @Html.Partial("_LoginModal")
+                    @Html.Partial("_LoginModal", ViewData["ReturnUrl"])
                 }
 
             }

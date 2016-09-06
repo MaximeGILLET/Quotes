@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Quotes.DAL;
+using Quotes.FrameworkExtension;
 using Quotes.Models;
 using System;
 
@@ -8,7 +9,7 @@ namespace Quotes.Controllers
 {
     public class QuoteController : Controller
     {
-
+        [CustomAuthorize]
         public ActionResult MyQuotes()
         {
             return View(QuoteDAL.FindUserQuotes(User.Identity.GetUserId<int>()));

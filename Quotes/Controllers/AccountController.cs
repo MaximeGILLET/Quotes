@@ -80,7 +80,7 @@ namespace Quotes.Controllers
         public ActionResult LoginModal(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_LoginModal");
+            return PartialView("Login2");
         }
 
         //
@@ -188,7 +188,7 @@ namespace Quotes.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email ,RegistrationDate = DateTime.Now};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

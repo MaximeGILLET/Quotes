@@ -8,8 +8,12 @@ namespace Quotes.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(bool? shouldAuth,string returnUrl)
         {
+            
+            ViewData["OpenAuthorizationPopup"] = shouldAuth;
+            ViewData["ReturnUrl"] = returnUrl;
+
             return View();
         }
 
