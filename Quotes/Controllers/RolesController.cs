@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Quotes.Models;
+using Quotes.FrameworkExtension;
 
 namespace Quotes.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
