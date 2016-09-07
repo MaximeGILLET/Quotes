@@ -12,7 +12,9 @@ namespace Quotes.Controllers
         [CustomAuthorize]
         public ActionResult MyQuotes()
         {
-            return View(QuoteDAL.FindUserQuotes(User.Identity.GetUserId<int>()));
+            int userId = User.Identity.GetUserId<int>();
+            ViewData["nextPostDate"] = QuoteDAL.CheckNextUserPostDate(userId);
+            return View(QuoteDAL.FindUserQuotes(userId));
         }
 
         [HttpPost]

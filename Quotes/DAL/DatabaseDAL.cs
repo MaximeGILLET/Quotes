@@ -10,7 +10,18 @@ namespace Quotes.DAL
         /// <summary>
         /// Singleton Database instance
         /// </summary>
-        public static SqlConnection DbInstance { get; } = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        public static SqlConnection DbInstance
+        {
+            get
+            {
+                if (_DbInstances == null)
+                {
+                    _DbInstances = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                }
+                return _DbInstances;
+            }
+        }
+        private static SqlConnection _DbInstances;
 
         /// <summary>
         /// Execute procedure with given parameters
@@ -46,7 +57,7 @@ namespace Quotes.DAL
                 }
                 catch (SqlException e)
                 {
-                    //TODO
+                    throw e;
                 }
                 finally
                 {

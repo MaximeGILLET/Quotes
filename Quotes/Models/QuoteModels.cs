@@ -13,7 +13,11 @@ namespace Quotes.Models
         public int UserId { get; set; }
         public string QuoteText { get; set; }
         public DateTime OriginalDate { get; set; }
-        public string FormatedDate => OriginalDate.ToString("yyyy-MM-dd hh:mm:ss");
+
+        public string FormatedDate
+        {
+            get { return OriginalDate.ToString("yyyy-MM-dd hh:mm:ss"); }
+        }
     }
 
     /// <summary>
@@ -35,12 +39,12 @@ namespace Quotes.Models
         /// <summary>
         /// Get or Set the Quotes of the user.
         /// </summary>
-        public List<QuoteModel> UserQuotes { get; set; } = new List<QuoteModel>();
+        public List<QuoteModel> UserQuotes { get; set; }
 
         /// <summary>
         /// Get or Set the User Data Model
         /// </summary>
-        public UserModel User { get; set; } = new UserModel();
+        public UserModel User { get; set; }
     }
 
     public class UserModel
