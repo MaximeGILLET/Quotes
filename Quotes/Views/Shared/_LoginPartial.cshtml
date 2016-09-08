@@ -9,9 +9,20 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li>
-            @Html.ActionLink("MyQuotes", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Quote" })
-        </li>  
+        <li class="dropdown">
+            <a id="dropQuote" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                My Quotes
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropQuote">
+                <li>
+                    @Html.ActionLink("Wall", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Wall" })
+                </li>
+                <li>
+                    @Html.ActionLink("Calendar", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Calendar" })
+                </li>
+            </ul>
+        </li>
         <li>
             @Html.ActionLink("Administration", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
         </li>          
@@ -26,3 +37,6 @@ else
         <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+<script>
+    $('.dropdown-toggle').dropdown()
+</script>

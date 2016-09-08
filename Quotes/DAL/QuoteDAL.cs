@@ -27,8 +27,8 @@ namespace Quotes.DAL
                 }
             };
 
-            var quotes = new UserQuoteListModel {UserQuotes = new List<QuoteModel>()};
-
+            var quotes = new UserQuoteListModel {UserQuotes = new List<QuoteModel>(),User = new UserModel()};
+            
             var dataSet = DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", parameters);
 
             if (dataSet.Tables.Count != 0)
@@ -175,7 +175,7 @@ namespace Quotes.DAL
             return quoteList;
         }
 
-        public static DateTime CheckNextUserPostDate(int userId)
+        public static DateTime? CheckLastUserPostDate(int userId)
         {
             var param = new List<SqlParameter>
             {
@@ -184,7 +184,16 @@ namespace Quotes.DAL
             };
             var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.CheckNextUserPostDate", param);
 
-            return ds.Tables[0].Rows[0].Field<DateTime>("QuoDate");
+            try
+            {
+                return ds.Tables[0].Rows[0].Field<DateTime>("QuoDate");
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+           
         }
     }
 }
