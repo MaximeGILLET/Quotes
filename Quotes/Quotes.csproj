@@ -82,6 +82,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,8 +217,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\calendar\calendar.css" />
+    <Content Include="Content\calendar\calendar.min.css" />
     <Content Include="Content\Images\anonymous-128.png" />
     <Content Include="Content\Images\charts.jpg" />
+    <Content Include="Content\img\dark_wood.png" />
+    <Content Include="Content\img\slide-bg.png" />
+    <Content Include="Content\img\tick.png" />
     <Content Include="Content\speech-bubble-dots-outline-128.png" />
     <Content Include="Content\speech32x32.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -246,6 +252,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Plugins\calendar\calendar.js" />
+    <Content Include="Scripts\Plugins\calendar\calendar.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -253,6 +261,15 @@
     <Content Include="Scripts\UI\Quotes\Quotes.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="favicon.ico" />
+    <Content Include="tmpls\day.html" />
+    <Content Include="tmpls\events-list.html" />
+    <Content Include="tmpls\modal.html" />
+    <Content Include="tmpls\month-day.html" />
+    <Content Include="tmpls\month.html" />
+    <Content Include="tmpls\week-days.html" />
+    <Content Include="tmpls\week.html" />
+    <Content Include="tmpls\year-month.html" />
+    <Content Include="tmpls\year.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -262,7 +279,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -310,6 +329,7 @@
     <Content Include="NotFound.htm" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Account\Login2.cshtml" />
+    <Content Include="Views\Quote\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using Quotes.DAL;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
 using System;
+using WebGrease;
 
 namespace Quotes.Controllers
 {
@@ -68,14 +71,14 @@ namespace Quotes.Controllers
         /// <summary>
         /// Method to return Calendar model Json for the calendar view of quotes
         /// </summary>
-        /// <param name="searchText"></param>
         /// <param name="userName"></param>
+        /// <param name="searchText"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <param name="maxRecords"></param>
         /// <param name="order"></param>
         /// <returns></returns>
-        public JsonResult SearchForCalendar(string searchText, string userName, string from, string to, int maxRecords = 1000, string order = "DESC")
+        public JsonResult SearchForCalendar(string userName, string searchText = null, string from=null, string to=null, int maxRecords = 1000, string order = "DESC")
         {
             DateTime? fromDate = null;
             DateTime? toDate = null;
@@ -92,8 +95,8 @@ namespace Quotes.Controllers
                 calendar = new CalendarModel() { result = new List<CalendarItem>() };
                 foreach (var item in quoteList)
                 {
-                    var milli = (long)(item.Quote.OriginalDate - new DateTime(1970, 1, 1)).TotalMilliseconds;
-                    calendar.result.Add(new CalendarItem() { id = item.Quote.QuoteId ?? -1, title = item.Quote.QuoteText, start = milli, end = milli });
+                    var milli = Math.Floor( (item.Quote.OriginalDate - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString();
+                    calendar.result.Add(new CalendarItem() { id = item.Quote.QuoteId.ToString(), title = item.Quote.QuoteText, start = milli, end = milli, type = "event-important", url = "http://www.example.com" });
                 }
             }
             catch (Exception)
@@ -104,8 +107,28 @@ namespace Quotes.Controllers
             }
 
             calendar.success = 1;
+            var ouput =JsonConvert.SerializeObject( calendar);
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
             //return json result in success
-            return Json(calendar, JsonRequestBehavior.AllowGet);
+            return new JsonResult
+            {
+                Data = json_serializer.DeserializeObject(ouput),
+                JsonRequestBehavior =  JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [CustomAuthorize]
+        public ActionResult Calendar()
+        {
+
+            return View();
+        }
+
+        [CustomAuthorize]
+        public JsonResult MyCalendar()
+        {
+
+            return SearchForCalendar(User.Identity.Name);
         }
 
         [HttpPost]
@@ -114,6 +137,7 @@ namespace Quotes.Controllers
             //Increment a Tag on the quote (like, dislike or any other tag), return the json result of the request.
             return Json(new { success = QuoteDAL.TagQuote(new QuoteModel() { QuoteId = quoteId, UserId = User.Identity.GetUserId<int>() }, tag), responseText = "" }, JsonRequestBehavior.AllowGet);
         }
+
 
 
     }
