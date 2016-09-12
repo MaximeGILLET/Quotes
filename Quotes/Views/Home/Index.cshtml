@@ -9,10 +9,9 @@
     <div class="col-lg-3">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title">Panel title</h3>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-floppy-saved"></span>&ensp;Last Registered Users</h3>
             </div>
-            <div class="panel-body">
-                Panel content
+            <div class="panel-body">                
             </div>
         </div>
     </div>
@@ -43,14 +42,21 @@
     <div class="col-lg-3">
         <div class="panel panel-default panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>Top Users</h3>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top 10 Users</h3>
             </div>
             <div class="panel-body">
             </div>
         </div>
         <div class="panel panel-default panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">Top Tags</h3>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span>&ensp;Top 10 Tags</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
+        <div class="panel panel-default panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>&ensp;Key Figures</h3>
             </div>
             <div class="panel-body">
             </div>
@@ -83,8 +89,12 @@
 
     // Save announcement in database and update UI
     function saveAnnouncement(id) {
-        //TODO
         CKEDITOR.instances[id].updateElement();
+
+        //TODO submit form
+
+
+        closeEditor(id);
 
     }
 

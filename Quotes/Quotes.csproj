@@ -600,6 +600,7 @@
     <Content Include="Views\Account\Login2.cshtml" />
     <Content Include="Views\Quote\Calendar.cshtml" />
     <Content Include="Views\Quote\AdminQuoteList.cshtml" />
+    <Content Include="Views\Home\_Announcements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

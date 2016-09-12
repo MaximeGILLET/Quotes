@@ -17,10 +17,10 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropQuote">
                 <li>
-                    @Html.ActionLink("Wall", "MyQuotes", "Quote", routeValues: null, htmlAttributes: new { title = "Wall" })
+                    <a href="/Quote/MyQuotes" title="Calendar"><span class="glyphicon glyphicon-list"></span>&ensp;My Wall</a>
                 </li>
-                <li>
-                    @Html.ActionLink("Calendar", "Calendar", "Quote", routeValues: null, htmlAttributes: new { title = "Calendar" })
+                <li>                    
+                    <a href="/Quote/Calendar" title="Calendar"><span class="glyphicon glyphicon-calendar"></span>&ensp;My Calendar</a>
                 </li>
             </ul>
         </li>
