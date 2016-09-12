@@ -81,3 +81,13 @@ footer {
     max-width:none;
 
 }
+
+.btn-edit {
+    float: right;
+    padding: 0!important;
+    color: black;
+}
+
+.panel-heading {
+    display: flex;
+}

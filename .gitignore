@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 *.csproj
 /Quotes/Properties/PublishProfiles/MyQuote.pubxml
+Quotes-Database/Quotes-Database.sqlproj
