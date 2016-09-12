@@ -7,4 +7,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="QuoId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="340678ec-4045-460c-a0d3-70631659b6a2" ChangeDateTime="09/12/2016 12:48:13">
+    <Property Name="ElementName" Value="[dbo].[Announcement].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Announcement]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AnnId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="861fffa3-8912-46ef-94b7-b5b468044e13" ChangeDateTime="09/12/2016 13:56:07">
+    <Property Name="ElementName" Value="[dbo].[Announcement].[AnnDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Announcement]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AnnCreationDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="36557582-8f66-4661-bb53-601eaa2df1de" ChangeDateTime="09/12/2016 13:56:16">
+    <Property Name="ElementName" Value="[dbo].[Announcement].[AnnUpdateDate ]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Announcement]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AnnUpdateDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7d14698a-b8b5-420c-8733-92b227ad63b3" ChangeDateTime="09/12/2016 14:53:07">
+    <Property Name="ElementName" Value="[dbo].[Announcement].[AnnRawHtml]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Announcement]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AnnRawHtmlBody" />
+  </Operation>
 </Operations>

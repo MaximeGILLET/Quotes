@@ -75,6 +75,8 @@
     <Build Include="Procedures\QuoteFind.sql" />
     <Build Include="Procedures\QuoteFilterList.sql" />
     <Build Include="Procedures\CheckLastUserPostDate.sql" />
+    <Build Include="Procedures\TopUserList.sql" />
+    <Build Include="Tables\Announcement.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />
