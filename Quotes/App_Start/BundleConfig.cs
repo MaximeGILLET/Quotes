@@ -31,6 +31,10 @@ namespace Quotes
             bundles.Add(new ScriptBundle("~/bundles/Calendar").Include(
                       "~/Scripts/Plugins/Calendar/calendar.js"));
 
+
+            bundles.Add(new ScriptBundle("~/bundles/DataTable").Include(
+                     "~/Content/calendar/datatables.min.js"));
+
             /*** STYLE BUNDLES ***/
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
@@ -38,6 +42,9 @@ namespace Quotes
 
             bundles.Add(new StyleBundle("~/bundles/CalendarStyle").Include(
                       "~/Content/calendar/calendar.min.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/DataTable").Include(
+                     "~/Content/calendar/datatables.min.css"));
         }
     }
 }

@@ -82,6 +82,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuoteModels.cs" />
     <Compile Include="Models\UserModels.cs" />
+    <Compile Include="Models\UserQuoteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -219,11 +221,19 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar\calendar.css" />
     <Content Include="Content\calendar\calendar.min.css" />
+    <Content Include="Content\datatables\datatables.css" />
+    <Content Include="Content\datatables\datatables.min.css" />
     <Content Include="Content\Images\anonymous-128.png" />
     <Content Include="Content\Images\charts.jpg" />
-    <Content Include="Content\img\dark_wood.png" />
-    <Content Include="Content\img\slide-bg.png" />
-    <Content Include="Content\img\tick.png" />
+    <Content Include="Content\img\dark_wood.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\slide-bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\tick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\speech-bubble-dots-outline-128.png" />
     <Content Include="Content\speech32x32.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -232,8 +242,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -254,6 +268,12 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Plugins\calendar\calendar.js" />
     <Content Include="Scripts\Plugins\calendar\calendar.min.js" />
+    <Content Include="Scripts\Plugins\DataTables\datatables.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Plugins\DataTables\datatables.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -310,7 +330,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Quote\MyQuotes.cshtml" />
     <Content Include="Views\Quote\_Quote.cshtml" />
-    <Content Include="Views\Quote\SearchResultQuotes.cshtml" />
+    <Content Include="Views\Quote\SearchResult.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
@@ -330,6 +350,7 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Account\Login2.cshtml" />
     <Content Include="Views\Quote\Calendar.cshtml" />
+    <Content Include="Views\Quote\AdminQuoteList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

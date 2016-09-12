@@ -4,5 +4,6 @@
     [QuoText] NVARCHAR(MAX) NULL, 
     [QuoDate] DATETIME2 NOT NULL, 
     [QuoUsrId] INT NULL, 
+    [QuoStatus] INT NULL, 
     CONSTRAINT [FK_Quote_AspNetUsers] FOREIGN KEY (QuoUsrId) REFERENCES dbo.AspNetUsers(Id)
 )

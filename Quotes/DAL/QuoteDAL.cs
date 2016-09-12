@@ -4,11 +4,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Quotes.Models;
+using System.Runtime.Caching;
 
 namespace Quotes.DAL
 {
     public static class QuoteDAL
     {
+
+
+        private static MemoryCache _adminQuoteList { get; set; }
 
         /// <summary>
         /// Find and return all the quotes of a user.
@@ -106,7 +110,7 @@ namespace Quotes.DAL
             return true;
         }
 
-        public static List<UserQuoteModel> FindQuote(string text)
+        public static List<UserQuoteModel> FindQuotes(string text)
         {
 
             var param = new List<SqlParameter>
@@ -182,7 +186,7 @@ namespace Quotes.DAL
                 new SqlParameter() {ParameterName = "@UsrId", SqlDbType = SqlDbType.Int, Value = userId},
 
             };
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.CheckNextUserPostDate", param);
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.CheckLastUserPostDate", param);
 
             try
             {

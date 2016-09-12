@@ -7,7 +7,8 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="/Manage">Hello  <b>@User.Identity.GetUserName()</b>  !&ensp;<span class="glyphicon glyphicon-user"></span></a>
+            
         </li>
         <li class="dropdown">
             <a id="dropQuote" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
@@ -24,9 +25,9 @@
             </ul>
         </li>
         <li>
-            @Html.ActionLink("Administration", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
+            <a href="/Admin">Administration&ensp;<span class="glyphicon glyphicon-cog"></span></a>
         </li>          
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out&ensp;<span class="glyphicon glyphicon-log-out"></span></a></li>
     </ul>
     }
 }
@@ -34,6 +35,9 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>
+            <a href="#"></a>
+        </li>   
         <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

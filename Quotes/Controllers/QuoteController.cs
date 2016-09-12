@@ -7,7 +7,7 @@ using Quotes.DAL;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
 using System;
-using WebGrease;
+using System.Linq;
 
 namespace Quotes.Controllers
 {
@@ -39,7 +39,7 @@ namespace Quotes.Controllers
         public ActionResult SearchQuote(string searchText)
         {
             //search quote in database and Load result page
-            return View("SearchResultQuotes",QuoteDAL.FindQuote(searchText));
+            return View("SearchResult",QuoteDAL.FindQuotes(searchText));
         }
 
         //Search Api
@@ -136,6 +136,11 @@ namespace Quotes.Controllers
         {
             //Increment a Tag on the quote (like, dislike or any other tag), return the json result of the request.
             return Json(new { success = QuoteDAL.TagQuote(new QuoteModel() { QuoteId = quoteId, UserId = User.Identity.GetUserId<int>() }, tag), responseText = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AdminQuoteList()
+        {
+            return View(QuoteDAL.FindQuotes("").Select(x=> new UserQuoteViewModel(x)).ToList());
         }
 
 

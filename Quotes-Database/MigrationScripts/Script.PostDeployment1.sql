@@ -11,3 +11,15 @@ Post-Deployment Script Template
 */
 DELETE dbo.Tag WHERE TagLabel IN ('Like','Dislike','Star','Flag');
 INSERT INTO dbo.Tag (TagLabel) VALUES ('Like'),('Dislike'),('Star'),('Flag')
+
+DELETE dbo.QuoteStatus 
+INSERT INTO dbo.QuoteStatus (QuoStatusId,QuoStatusLabel) VALUES (1,'Awaiting Validation'),(2,'Moderated'),(3,'Removed')
+
+DELETE dbo.AspNetRoles 
+SET IDENTITY_INSERT dbo.AspNetRoles ON
+INSERT INTO dbo.AspNetRoles (Id,Name) VALUES (1,'Admin'),(2,'Moderator')
+SET IDENTITY_INSERT dbo.AspNetRoles OFF
+
+
+DELETE dbo.AspNetUserRoles 
+INSERT INTO dbo.AspNetUserRoles (RoleId,UserId) SELECT r.Id,u.Id FROM dbo.AspNetRoles r, dbo.AspNetUsers u WHERE UserName = 'nerevar' AND Name = 'Admin'
