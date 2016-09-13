@@ -72,6 +72,7 @@
 
             //TODO submit form
 
+
             closeEditor(id);
         }
 
@@ -79,9 +80,11 @@
             $("#" + id + "-edit").hide();
             $("#" + id + "-close").show();
             $("#" + id + "-save").show();
+            $("#title" + id).show();
         }
 
         function closeTitle(id) {
+            $("#title" + id).hide();
             $("#" + id + "-save").hide();
             $("#" + id + "-close").hide();
             $("#" + id + "-edit").show();

@@ -34,10 +34,5 @@ namespace Quotes.Controllers
             return View();
         }
 
-        public ActionResult Announcements()
-        {
-
-            return PartialView("_Announcements",new List<AnnouncementModel>());
-        }
     }
 }

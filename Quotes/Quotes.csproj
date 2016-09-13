@@ -192,11 +192,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuoteController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DAL\AnnouncementDAL.cs" />
     <Compile Include="DAL\DatabaseDAL.cs" />
     <Compile Include="DAL\QuoteDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
@@ -600,7 +602,7 @@
     <Content Include="Views\Account\Login2.cshtml" />
     <Content Include="Views\Quote\Calendar.cshtml" />
     <Content Include="Views\Quote\AdminQuoteList.cshtml" />
-    <Content Include="Views\Home\_Announcements.cshtml" />
+    <Content Include="Views\Announcement\_Announcements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
