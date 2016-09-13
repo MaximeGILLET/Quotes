@@ -1,1 +1,95 @@
-﻿
+﻿@{
+    var isAdmin = Request.IsAuthenticated && User.IsInRole("Admin");
+}
+@model List<Quotes.Models.AnnouncementModel>
+
+@foreach (var ann in Model)
+{
+    if (!isAdmin && ann.Status != 1) //Not displaying Announcements that are not published for non-admin users
+    {
+        continue;
+    }
+    <div class="panel panel-default panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title col-lg-12">@ann.Title</h3>
+            <input name="title@(ann.Id)" id="title@(ann.Id)" type="text" maxlength="256" value="Announcements" style="display: none" />
+            @if (isAdmin)
+            {
+                <button id="title@(ann.Id)-edit" type="button" class="btn-edit" onclick="editTitle('title@(ann.Id)')"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button id="title@(ann.Id)-close" type="button" class="btn-edit" onclick="closeTitle('title@(ann.Id)')" style="display: none"><span class="glyphicon glyphicon-remove"></span></button>
+                <button id="title@(ann.Id)-save" type="button" class="btn-edit" onclick="saveTitle('title@(ann.Id)')" style="display: none"><span class="glyphicon glyphicon-ok"></span></button>
+            }
+        </div>
+        <div class="panel-body">
+            <form>
+                <div name="@ann.Id" id="announce1" rows="12" cols="80">
+                    @ann.RawHtml
+                </div>
+            </form>
+            @if (isAdmin)
+            {
+                <button id="announce@(ann.Id)-cksave" type="button" class="btn btn-default pull-right" onclick="saveAnnouncement('announce@(ann.Id)')" style=" display: none">Save</button>
+                <button id="announce@(ann.Id)-ckopen" type="button" class="btn btn-default pull-right" onclick="initEditor('announce@(ann.Id)')">Edit</button>
+                <button id="announce@(ann.Id)-ckclose" type="button" class="btn btn-default pull-right" onclick="closeEditor('announce@(ann.Id)')" style="display: none">Cancel</button>
+            }
+        </div>
+        <div class="panel-footer">
+            Author : @ann.Author - @ann.CreationTime
+        </div>
+    </div>
+}
+
+
+@if (isAdmin)
+{
+
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        function initEditor(id) {
+            if (CKEDITOR.instances[id])
+                CKEDITOR.remove(CKEDITOR.instances[id]);
+            CKEDITOR.replace(id);
+            $("#" + id + "-ckopen").hide();
+            $("#" + id + "-ckclose").show();
+            $("#" + id + "-cksave").show();
+        }
+
+        // Close ck editor dialog
+        function closeEditor(id) {
+            $("#cke_" + id).remove();
+            $("#" + id).show();
+            $("#" + id).removeAttr('style');
+
+            $("#" + id + "-cksave").hide();
+            $("#" + id + "-ckclose").hide();
+            $("#" + id + "-ckopen").show();
+        }
+
+        // Save announcement in database and update UI
+        function saveAnnouncement(id) {
+            CKEDITOR.instances[id].updateElement();
+
+            //TODO submit form
+
+            closeEditor(id);
+        }
+
+        function editTitle(id) {
+            $("#" + id + "-edit").hide();
+            $("#" + id + "-close").show();
+            $("#" + id + "-save").show();
+        }
+
+        function closeTitle(id) {
+            $("#" + id + "-save").hide();
+            $("#" + id + "-close").hide();
+            $("#" + id + "-edit").show();
+        }
+
+        function saveTitle(id) {
+            $("#title" + id).val();
+        }
+
+    </script>
+}

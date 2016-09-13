@@ -77,6 +77,11 @@
     <Build Include="Procedures\CheckLastUserPostDate.sql" />
     <Build Include="Tables\QuoteStatus.sql" />
     <Build Include="Procedures\QuoteTagSave.sql" />
+    <Build Include="Tables\AnnouncementStatus.sql" />
+    <Build Include="Procedures\TopUserList.sql" />
+    <Build Include="Tables\Announcement.sql" />
+    <Build Include="Procedures\AnnouncementList.sql" />
+    <Build Include="Procedures\AnnouncementSave.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />

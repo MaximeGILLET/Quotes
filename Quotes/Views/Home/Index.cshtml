@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Quotes.Models
+@{
     ViewBag.Title = "Home Page";
+    var isAdmin = Request.IsAuthenticated && User.IsInRole("Admin");
 }
 <script src="../../Scripts/ckeditor/ckeditor.js"></script>
 <div class="page-header">
@@ -16,28 +18,13 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="panel panel-default panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title col-lg-12">Anouncements</h3>
-                <input name="title1" type="text" maxlength="256" value="Announcements" style="display: none" />
-                <button id="title1-edit" type="button" class="btn-edit" onclick="editTitle('title1')"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button id="title1-close" type="button" class="btn-edit" onclick="closeTitle('title1')" style="display: none"><span class="glyphicon glyphicon-remove"></span></button>
-                <button id="title1-save" type="button" class="btn-edit" onclick="saveTitle('title1')" style="display: none"><span class="glyphicon glyphicon-ok"></span></button>
-            </div>
-            <div class="panel-body">
-                <form>
-                    <div name="announce1" id="announce1" rows="12" cols="80">
-                        This is an editable anouncement with CKEDITOR.
-                    </div>
-                </form>
-                <button id="announce1-cksave" type="button" class="btn btn-default pull-right" onclick="saveAnnouncement('announce1')" style="display: none">Save</button>
-                <button id="announce1-ckopen" type="button" class="btn btn-default pull-right" onclick="initEditor('announce1')">Edit</button>
-                <button id="announce1-ckclose" type="button" class="btn btn-default pull-right" onclick="closeEditor('announce1')" style="display: none">Cancel</button>
-            </div>
-            <div class="panel-footer">
-                Author : Username - @DateTime.Now
-            </div>
-        </div>
+        @if (isAdmin)
+        {
+            <button id="newAnn" type="button" class="btn btn-default pull-left"><span class="glyphicon glyphicon-plus"></span>&ensp;New Announcement</button>
+        }
+        @{
+            Html.RenderAction("Announcements");
+        }
     </div>
     <div class="col-lg-3">
         <div class="panel panel-default panel-success">
@@ -64,57 +51,6 @@
     </div>
 </div>
 
-<script>
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    function initEditor(id) {
-        if (CKEDITOR.instances[id])
-        CKEDITOR.remove(CKEDITOR.instances[id]);
-        CKEDITOR.replace(id);
-        $("#" + id + "-ckopen").hide();
-        $("#" + id + "-ckclose").show();
-        $("#" + id +"-cksave").show();
-    }
-
-    // Close ck editor dialog
-    function closeEditor(id) {
-        $("#cke_" + id).remove();
-        $("#" + id).show();
-        $("#" + id).removeAttr('style');
-
-        $("#" + id + "-cksave").hide();
-        $("#" + id + "-ckclose").hide();
-        $("#" + id + "-ckopen").show();
-    }
-
-    // Save announcement in database and update UI
-    function saveAnnouncement(id) {
-        CKEDITOR.instances[id].updateElement();
-
-        //TODO submit form
-
-
-        closeEditor(id);
-
-    }
-
-    function editTitle(id) {
-        $("#" + id + "-edit").hide();
-        $("#" + id + "-close").show();
-        $("#" + id + "-save").show();
-    }
-
-    function closeTitle(id) {
-        $("#" + id + "-save").hide();
-        $("#" + id + "-close").hide();
-        $("#" + id + "-edit").show();
-    }
-
-    function saveTitle(id) {
-       
-    }
-
-</script>
 
 
 

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Quotes.Models;
 
 namespace Quotes.Controllers
 {
@@ -29,6 +32,12 @@ namespace Quotes.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Announcements()
+        {
+
+            return PartialView("_Announcements",new List<AnnouncementModel>());
         }
     }
 }
