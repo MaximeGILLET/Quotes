@@ -5,11 +5,11 @@
 
 @foreach (var ann in Model)
 {
-    if (!isAdmin && ann.Status != 2) //Not displaying Announcements that are not published for non-admin users
+    if (!isAdmin && ann.Status != "Published") //Not displaying Announcements that are not published for non-admin users
     {
         continue;
     }
-    <div class="panel panel-default @(ann.Status == 2 ? "panel-primary" : "panel-info")">
+    <div class="panel panel-default @(ann.Status == "Published" ? "panel-primary" : ann.Status == "Backlog"?"panel-info":"panel-warning")">
         <div class="panel-heading">
             <h3 name="@ann.Id" id="head-title@(ann.Id)" class="panel-title col-lg-12">@ann.Title</h3>
             <input name="title@(ann.Id)" class="col-lg-12" id="input-title@(ann.Id)" type="text" maxlength="256"  style="color: black;display: none" />
@@ -37,8 +37,9 @@
             Author : @ann.Author - @ann.CreationTime
             @if (isAdmin)
             {
-                @Html.DropDownList("Status", ann.StatusList.Select(x => new SelectListItem() {Text = x}))
-                <button id="status@(ann.Id)" type="button" class="btn btn-default" onclick=" saveBody('status@(ann.Id)') ">Submit</button>
+                 @Html.DropDownList("status" + ann.Id, ann.StatusList.Select(x => new SelectListItem() { Value = x, Text = x, Selected = (x == ann.Status) }))
+                 <button type="button" class="btn btn-default" onclick="saveStatus(@(ann.Id))">Submit</button>
+
             }
         </div>
     </div>
@@ -49,7 +50,7 @@
 {
 
     <script>
-        // Replace the <textarea id="editor1"> with a CKEditor
+
         // instance, using default configuration.
         function initEditor(id) {
             if (CKEDITOR.instances[id])
@@ -81,7 +82,7 @@
                     
                     closeEditor(id);
                 } else {
-                    $("#errorMessage").text("There was an error creating a new announcement :" + data.message);
+                    $("#errorMessage").text("There was an error saving announcement Body:" + data.message);
                     $("#errorBox").show();
                 }
             }, "json");
@@ -94,7 +95,6 @@
             $("#" + id + "-close").show();
             $("#" + id + "-save").show();
             $("#input-" + id).show();
-
 
         }
 
@@ -117,16 +117,28 @@
             $.post("Announcement/Update", { Id: $("#head-" + id).attr('name'), Title: $("#head-" + id).text() }, function (data) {
                 if (data.success) {
                     $("#successMessage").text("Announcement Title Updated succesfully.");
-                    $("#successBox").show($(function () {
-                        // setTimeout() function will be fired after page is loaded
-                        // it will wait for 5 sec. and then will fire
-                        // $("#successMessage").hide() function
-                        setTimeout(function () {
-                            $("#successBox").hide('blind', {}, 500);
-                        }, 5000);
-                    }));
+                    $("#successBox").show();
                 } else {
-                    $("#errorMessage").text("There was an error creating a new announcement :" + data.message);
+                    $("#errorMessage").text("There was an error saving announcement Title :" + data.message);
+                    $("#errorBox").show();
+                }
+            }, "json");
+        }
+
+        function saveStatus(id) {
+            postAnnouncement({ Id: $("#announce" + id).attr('name'), Status: $("#status" + id).val() }, "Status");
+        }
+
+        function postAnnouncement(object,partName) {
+            $.post("Announcement/Update", object, function (data) {
+                if (data.success) {
+                    $("#successMessage").text("Announcement " + partName + " Updated succesfully.");
+                    $("#successBox").show();
+                    setTimeout(function () {
+                        $('#successBox').fadeOut('fast');
+                    }, 3000);
+                } else {
+                    $("#errorMessage").text("There was an error saving announcement " + partName + " :" + data.message);
                     $("#errorBox").show();
                 }
             }, "json");

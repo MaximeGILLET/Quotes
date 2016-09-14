@@ -21,6 +21,7 @@ namespace Quotes.DAL
             parameters.Add(new SqlParameter("@rawHtml", SqlDbType.NVarChar) { Value = model.RawHtml });
             parameters.Add(new SqlParameter("@title", SqlDbType.VarChar) { Value = model.Title });
             parameters.Add(new SqlParameter("@UsrId", SqlDbType.Int) { Value = userId });
+            parameters.Add(new SqlParameter("@status", SqlDbType.VarChar) { Value = model.Status });
 
             DatabaseDAL.ExecuteProcedure("dbo.AnnouncementSave", parameters);
 
@@ -37,7 +38,7 @@ namespace Quotes.DAL
                    Id = item.Field<int>("AnnId"),
                    Title = item.Field<string>("AnnTitle"),
                    RawHtml = item.Field<string>("AnnRawHtmlBody"),
-                   Status = item.Field<int>("AnnStatus"),
+                   Status = item.Field<string>("Status"),
                    CreationTime = item.Field<DateTime>("AnnCreationDate"),
                    Author = item.Field<string>("Author"),
                    UpdateTime = item.Field<DateTime?>("AnnUpdateDate")

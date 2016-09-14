@@ -43,18 +43,20 @@
             </div>
         </div>
         <div class="container body-content">
-            <div id="errorBox" class="alert alert-danger" style="display: none">
-                <span class="glyphicon glyphicon-alert"></span>
-                <div id="errorMessage" class="label label-danger">This is the error box!</div>
-            </div>
-            <div id="warningBox" class="alert alert-warning" style="display: none">
-                <span class="glyphicon glyphicon-alert"></span>
-                <div id="warningMessage" class="label label-warning">This is the warning box!</div>
-            </div>
-            <div id="successBox" class="alert alert-success" style="display: none">
-                <span class="glyphicon glyphicon-ok"></span>
-                <div id="successMessage" class="label label-success">This is the success box!</div>
-            </div>
+            <div class="row" style="position: fixed;z-index: 1000;width: 70%;">
+                    <div id="errorBox" class="alert alert-danger" style="display: none">
+                        <span class="glyphicon glyphicon-alert"></span>
+                        <div id="errorMessage" class="label label-danger">This is the error box!</div>
+                    </div>
+                    <div id="warningBox" class="alert alert-warning" style="display: none">
+                        <span class="glyphicon glyphicon-alert"></span>
+                        <div id="warningMessage" class="label label-warning">This is the warning box!</div>
+                    </div>
+                    <div id="successBox" class="alert alert-success" style="display: none">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <div id="successMessage" class="label label-success">This is the success box!</div>
+                    </div>
+            </div>           
             @RenderBody()
             @{
                 if ((bool)(ViewData["OpenAuthorizationPopup"] ?? false))

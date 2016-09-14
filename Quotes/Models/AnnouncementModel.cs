@@ -14,7 +14,7 @@ namespace Quotes.Models
         public string RawHtml { get; set; }
         public string Title { get; set; }
         //Status of the announcement (1 : backlog , 2 : published , 3 : archived)
-        public int Status { get; set; }
+        public string Status { get; set; }
         public IEnumerable<string> StatusList = new []{ "Backlog", "Published", "Archived" };
     }
 }
