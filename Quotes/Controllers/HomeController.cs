@@ -11,6 +11,7 @@ namespace Quotes.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index(bool? shouldAuth,string returnUrl)
         {
             
@@ -19,6 +20,8 @@ namespace Quotes.Controllers
 
             return View();
         }
+        
+
 
         public ActionResult About()
         {

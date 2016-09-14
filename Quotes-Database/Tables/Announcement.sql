@@ -4,8 +4,8 @@
 	[AnnTitle] NVARCHAR(256) NULL,
     [AnnRawHtmlBody] NVARCHAR(MAX) NULL,
 	[AnnCreationDate] DATETIME2 NULL, 
+	[AnnCreatedById] int NULL,
     [AnnUpdateDate] DATETIME2 NULL, 
-    [AnnModifiedById] NCHAR(10) NULL, 
-    [AnnStatus] INT NULL, 
-    CONSTRAINT [FK_Announcement_AnnouncementStatus] FOREIGN KEY ([AnnStatus]) REFERENCES [AnnouncementStatus](AnsId), 
+    [AnnModifiedById] int NULL, 
+    [AnnStatus] INT NULL 
 )

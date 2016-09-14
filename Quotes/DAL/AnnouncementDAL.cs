@@ -11,18 +11,40 @@ namespace Quotes.DAL
     public static class AnnouncementDAL
     {
 
-        public static bool SaveAnnouncement(AnnouncementModel model)
+        public static bool SaveAnnouncement(AnnouncementModel model,int userId)
         {
-
-
             var parameters = new List<SqlParameter>();
 
             if (model.Id != null)
                 parameters.Add(new SqlParameter("@AnnId",SqlDbType.Int) {Value=model.Id});
 
+            parameters.Add(new SqlParameter("@rawHtml", SqlDbType.NVarChar) { Value = model.RawHtml });
+            parameters.Add(new SqlParameter("@title", SqlDbType.VarChar) { Value = model.Title });
+            parameters.Add(new SqlParameter("@UsrId", SqlDbType.Int) { Value = userId });
+
             DatabaseDAL.ExecuteProcedure("dbo.AnnouncementSave", parameters);
 
             return true;
+        }
+
+        public static List<AnnouncementModel> GetList()
+        {
+            var annList = new List<AnnouncementModel>();
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.AnnouncementList", null);
+            if (ds != null)
+                annList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new AnnouncementModel()
+                {
+                   Id = item.Field<int>("AnnId"),
+                   Title = item.Field<string>("AnnTitle"),
+                   RawHtml = item.Field<string>("AnnRawHtmlBody"),
+                   Status = item.Field<int>("AnnStatus"),
+                   CreationTime = item.Field<DateTime>("AnnCreationDate"),
+                   Author = item.Field<string>("Author"),
+                   UpdateTime = item.Field<DateTime?>("AnnUpdateDate")
+
+                }));
+            return annList;
+
         }
     }
 }

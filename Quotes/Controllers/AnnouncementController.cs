@@ -1,4 +1,7 @@
-﻿using Quotes.FrameworkExtension;
+﻿using System.Net;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Quotes.FrameworkExtension;
 using Quotes.Models;
 using System;
 using System.Collections.Generic;
@@ -16,23 +19,49 @@ namespace Quotes.Controllers
         public ActionResult List()
         {
 
-            return PartialView("_Announcements", new List<AnnouncementModel>());
+            return PartialView("_Announcements", AnnouncementDAL.GetList());
         }
 
 
         [HttpPost]
         [CustomAuthorize(Roles = "Admin")]
-        public ActionResult Create(AnnouncementModel model)
+        public JsonResult Create()
         {
-            AnnouncementDAL.SaveAnnouncement(model);
-            return RedirectToAction("Index","Home");
+            try
+            {
+                AnnouncementDAL.SaveAnnouncement(new AnnouncementModel()
+                {
+                    Author = User.Identity.Name,
+                    RawHtml = "New Text",
+                    Title = "New Title"
+                }, User.Identity.GetUserId<int>());
+                
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+           
         }
 
         [HttpPost]
         [CustomAuthorize(Roles = "Admin")]
-        public void Update(AnnouncementModel model)
+        public JsonResult Update(AnnouncementModel model)
         {
-            AnnouncementDAL.SaveAnnouncement(model);
+            if(model == null)
+                return Json(new { success = false, message = "Announcement Model data could not be retrieved." }, JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                model.RawHtml = WebUtility.UrlDecode(model.RawHtml);
+                AnnouncementDAL.SaveAnnouncement(model, User.Identity.GetUserId<int>());
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             
         }
 

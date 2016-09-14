@@ -23,3 +23,6 @@ SET IDENTITY_INSERT dbo.AspNetRoles OFF
 
 DELETE dbo.AspNetUserRoles 
 INSERT INTO dbo.AspNetUserRoles (RoleId,UserId) SELECT r.Id,u.Id FROM dbo.AspNetRoles r, dbo.AspNetUsers u WHERE UserName = 'nerevar' AND Name = 'Admin'
+
+DELETE dbo.AnnouncementStatus 
+INSERT INTO dbo.AnnouncementStatus (AnsId,AnsLabel) VALUES (1,'Backlog'),(2,'Published'),(3,'Archived')

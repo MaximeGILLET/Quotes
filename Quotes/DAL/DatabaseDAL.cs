@@ -44,8 +44,8 @@ namespace Quotes.DAL
                             command.Parameters.Add(param);
                         }
                     }
-
-                    DbInstance.Open();
+                    if (DbInstance.State != ConnectionState.Open)
+                        DbInstance.Open();
 
                     using (var dataReader = command.ExecuteReader())
                     {
@@ -63,6 +63,7 @@ namespace Quotes.DAL
                 {
                     DbInstance.Close();
                 }
+                DbInstance.Close();
             }
 
             return dataSet;
@@ -84,8 +85,8 @@ namespace Quotes.DAL
                         command.Parameters.Add(param);
                     }
                 }
-
-                DbInstance.Open();
+                if(DbInstance.State != ConnectionState.Open)
+                    DbInstance.Open();
                 command.ExecuteNonQuery();
                 DbInstance.Close();
             }

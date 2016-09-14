@@ -20,7 +20,8 @@
     <div class="col-lg-6">
         @if (isAdmin)
         {
-            <button id="newAnn" type="button" class="btn btn-default pull-left"><span class="glyphicon glyphicon-plus"></span>&ensp;New Announcement</button>
+
+             <button id="newAnn" type="button" class="btn btn-default" style="margin-bottom: 20px" onclick="newAnnouncement()"><span class="glyphicon glyphicon-plus"></span>&ensp;New Announcement</button>
         }
         @{
             Html.RenderAction("List","Announcement");
@@ -52,6 +53,22 @@
 </div>
 
 
+@if (isAdmin)
+{
+    <script>
+        function newAnnouncement() {
+            $.post("Announcement/Create",function(data) {
+                if (data.success) {
+                    location.reload();
+                   
+                } else {
+                    $("#errorMessage").text("There was an error creating a new announcement :" + data.message);
+                    $("#errorBox").show();
+                }
+            });
+        }
+    </script>
+}
 
 
 

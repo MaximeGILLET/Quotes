@@ -5,14 +5,14 @@
 
 @foreach (var ann in Model)
 {
-    if (!isAdmin && ann.Status != 1) //Not displaying Announcements that are not published for non-admin users
+    if (!isAdmin && ann.Status != 2) //Not displaying Announcements that are not published for non-admin users
     {
         continue;
     }
-    <div class="panel panel-default panel-primary">
+    <div class="panel panel-default @(ann.Status == 2 ? "panel-primary" : "panel-info")">
         <div class="panel-heading">
-            <h3 class="panel-title col-lg-12">@ann.Title</h3>
-            <input name="title@(ann.Id)" id="title@(ann.Id)" type="text" maxlength="256" value="Announcements" style="display: none" />
+            <h3 name="@ann.Id" id="head-title@(ann.Id)" class="panel-title col-lg-12">@ann.Title</h3>
+            <input name="title@(ann.Id)" class="col-lg-12" id="input-title@(ann.Id)" type="text" maxlength="256"  style="color: black;display: none" />
             @if (isAdmin)
             {
                 <button id="title@(ann.Id)-edit" type="button" class="btn-edit" onclick="editTitle('title@(ann.Id)')"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -22,19 +22,24 @@
         </div>
         <div class="panel-body">
             <form>
-                <div name="@ann.Id" id="announce1" rows="12" cols="80">
+                <div name="@ann.Id" id="announce@(ann.Id)" rows="12" cols="80">
                     @ann.RawHtml
                 </div>
             </form>
             @if (isAdmin)
             {
-                <button id="announce@(ann.Id)-cksave" type="button" class="btn btn-default pull-right" onclick="saveAnnouncement('announce@(ann.Id)')" style=" display: none">Save</button>
+                <button id="announce@(ann.Id)-cksave" type="button" class="btn btn-default pull-right" onclick="saveBody('announce@(ann.Id)')" style=" display: none">Save</button>
                 <button id="announce@(ann.Id)-ckopen" type="button" class="btn btn-default pull-right" onclick="initEditor('announce@(ann.Id)')">Edit</button>
                 <button id="announce@(ann.Id)-ckclose" type="button" class="btn btn-default pull-right" onclick="closeEditor('announce@(ann.Id)')" style="display: none">Cancel</button>
             }
         </div>
         <div class="panel-footer">
             Author : @ann.Author - @ann.CreationTime
+            @if (isAdmin)
+            {
+                @Html.DropDownList("Status", ann.StatusList.Select(x => new SelectListItem() {Text = x}))
+                <button id="status@(ann.Id)" type="button" class="btn btn-default" onclick=" saveBody('status@(ann.Id)') ">Submit</button>
+            }
         </div>
     </div>
 }
@@ -67,31 +72,64 @@
         }
 
         // Save announcement in database and update UI
-        function saveAnnouncement(id) {
+        function saveBody(id) {
+
             CKEDITOR.instances[id].updateElement();
-
-            //TODO submit form
-
-
-            closeEditor(id);
+            var htmlString = escape($("#" + id).html());
+            $.post("Announcement/Update", { Id: $("#" + id).attr('name'), RawHtml: htmlString }, function (data) {
+                if (data.success) {
+                    
+                    closeEditor(id);
+                } else {
+                    $("#errorMessage").text("There was an error creating a new announcement :" + data.message);
+                    $("#errorBox").show();
+                }
+            }, "json");
         }
 
         function editTitle(id) {
+            $("#input-" + id).val($("#head-" + id).text());
             $("#" + id + "-edit").hide();
+            $("#head-" + id).hide();
             $("#" + id + "-close").show();
             $("#" + id + "-save").show();
-            $("#title" + id).show();
+            $("#input-" + id).show();
+
+
         }
 
         function closeTitle(id) {
-            $("#title" + id).hide();
+            $("#input-" + id).hide();
             $("#" + id + "-save").hide();
             $("#" + id + "-close").hide();
             $("#" + id + "-edit").show();
+            $("#head-" + id).show();
         }
 
         function saveTitle(id) {
-            $("#title" + id).val();
+            $("#head-" + id).text($("#input-" + id).val());
+            $("#input-" + id).hide();
+            $("#" + id + "-save").hide();
+            $("#" + id + "-close").hide();
+            $("#" + id + "-edit").show();
+            $("#head-" + id).show();
+
+            $.post("Announcement/Update", { Id: $("#head-" + id).attr('name'), Title: $("#head-" + id).text() }, function (data) {
+                if (data.success) {
+                    $("#successMessage").text("Announcement Title Updated succesfully.");
+                    $("#successBox").show($(function () {
+                        // setTimeout() function will be fired after page is loaded
+                        // it will wait for 5 sec. and then will fire
+                        // $("#successMessage").hide() function
+                        setTimeout(function () {
+                            $("#successBox").hide('blind', {}, 500);
+                        }, 5000);
+                    }));
+                } else {
+                    $("#errorMessage").text("There was an error creating a new announcement :" + data.message);
+                    $("#errorBox").show();
+                }
+            }, "json");
         }
 
     </script>
