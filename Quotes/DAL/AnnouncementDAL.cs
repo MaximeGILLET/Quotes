@@ -47,5 +47,11 @@ namespace Quotes.DAL
             return annList;
 
         }
+
+        internal static void Delete(int id)
+        {
+            var parameters = new List<SqlParameter> {new SqlParameter("@AnnId", SqlDbType.Int) {Value = id}};
+            DatabaseDAL.ExecuteProcedure("dbo.AnnouncementDelete", parameters);
+        }
     }
 }

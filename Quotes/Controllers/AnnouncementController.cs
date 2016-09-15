@@ -65,5 +65,22 @@ namespace Quotes.Controllers
             
         }
 
+        [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
+        public JsonResult Delete(int id)
+        {
+
+            try
+            {
+                AnnouncementDAL.Delete(id);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

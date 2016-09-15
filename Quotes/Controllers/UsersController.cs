@@ -141,6 +141,57 @@ namespace Quotes.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public JsonResult LastRegistered()
+        {
+            List<LastRegisterUserViewModel> userList = null;
+            try
+            {
+                userList = UserDAL.LastRegisteredUsers();
+                foreach (var user in userList)
+                {
+                    var days = Math.Floor((DateTime.Now - user.RegisterDate).TotalDays);
+
+
+                    if (days > 0)
+                    {
+                        user.Label = days + " Day(s) ago.";
+                        continue;
+                    }
+                    else
+                    {
+
+                        var hours = Math.Floor((DateTime.Now - user.RegisterDate).TotalHours);
+                        if (hours > 0)
+                        {
+                            user.Label = hours + " Hour(s) ago.";
+                            continue;
+                        }
+                        else
+                        {
+                            var minutes = Math.Floor((DateTime.Now - user.RegisterDate).TotalMinutes);
+                            if (minutes > 0)
+                            {
+                                user.Label = minutes + " Minute(s) ago.";
+                            }
+                            else
+                            {
+                                user.Label = " Just now.";
+                            }
+                        }
+                   
+                    }
+                     
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false , message = e.Message}, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new{ success= true, users=userList}, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

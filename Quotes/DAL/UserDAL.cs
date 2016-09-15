@@ -38,7 +38,7 @@ namespace Quotes.DAL
         /// Get the whole list of profiles.
         /// </summary>
         /// <returns>List of profiles</returns>
-       /* public static List<ProfileModel> GetProfileList()
+        /* public static List<ProfileModel> GetProfileList()
         {
             var pmlist = new List<ProfileModel>();
             var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.UserProfileList",null);
@@ -51,5 +51,19 @@ namespace Quotes.DAL
                 }));
             return pmlist;
         }*/
+
+        public static List<LastRegisterUserViewModel> LastRegisteredUsers()
+        {
+            var pmlist = new List<LastRegisterUserViewModel>();
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.LastRegisterUserList", null);
+            if (ds != null)
+                pmlist.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new LastRegisterUserViewModel()
+                {
+                    Username = item.Field<string>("UserName"),
+                    RegisterDate = item.Field<DateTime>("RegistrationDate"),
+
+                }));
+            return pmlist;
+        } 
     }
 }

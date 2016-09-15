@@ -53,4 +53,12 @@ namespace Quotes.Models
         public string PrfLabel { get; set; }
 
     }*/
+
+    public class LastRegisterUserViewModel
+    {
+        public string Username { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public string Label { get; set; }
+
+    }
 }

@@ -82,6 +82,8 @@
     <Build Include="Tables\Announcement.sql" />
     <Build Include="Procedures\AnnouncementList.sql" />
     <Build Include="Procedures\AnnouncementSave.sql" />
+    <Build Include="Procedures\LastRegisterUserList.sql" />
+    <Build Include="Procedures\AnnouncementDelete.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />
