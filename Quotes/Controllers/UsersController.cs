@@ -13,7 +13,7 @@ using System.Web.Security;
 
 namespace Quotes.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
+
     public class UsersController : Controller
     {
 
@@ -33,12 +33,14 @@ namespace Quotes.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: UserModels
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
         // GET: UserModels/Details/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,6 +59,7 @@ namespace Quotes.Controllers
         }
 
         // GET: UserModels/Create
+       [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -67,6 +70,7 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,UserName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,ProfileIconPath")] ApplicationUser userModel)
         {
             if (ModelState.IsValid)
@@ -80,6 +84,7 @@ namespace Quotes.Controllers
         }
 
         // GET: UserModels/Edit/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -102,6 +107,7 @@ namespace Quotes.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] ApplicationUser userModel)
         {
             //TODO carefull with the binding, some values are missing and those we erase the value in database, to be fixed!!
@@ -116,6 +122,7 @@ namespace Quotes.Controllers
         }
 
         // GET: UserModels/Delete/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -133,6 +140,7 @@ namespace Quotes.Controllers
         // POST: UserModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             var userModel = db.Users.Find(id);
@@ -141,6 +149,20 @@ namespace Quotes.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public JsonResult Top()
+        {
+            try
+            {
+                //TODO
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = true, message = e.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult LastRegistered()
         {

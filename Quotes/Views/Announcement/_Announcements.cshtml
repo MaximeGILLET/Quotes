@@ -184,8 +184,8 @@
         $('#modalConfirm').on('show.bs.modal', function (e) {
             //get data-id attribute of the clicked element
             var annId = $(e.relatedTarget).data('ann-id');
-            $("#deleteAnn").click(function (e) {
-                e.preventDefault();
+            $("#deleteAnn").click(function (event) {
+                event.preventDefault();
                 deleteAnn(annId);
             });
 

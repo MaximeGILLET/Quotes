@@ -132,12 +132,14 @@ namespace Quotes.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize]
         public JsonResult TagQuote(int quoteId,string tag)
         {
             //Increment a Tag on the quote (like, dislike or any other tag), return the json result of the request.
             return Json(new { success = QuoteDAL.TagQuote(new QuoteModel() { QuoteId = quoteId, UserId = User.Identity.GetUserId<int>() }, tag), responseText = "" }, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult AdminQuoteList()
         {
             return View(QuoteDAL.FindQuotes("").Select(x=> new UserQuoteViewModel(x)).ToList());

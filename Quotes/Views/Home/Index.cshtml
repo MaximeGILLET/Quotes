@@ -37,15 +37,15 @@
             <div id="topUsers" class="panel-body">
             </div>
         </div>
-        <div class="panel panel-default panel-info" >
-            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: black;">
+        <div class="panel panel-default panel-info" style="border-color: blue;">
+            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span>&ensp;Top 10 Tags</h3>
             </div>
             <div id="topTags" class="panel-body">
             </div>
         </div>
-        <div class="panel panel-default panel-info">
-            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: black;">
+        <div class="panel panel-default panel-info" style="border-color: blue;">
+            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>&ensp;Key Figures</h3>
             </div>
             <div class="panel-body">
@@ -92,7 +92,17 @@
 
     }
 
+    function updateTopUsers() {
+        //Top all time
+
+        //Top month
+
+        //Top week
+
+    }
+
     setInterval(updateLastUsers, 60000);
+    setInterval(updateTopUsers, 3600000);
 
 
 </script>
