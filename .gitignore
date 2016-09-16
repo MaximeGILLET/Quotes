@@ -246,3 +246,5 @@ ModelManifest.xml
 *.csproj
 /Quotes/Properties/PublishProfiles/MyQuote.pubxml
 Quotes-Database/Quotes-Database.sqlproj
+Quotes/Content/Site.css
+Quotes/Content/Site.css
