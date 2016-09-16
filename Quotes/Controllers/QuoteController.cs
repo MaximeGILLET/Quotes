@@ -22,6 +22,7 @@ namespace Quotes.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize]
         public ActionResult PostQuote(string text)
         {
             //Save new quote in database
@@ -38,12 +39,14 @@ namespace Quotes.Controllers
         [HttpPost]
         public ActionResult SearchQuote(string searchText)
         {
+            ViewData["research"] = searchText;
             //search quote in database and Load result page
-            return View("SearchResult",QuoteDAL.FindQuotes(searchText));
+            return View("SearchResult", QuoteDAL.FindQuotes(searchText));
         }
 
         //Search Api
-        public JsonResult Search(string searchText,string userName,string from, string to, int maxRecords = 1000,string order = "DESC")
+        public JsonResult Search(string searchText, string userName, string from, string to, int maxRecords = 1000,
+            string order = "DESC")
         {
             DateTime? fromDate = null;
             DateTime? toDate = null;
@@ -51,19 +54,19 @@ namespace Quotes.Controllers
 
             try
             {
-                if(from != null)
+                if (from != null)
                     fromDate = DateTime.Parse(from);
                 if (to != null)
                     toDate = DateTime.Parse(to);
 
                 result = QuoteDAL.QuoteFilterList(searchText, userName, fromDate, toDate, maxRecords, order);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return Json(new { success = false, responseText = e });
+                return Json(new {success = false, responseText = e});
             }
-            
-            
+
+
             //search quote in database and Load result page
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -78,11 +81,12 @@ namespace Quotes.Controllers
         /// <param name="maxRecords"></param>
         /// <param name="order"></param>
         /// <returns></returns>
-        public JsonResult SearchForCalendar(string userName, string searchText = null, string from=null, string to=null, int maxRecords = 1000, string order = "DESC")
+        public JsonResult SearchForCalendar(string userName, string searchText = null, string from = null,
+            string to = null, int maxRecords = 1000, string order = "DESC")
         {
             DateTime? fromDate = null;
             DateTime? toDate = null;
-            var calendar= new CalendarModel();
+            var calendar = new CalendarModel();
             try
             {
                 if (from != null)
@@ -92,11 +96,20 @@ namespace Quotes.Controllers
 
 
                 var quoteList = QuoteDAL.QuoteFilterList(searchText, userName, fromDate, toDate, maxRecords, order);
-                calendar = new CalendarModel() { result = new List<CalendarItem>() };
+                calendar = new CalendarModel() {result = new List<CalendarItem>()};
                 foreach (var item in quoteList)
                 {
-                    var milli = Math.Floor( (item.Quote.OriginalDate - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString();
-                    calendar.result.Add(new CalendarItem() { id = item.Quote.QuoteId.ToString(), title = item.Quote.QuoteText, start = milli, end = milli, type = "event-important", url = "http://www.example.com" });
+                    var milli =
+                        Math.Floor((item.Quote.OriginalDate - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString();
+                    calendar.result.Add(new CalendarItem()
+                    {
+                        id = item.Quote.QuoteId.ToString(),
+                        title = item.Quote.QuoteText,
+                        start = milli,
+                        end = milli,
+                        type = "event-important",
+                        url = ""
+                    });
                 }
             }
             catch (Exception)
@@ -107,13 +120,13 @@ namespace Quotes.Controllers
             }
 
             calendar.success = 1;
-            var ouput =JsonConvert.SerializeObject( calendar);
+            var ouput = JsonConvert.SerializeObject(calendar);
             JavaScriptSerializer json_serializer = new JavaScriptSerializer();
             //return json result in success
             return new JsonResult
             {
                 Data = json_serializer.DeserializeObject(ouput),
-                JsonRequestBehavior =  JsonRequestBehavior.AllowGet
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
@@ -133,19 +146,32 @@ namespace Quotes.Controllers
 
         [HttpPost]
         [CustomAuthorize]
-        public JsonResult TagQuote(int quoteId,string tag)
+        public JsonResult TagQuote(int quoteId, string tag)
         {
             //Increment a Tag on the quote (like, dislike or any other tag), return the json result of the request.
-            return Json(new { success = QuoteDAL.TagQuote(new QuoteModel() { QuoteId = quoteId, UserId = User.Identity.GetUserId<int>() }, tag), responseText = "" }, JsonRequestBehavior.AllowGet);
+            try
+            {
+                QuoteDAL.TagQuote(new QuoteModel() {QuoteId = quoteId, UserId = User.Identity.GetUserId<int>()}, tag);
+            }
+            catch (Exception e)
+            {
+
+                return Json(new { success = false, message = e.Message}, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new{success = true}, JsonRequestBehavior.AllowGet);
         }
 
         [CustomAuthorize(Roles = "Admin")]
         public ActionResult AdminQuoteList()
         {
-            return View(QuoteDAL.FindQuotes("").Select(x=> new UserQuoteViewModel(x)).ToList());
+            return View(QuoteDAL.FindQuotes("").Select(x => new UserQuoteViewModel(x)).ToList());
         }
 
-
+        [CustomAuthorize]
+        public ActionResult MyFeed()
+        {
+            return View();
+        }
 
     }
 }

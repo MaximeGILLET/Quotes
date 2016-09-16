@@ -52,6 +52,10 @@ namespace Quotes.DAL
             return pmlist;
         }*/
 
+        /// <summary>
+        /// Get the last 10 users registered in database (with mail confirmed).
+        /// </summary>
+        /// <returns>return list of username , registration date</returns>
         public static List<LastRegisterUserViewModel> LastRegisteredUsers()
         {
             var pmlist = new List<LastRegisterUserViewModel>();
@@ -64,6 +68,71 @@ namespace Quotes.DAL
 
                 }));
             return pmlist;
-        } 
+        }
+
+        /// <summary>
+        /// Get a cluster object containing several list of users for different periods
+        /// </summary>
+        /// <returns> return a cluster of user lists</returns>
+        public static TopUserClusterViewModel GetTopUsers()
+        {
+
+            var userCluster = new TopUserClusterViewModel
+            {
+                AllTimeUsers = new List<TopUserViewModel>(),
+                MonthUsers = new List<TopUserViewModel>(),
+                WeekUsers = new List<TopUserViewModel>()
+            };
+
+            //Get All time top Users
+            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", null);
+            if (ds != null)
+                userCluster.AllTimeUsers.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new TopUserViewModel()
+                {
+                    Username = item.Field<string>("UserName"),
+                    Points = item.Field<int>("Points"),
+
+                }));
+
+            //Get Last Month top Users
+            var firstDayOfLastMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1);
+            var lastDayOfLastMonth = firstDayOfLastMonth.AddMonths(1).AddDays(-1);
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.DateTime2, Value = firstDayOfLastMonth},
+                     new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.DateTime2, Value = lastDayOfLastMonth}
+                };
+            var ds1 = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", param);
+            if (ds1 != null)
+                userCluster.MonthUsers.AddRange(Enumerable.Select(ds1.Tables[0].AsEnumerable(), item => new TopUserViewModel()
+                {
+                    Username = item.Field<string>("UserName"),
+                    Points = item.Field<int>("Points"),
+
+                }));
+
+            //Get Last Week top Users
+            DateTime input = DateTime.Now;
+            int delta = DayOfWeek.Monday - input.DayOfWeek;
+            DateTime monday = input.AddDays(delta);
+            var lastMonday = monday.AddDays(-7);
+            var lastSunday = monday.AddDays(-1);
+            param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.Date, Value = lastMonday},
+                     new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.Date, Value = lastSunday}
+                };
+            var ds2 = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", param);
+            if (ds2 != null)
+                userCluster.WeekUsers.AddRange(Enumerable.Select(ds2.Tables[0].AsEnumerable(), item => new TopUserViewModel()
+                {
+                    Username = item.Field<string>("UserName"),
+                    Points = item.Field<int>("Points"),
+
+                }));
+
+            return userCluster;
+        }
+ 
     }
 }

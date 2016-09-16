@@ -154,14 +154,16 @@ namespace Quotes.Controllers
         {
             try
             {
-                //TODO
+
+                var users = UserDAL.GetTopUsers();
+                return Json(new { success = true, users = users.AllTimeUsers, monthUsers = users.MonthUsers, weekUsers = users.WeekUsers }, JsonRequestBehavior.AllowGet);
+                
             }
             catch (Exception e)
             {
                 return Json(new { success = true, message = e.Message }, JsonRequestBehavior.AllowGet);
 
             }
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult LastRegistered()
@@ -212,6 +214,13 @@ namespace Quotes.Controllers
 
             }
             return Json(new{ success= true, users=userList}, JsonRequestBehavior.AllowGet);
+        }
+
+        [CustomAuthorize]
+        public ActionResult Profile(string username)
+        {
+
+            return View();
         }
 
         protected override void Dispose(bool disposing)
