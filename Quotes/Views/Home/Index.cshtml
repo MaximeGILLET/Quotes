@@ -9,11 +9,19 @@
 </div>
 <div class="row">
     <div class="col-lg-3">
-        <div class="panel panel-default ">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-floppy-saved"></span>&ensp;Last Registered Users</h3>
+        <div class="panel panel-default panel-info" style="border-color: #0759A5;">
+            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span>&ensp;Top Tags of the Day</h3>
             </div>
-            <div class="panel-body">                
+            <div id="topTags" class="panel-body">
+                <ul id="topUsers"></ul>
+            </div>
+        </div>
+        <div class="panel panel-default panel-info" style="border-color: #0759A5;">
+            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>&ensp;Key Figures</h3>
+            </div>
+            <div class="panel-body">
             </div>
         </div>
     </div>
@@ -28,25 +36,36 @@
         }
     </div>
     <div class="col-lg-3">
-        <div class="panel panel-default panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top 10 Users</h3>
+        <div class="panel panel-default panel-success" style="border-color: goldenrod;">
+            <div class="panel-heading" style="background-image:url('/Content/img/gold-leather.jpg');color: black;">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of All Time</h3>
             </div>
             <div class="panel-body">
+                <ul id="topUsers"></ul>
             </div>
         </div>
-        <div class="panel panel-default panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span>&ensp;Top 10 Tags</h3>
+        <div class="panel panel-default panel-success" style="border-color: silver;">
+            <div class="panel-heading" style="background-image:url('/Content/img/silver-leather.jpg');color: black;">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of Last Month</h3>
             </div>
             <div class="panel-body">
+                <ul id="topUsersMonth"></ul>
             </div>
         </div>
-        <div class="panel panel-default panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>&ensp;Key Figures</h3>
+        <div class="panel panel-default panel-success" style="border-color: coral;">
+            <div class="panel-heading" style="background-image:url('/Content/img/coral-leather.jpg');color: black;">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of Last Week</h3>
             </div>
             <div class="panel-body">
+                <ul id="topUsersWeek"></ul>
+            </div>
+        </div>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-floppy-saved"></span>&ensp;Last Registered Users</h3>
+            </div>
+            <div class="panel-body">
+                <ul id="lastRegisterUsers"></ul>
             </div>
         </div>
     </div>
@@ -70,6 +89,69 @@
     </script>
 }
 
+<script>
+    updateLastUsers();
+    updateTopUsers();
+    function updateLastUsers() {
+        $.get("Users/LastRegistered", function (data) {
+            if (data.success) {
+                $("#lastRegisterUsers").empty();
+                $.each(data.users, function (i) {
+                    $("#lastRegisterUsers").append(
+                        $('<li>')
+                        .text(data.users[i].Username + " : " + data.users[i].Label)
+                    );
+                });
+            } else {
+                $("#lastRegisterUsers").text("Error loading users...");
+                console.log(data.message);
+            }
+        });
+
+    }
+
+    function updateTopUsers() {
+        //TODO put href links onto those usernames to view their profiles
+        $.get("Users/Top", function(data) {
+            if (data.success) {
+                //Top all time
+                $("#topUsers").empty();
+                $.each(data.users, function (i) {
+                    $("#topUsers").append(
+                      $('<li>')
+                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                  );
+                });
+                //Top month
+                $("#topUsersMonth").empty();
+                $.each(data.monthUsers, function (i) {
+                    $("#topUsersMonth").append(
+                      $('<li>')
+                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                  );
+                });
+                //Top week
+                $("#topUsersWeek").empty();
+                $.each(data.weekUsers, function (i) {
+                    $("#topUsersWeek").append(
+                      $('<li>')
+                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                  );
+                });
+            } else {
+                $("#topUsers").text("Error loading users...");
+                $("#topUsersMonth").text("Error loading users...");
+                $("#topUsersWeek").text("Error loading users...");
+                console.log(data.message);
+            }
+        });
+    }
+
+    setInterval(updateLastUsers, 60000);
+    setInterval(updateTopUsers, 3600000);
+
+
+</script>
 
 
 

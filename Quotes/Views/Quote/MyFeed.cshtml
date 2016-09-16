@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "MyFeed";
+}
+
+<h2>My Feed</h2>
+
+
+<div class="text-center" style="color:white;">
+    Today
+</div>
+<hr>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Username 1
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                Quote
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Username 2
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                Quote
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Username 3
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                Quote
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    
+    DateTime input = DateTime.Now;
+    int delta =  input.DayOfWeek - DayOfWeek.Monday;
+     
+}
+@for (int i = 1; i < delta+1; i++)
+{
+    <div class="text-center" style="color:white;">
+        @input.AddDays(-i).DayOfWeek
+    </div>
+    <hr>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading@(i)">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@(i)" aria-expanded="true" aria-controls="collapse@(i)">
+                        Username 1
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse@(i)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@(i)">
+                <div class="panel-body">
+                    Quote
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

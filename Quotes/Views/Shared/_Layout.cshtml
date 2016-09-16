@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Services.Description
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -44,18 +45,28 @@
         </div>
         <div class="container body-content">
             <div class="row" style="position: fixed;z-index: 1000;width: 70%;">
-                    <div id="errorBox" class="alert alert-danger" style="display: none">
-                        <span class="glyphicon glyphicon-alert"></span>
-                        <div id="errorMessage" class="label label-danger">This is the error box!</div>
-                    </div>
-                    <div id="warningBox" class="alert alert-warning" style="display: none">
-                        <span class="glyphicon glyphicon-alert"></span>
-                        <div id="warningMessage" class="label label-warning">This is the warning box!</div>
-                    </div>
-                    <div id="successBox" class="alert alert-success" style="display: none">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <div id="successMessage" class="label label-success">This is the success box!</div>
-                    </div>
+                <div id="errorBox" class="alert alert-danger" style="display: none">
+                    <span class="glyphicon glyphicon-alert"></span>
+                    <div id="errorMessage" class="label label-danger" >This is the error box!</div>
+                    <button type="button" class="close" onclick="$('#errorBox').hide()">
+                        <span aria-hidden="true">×</span>
+                    </button> 
+                </div>
+                <div id="warningBox" class="alert alert-warning" style="display: none">
+                    <span class="glyphicon glyphicon-alert"></span>
+                    <div id="warningMessage" class="label label-warning">This is the warning box!</div>
+                    <button type="button" class="close" onclick="$('#warningBox').hide()">
+                        <span aria-hidden="true">
+                        ×</span>
+                    </button> 
+                </div>
+                <div id="successBox" class="alert alert-success" style="display: none">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <div id="successMessage" class="label label-success">This is the success box!</div>
+                    <button type="button" class="close" onclick="$('#successBox').hide()" >
+                        <span aria-hidden="true">×</span>
+                    </button> 
+                </div>
             </div>           
             @RenderBody()
             @{
@@ -66,14 +77,16 @@
 
             }
             <hr />
-            <footer class="col-lg-12" style="display: inline-block">
+            <footer style="display:block">
                 <div style="float: left">
-                    <p>&copy; @DateTime.Now.Year - MyQuotes Website</p>
+                    <p>&copy;2016 - MyQuotes Website</p>
                 </div>
                 <div style="float: right">
                     <p>
-                        @Html.ActionLink(" About ", "About", "Home")&nbsp;
-                        @Html.ActionLink(" Contact ", "Contact", "Home")
+                        <b>
+                            @Html.ActionLink(" About ", "About", "Home", new { @style="color:white;"})&nbsp;
+                            @Html.ActionLink(" Contact ", "Contact", "Home", new { @style = "color:white;" })
+                        </b>
                     </p>
                 </div>
             </footer>

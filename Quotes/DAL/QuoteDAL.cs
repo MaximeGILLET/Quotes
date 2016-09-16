@@ -85,29 +85,21 @@ namespace Quotes.DAL
             return result;
         }
 
-        public static bool TagQuote(QuoteModel newQuote,string tag)
+        public static void TagQuote(QuoteModel quote,string tag)
         {
-            try
-            {
+            
                 var param = new List<SqlParameter>
                 {
                     new SqlParameter() {ParameterName = "@tag",SqlDbType = SqlDbType.VarChar, Value = tag},
-                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = newQuote.UserId}
+                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = quote.UserId}
                 };
-                if (newQuote.QuoteId != null)
+                if (quote.QuoteId != null)
                 {
-                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
+                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = quote.QuoteId });
                 }
 
                 DatabaseDAL.ExecuteProcedure("dbo.QuoteTag", param);
-
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-            return true;
+       
         }
 
         public static List<UserQuoteModel> FindQuotes(string text)
