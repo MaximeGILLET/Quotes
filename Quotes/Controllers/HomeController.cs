@@ -37,5 +37,10 @@ namespace Quotes.Controllers
             return View();
         }
 
+        public ActionResult FAQ()
+        {
+
+            return View();
+        }
     }
 }

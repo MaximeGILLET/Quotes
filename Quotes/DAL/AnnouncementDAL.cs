@@ -23,7 +23,7 @@ namespace Quotes.DAL
             parameters.Add(new SqlParameter("@UsrId", SqlDbType.Int) { Value = userId });
             parameters.Add(new SqlParameter("@status", SqlDbType.VarChar) { Value = model.Status });
 
-            DatabaseDAL.ExecuteProcedure("dbo.AnnouncementSave", parameters);
+            Database.ExecuteProcedure("dbo.AnnouncementSave", parameters);
 
             return true;
         }
@@ -31,7 +31,7 @@ namespace Quotes.DAL
         public static List<AnnouncementModel> GetList()
         {
             var annList = new List<AnnouncementModel>();
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.AnnouncementList", null);
+            var ds = Database.ExecuteProcedureDataSet("dbo.AnnouncementList", null);
             if (ds != null)
                 annList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new AnnouncementModel()
                 {
@@ -51,7 +51,7 @@ namespace Quotes.DAL
         internal static void Delete(int id)
         {
             var parameters = new List<SqlParameter> {new SqlParameter("@AnnId", SqlDbType.Int) {Value = id}};
-            DatabaseDAL.ExecuteProcedure("dbo.AnnouncementDelete", parameters);
+            Database.ExecuteProcedure("dbo.AnnouncementDelete", parameters);
         }
     }
 }

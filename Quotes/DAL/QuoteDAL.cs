@@ -33,7 +33,7 @@ namespace Quotes.DAL
 
             var quotes = new UserQuoteListModel {UserQuotes = new List<QuoteModel>(),User = new UserModel()};
             
-            var dataSet = DatabaseDAL.ExecuteProcedureDataSet("dbo.UserQuoteList", parameters);
+            var dataSet = Database.ExecuteProcedureDataSet("dbo.UserQuoteList", parameters);
 
             if (dataSet.Tables.Count != 0)
             {
@@ -75,7 +75,7 @@ namespace Quotes.DAL
                     param.Add(new SqlParameter { SqlDbType = SqlDbType.Int, Value = newQuote.QuoteId });
                 }
 
-                DatabaseDAL.ExecuteProcedure("dbo.QuoteSave", param);
+                Database.ExecuteProcedure("dbo.QuoteSave", param);
 
                 result = true;
             }
@@ -98,8 +98,8 @@ namespace Quotes.DAL
                     param.Add(new SqlParameter() { ParameterName = "@QuoteId", SqlDbType = SqlDbType.Int, Value = quote.QuoteId });
                 }
 
-                DatabaseDAL.ExecuteProcedure("dbo.QuoteTagSave", param);
-
+                Database.ExecuteProcedure("dbo.QuoteTag", param);
+       
         }
 
         public static List<UserQuoteModel> FindQuotes(string text)
@@ -111,7 +111,7 @@ namespace Quotes.DAL
                 };
 
             var quoteList = new List<UserQuoteModel>();
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.QuoteFind", param);
+            var ds = Database.ExecuteProcedureDataSet("dbo.QuoteFind", param);
             if (ds != null)
                 quoteList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new UserQuoteModel()
                 {
@@ -151,7 +151,7 @@ namespace Quotes.DAL
                 };
 
             var quoteList = new List<UserQuoteModel>();
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.QuoteFilterList", param);
+            var ds = Database.ExecuteProcedureDataSet("dbo.QuoteFilterList", param);
             if (ds != null)
                 quoteList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new UserQuoteModel()
                 {
@@ -178,7 +178,7 @@ namespace Quotes.DAL
                 new SqlParameter() {ParameterName = "@UsrId", SqlDbType = SqlDbType.Int, Value = userId},
 
             };
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.CheckLastUserPostDate", param);
+            var ds = Database.ExecuteProcedureDataSet("dbo.CheckLastUserPostDate", param);
 
             try
             {

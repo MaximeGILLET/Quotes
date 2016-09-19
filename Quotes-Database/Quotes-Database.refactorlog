@@ -21,4 +21,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AnsId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c838dfd2-5479-492e-8daf-407fd5bfc50f" ChangeDateTime="09/19/2016 15:02:26">
+    <Property Name="ElementName" Value="[dbo].[UserStatus].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UssId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="08e0163c-4853-469f-9b21-d6a8cad19005" ChangeDateTime="09/19/2016 15:02:42">
+    <Property Name="ElementName" Value="[dbo].[UserStatus].[UssId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UstId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="341609a4-692f-4b6d-a183-7aa306ec4086" ChangeDateTime="09/19/2016 15:02:46">
+    <Property Name="ElementName" Value="[dbo].[UserStatus].[UssLabel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UstLabel" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="92977a9b-3a68-45a9-a4af-9a42d59521d1" ChangeDateTime="09/19/2016 15:19:35">
+    <Property Name="ElementName" Value="[dbo].[TagType].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TagType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TtyId" />
+  </Operation>
 </Operations>

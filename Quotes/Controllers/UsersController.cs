@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
 using Quotes.DAL;
@@ -219,7 +220,25 @@ namespace Quotes.Controllers
         [CustomAuthorize]
         public ActionResult Profile(string username)
         {
+            ApplicationUser userModel = null;
+            var userProfile = new UserProfileViewModel();
+            if (username == null)
+            {
+                userModel = db.Users.Find(User.Identity.GetUserId<int>());
+                if (userModel == null)
+                {
+                    return HttpNotFound();
+                }
+                userProfile.User = new UserDetailModel(userModel);
+                userProfile.User.assignedRoles = userModel.Roles.ToList();
+                userProfile.User.roleList = db.Roles.ToList();
 
+                return View(userProfile);
+            }
+            userModel = _userManager.FindByName(username);
+            userProfile.User = new UserDetailModel();
+            userProfile.User.assignedRoles = userModel.Roles.ToList();
+            userProfile.User.roleList = db.Roles.ToList();
             return View();
         }
 

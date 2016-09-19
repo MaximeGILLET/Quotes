@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Quotes.DAL
 {
-    public static class DatabaseDAL
+    public static class Database
     {
         /// <summary>
         /// Singleton Database instance
