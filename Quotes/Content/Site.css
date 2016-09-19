@@ -1,9 +1,12 @@
-﻿body {
+﻿@font-face{
+    font-family : 'comic neue';
+    src: url('/fonts/ComicNeue_Bold.otf')
+}
+body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: none;
-    /*background-image:url("../Content/Images/hexa-repeat.png");*/
-
+    background-image:url("../../Content/img/bck1.jpg");
+    font-family : 'comic neue';
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -57,16 +60,16 @@ footer {
 }
 
 .badge-star {
-    background-color: #FFCC00;
+    background-color: #e9b44c;
 }
 .btn-star:active:focus{
-     outline-color: #FFCC00;
+     outline-color: #e9b44c;
 }
 .btn-star:active{
-     outline-color: #FFCC00;
+     outline-color: #e9b44c;
 }
 .btn-star:focus{
-     outline-color: #FFCC00;
+     outline-color: #e9b44c;
 }
 
 .btn-flag:active:focus{

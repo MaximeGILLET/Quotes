@@ -12,18 +12,18 @@ namespace Quotes.DAL
         /// <summary>
         /// Singleton Database instance
         /// </summary>
-        public static SqlConnection DbInstance
+        public static string DbInstance
         {
             get
             {
-                if (_DbInstances == null)
+                if (_DbInstance == null)
                 {
-                    _DbInstances = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                    _DbInstance = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 }
-                return _DbInstances;
+                return _DbInstance;
             }
         }
-        private static SqlConnection _DbInstances;
+        private static string _DbInstance;
 
         /// <summary>
         /// Execute procedure with given parameters
@@ -35,7 +35,7 @@ namespace Quotes.DAL
         {
             var dataSet = new DataSet();
 
-            using (var command = new SqlCommand(storedProcedure, DbInstance) { CommandType = CommandType.StoredProcedure })
+            using (var command = new SqlCommand(storedProcedure, new SqlConnection(DbInstance)) { CommandType = CommandType.StoredProcedure })
             {
                 try
                 {
@@ -46,9 +46,8 @@ namespace Quotes.DAL
                             command.Parameters.Add(param);
                         }
                     }
-                    if (DbInstance.State != ConnectionState.Open)
-                        DbInstance.Open();
-
+                    if (command.Connection.State != ConnectionState.Open)
+                        command.Connection.Open();
                     using (var dataReader = command.ExecuteReader())
                     {
                         var dataTable = new DataTable();
@@ -61,11 +60,12 @@ namespace Quotes.DAL
                 {
                     throw e;
                 }
-                finally
-                {
-                    DbInstance.Close();
+                 finally
+                 {
+                    command.Connection.Close();
                 }
-                DbInstance.Close();
+                command.Connection.Close();
+
             }
 
             return dataSet;
@@ -78,7 +78,7 @@ namespace Quotes.DAL
         /// <param name="sqlParameters">Sql parameters List</param>
         public static void ExecuteProcedure(string storedProcedure, List<SqlParameter> sqlParameters)
         {
-            using (var command = new SqlCommand(storedProcedure, DbInstance) { CommandType = CommandType.StoredProcedure })
+            using (var command = new SqlCommand(storedProcedure, new SqlConnection(DbInstance)) { CommandType = CommandType.StoredProcedure })
             {
                 if (sqlParameters != null)
                 {
@@ -87,10 +87,11 @@ namespace Quotes.DAL
                         command.Parameters.Add(param);
                     }
                 }
-                if(DbInstance.State != ConnectionState.Open)
-                    DbInstance.Open();
+                
+                if(command.Connection.State != ConnectionState.Open)
+                command.Connection.Open();
                 command.ExecuteNonQuery();
-                DbInstance.Close();
+                command.Connection.Close();
             }
         }
     }

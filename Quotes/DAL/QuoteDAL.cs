@@ -90,16 +90,16 @@ namespace Quotes.DAL
             
                 var param = new List<SqlParameter>
                 {
-                    new SqlParameter() {ParameterName = "@tag",SqlDbType = SqlDbType.VarChar, Value = tag},
-                    new SqlParameter() {ParameterName = "@UsrId",SqlDbType = SqlDbType.Int, Value = quote.UserId}
+                    new SqlParameter() {ParameterName = "@TagLabel",SqlDbType = SqlDbType.VarChar, Value = tag},
+                    new SqlParameter() {ParameterName = "@UserId",SqlDbType = SqlDbType.Int, Value = quote.UserId}
                 };
                 if (quote.QuoteId != null)
                 {
-                    param.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, Value = quote.QuoteId });
+                    param.Add(new SqlParameter() { ParameterName = "@QuoteId", SqlDbType = SqlDbType.Int, Value = quote.QuoteId });
                 }
 
-                DatabaseDAL.ExecuteProcedure("dbo.QuoteTag", param);
-       
+                DatabaseDAL.ExecuteProcedure("dbo.QuoteTagSave", param);
+
         }
 
         public static List<UserQuoteModel> FindQuotes(string text)

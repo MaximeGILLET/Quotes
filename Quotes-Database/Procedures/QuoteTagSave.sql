@@ -4,5 +4,5 @@
 	@UserId int
 AS
 	INSERT INTO QuoteUserTag (QutTagId,QutQuoId,QutUsrId)
-	SELECT TagId,QuoId,QuoUsrId FROM TAG , Quote quo INNER JOIN AspNetUsers ON Id = quo.QuoId WHERE quo.QuoId = @QuoteId AND TagLabel = @TagLabel
+	SELECT TagId,QuoId,QuoUsrId FROM TAG , Quote quo INNER JOIN AspNetUsers ON Id = quo.QuoUsrId WHERE quo.QuoId = @QuoteId AND TagLabel = @TagLabel
 	

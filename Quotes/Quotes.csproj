@@ -240,6 +240,7 @@
     <Content Include="Content\img\leather.png" />
     <Content Include="Content\img\paper.jpg" />
     <Content Include="Content\img\silver-leather.jpg" />
+    <Content Include="Content\img\silver-leather2.jpg" />
     <Content Include="Content\img\slide-bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -266,7 +267,9 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="fonts\ComicNeue_Bold.otf" />
+    <Content Include="fonts\ComicNeue_Bold.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\MyQuote.pubxml" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -618,6 +621,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\profile-pictures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
