@@ -1,13 +1,9 @@
-﻿@font-face {
-    font-family: comicNeue;
-    src: url(../fonts/ComicNeue_Bold.otf)
-}
-body {
+﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    /*background-color: aliceblue;*/
-    background-image: url("../Content/img/bck1.jpg");
-    font-family: 'comicNeue';
+    background-color: none;
+    /*background-image:url("../Content/Images/hexa-repeat.png");*/
+
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -96,11 +92,4 @@ footer {
 
 .panel-heading {
     display: flex;
-}
-
-.label {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-}
-.alert {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
