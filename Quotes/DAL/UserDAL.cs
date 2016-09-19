@@ -23,7 +23,7 @@ namespace Quotes.DAL
                 };
 
             var pmlist = new List<CustomRole>();
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.UserProfileList", param);
+            var ds = Database.ExecuteProcedureDataSet("dbo.UserProfileList", param);
             if (ds != null)
                 pmlist.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new CustomRole()
                 {                    
@@ -59,7 +59,7 @@ namespace Quotes.DAL
         public static List<LastRegisterUserViewModel> LastRegisteredUsers()
         {
             var pmlist = new List<LastRegisterUserViewModel>();
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.LastRegisterUserList", null);
+            var ds = Database.ExecuteProcedureDataSet("dbo.LastRegisterUserList", null);
             if (ds != null)
                 pmlist.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new LastRegisterUserViewModel()
                 {
@@ -85,7 +85,7 @@ namespace Quotes.DAL
             };
 
             //Get All time top Users
-            var ds = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", null);
+            var ds = Database.ExecuteProcedureDataSet("dbo.TopUserList", null);
             if (ds != null)
                 userCluster.AllTimeUsers.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new TopUserViewModel()
                 {
@@ -102,7 +102,7 @@ namespace Quotes.DAL
                     new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.DateTime2, Value = firstDayOfLastMonth},
                      new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.DateTime2, Value = lastDayOfLastMonth}
                 };
-            var ds1 = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", param);
+            var ds1 = Database.ExecuteProcedureDataSet("dbo.TopUserList", param);
             if (ds1 != null)
                 userCluster.MonthUsers.AddRange(Enumerable.Select(ds1.Tables[0].AsEnumerable(), item => new TopUserViewModel()
                 {
@@ -122,7 +122,7 @@ namespace Quotes.DAL
                     new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.Date, Value = lastMonday},
                      new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.Date, Value = lastSunday}
                 };
-            var ds2 = DatabaseDAL.ExecuteProcedureDataSet("dbo.TopUserList", param);
+            var ds2 = Database.ExecuteProcedureDataSet("dbo.TopUserList", param);
             if (ds2 != null)
                 userCluster.WeekUsers.AddRange(Enumerable.Select(ds2.Tables[0].AsEnumerable(), item => new TopUserViewModel()
                 {

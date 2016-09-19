@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Quotes.DAL
 {
-    public static class DatabaseDAL
+    public static class Database
     {
         /// <summary>
         /// Singleton Database instance
@@ -48,7 +48,6 @@ namespace Quotes.DAL
                     }
                     if (DbInstance.State != ConnectionState.Open)
                         DbInstance.Open();
-
                     using (var dataReader = command.ExecuteReader())
                     {
                         var dataTable = new DataTable();

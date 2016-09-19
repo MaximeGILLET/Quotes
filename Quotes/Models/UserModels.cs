@@ -76,4 +76,22 @@ namespace Quotes.Models
         public List<TopUserViewModel> WeekUsers { get; set; }
 
     }
+
+    public class UserProfileViewModel
+    {
+        public UserDetailModel User { get; set; } 
+        public List<string> Badges { get; set; }
+        public List<string> Tags { get; set; }
+        public int TotalQuotes { get; set; }
+        public int TotalReactions { get; set; }
+        public int TotalFollowers { get; set; }
+        public int TotalSubs { get; set; }
+
+        public UserProfileViewModel()
+        {
+            Badges = new List<string>();
+            Tags = new List<string>();
+        }
+
+    }
 }

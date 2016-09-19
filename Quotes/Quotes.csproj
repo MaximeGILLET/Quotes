@@ -199,7 +199,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\AnnouncementDAL.cs" />
-    <Compile Include="DAL\DatabaseDAL.cs" />
+    <Compile Include="DAL\Database.cs" />
     <Compile Include="DAL\QuoteDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="FrameworkExtension\CustomAuthorizeAttribute.cs" />
@@ -615,6 +615,7 @@
     <Content Include="Views\Announcement\_Announcements.cshtml" />
     <Content Include="Views\Quote\MyFeed.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

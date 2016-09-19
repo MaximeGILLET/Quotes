@@ -88,6 +88,7 @@
     <Build Include="Tables\UserFollowings.sql" />
     <Build Include="Procedures\UserFollow.sql" />
     <Build Include="Procedures\UserUnFollow.sql" />
+    <Build Include="Tables\TagType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />

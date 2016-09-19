@@ -14,7 +14,7 @@ namespace Quotes.Models
 
         public UserQuoteViewModel(UserQuoteModel model)
         {
-            QuoteId = (int)model.Quote.QuoteId;
+            QuoteId = (model.Quote.QuoteId??0);
             QuoteDate = model.Quote.OriginalDate;
             QuoteText = model.Quote.QuoteText;
             Username = model.User.UserName;
