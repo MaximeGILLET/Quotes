@@ -57,9 +57,10 @@ else
                                     <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="TagQuote(@item.QuoteId,'Like')"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                     <span class="badge badge-dislike">@item.Dislikes</span>
                                     <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="TagQuote(@item.QuoteId,'Dislike')"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                    <span class="badge badge-star">@item.Favorites</span>
+                                    <span class="badge badge-star">@item.Stars</span>
                                     <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="TagQuote(@item.QuoteId,'Star')"><span class="glyphicon glyphicon-star-empty"></span></button>
-                                    <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right" onclick="TagQuote(@item.QuoteId,'Flag')"><span class="glyphicon glyphicon-flag"></span></button>           
+                                    <button id="tag" type="button" title="Add a Tag!" class="btn btn-default btn-tag" onclick=""><span class="glyphicon glyphicon-tag"></span></button>   
+                                    <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right" onclick="TagQuote(@item.QuoteId,'Flag')"><span class="glyphicon glyphicon-flag"></span></button>        
                                 </div>
                             </div>
                         </div>

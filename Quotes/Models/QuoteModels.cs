@@ -18,6 +18,7 @@ namespace Quotes.Models
         {
             get { return OriginalDate.ToString("yyyy-MM-dd hh:mm:ss"); }
         }
+
     }
 
     /// <summary>
@@ -27,8 +28,21 @@ namespace Quotes.Models
     {
         public int Likes { get; set; }
         public int Dislikes { get; set; }
-        public int Favorites { get; set; }
+        public int Stars { get; set; }
         public int Reports { get; set; }
+        public List<Tag> Tags { get; set; }
+
+        public SocialModel()
+        {
+            Tags = new List<Tag>();
+        }
+    }
+
+    public class Tag
+    {
+        public int TagType { get; set; }
+        public string TagLabel { get; set; }
+        public int Amount { get; set; }
     }
 
     /// <summary>

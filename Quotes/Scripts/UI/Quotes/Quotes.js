@@ -12,8 +12,8 @@ function TagQuote(quoteId, tagLabel) {
             alert("Success!");
             //update badge when done
         } else {
-            alert("Error processing your request.");
-            //display error message (already tagged,like...), if we are here it means user tried to force the button action by altering html on the page.
+            $("#errorMessage").text("There was an error performing the action:" + response.message);
+            $("#errorBox").show();
         }
     });
 

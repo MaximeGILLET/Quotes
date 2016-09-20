@@ -10,7 +10,9 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 DELETE dbo.Tag WHERE TagLabel IN ('Like','Dislike','Star','Flag');
-INSERT INTO dbo.Tag (TagLabel,TagTtyId) VALUES ('Like',1),('Dislike',1),('Star',1),('Flag',1)
+SET IDENTITY_INSERT dbo.Tag ON
+INSERT INTO dbo.Tag (TagId,TagLabel,TagTtyId) VALUES (1,'Like',1),(2,'Dislike',1),(3,'Star',1),(4,'Flag',1)
+SET IDENTITY_INSERT dbo.Tag OFF
 
 DELETE dbo.QuoteStatus 
 INSERT INTO dbo.QuoteStatus (QuoStatusId,QuoStatusLabel) VALUES (1,'Awaiting Validation'),(2,'Moderated'),(3,'Removed')

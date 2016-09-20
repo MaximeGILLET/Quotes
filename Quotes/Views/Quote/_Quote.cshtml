@@ -13,7 +13,7 @@
                 <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="QuoteLike(@Model.QuoteId)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                 <span class="badge badge-dislike">@Model.Dislikes</span>
                 <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="QuoteDislike(@Model.QuoteId)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                <span class="badge badge-star">@Model.Favorites</span>
+                <span class="badge badge-star">@Model.Stars</span>
                 <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="QuoteStar(@Model.QuoteId)"><span class="glyphicon glyphicon-star-empty"></span></button>
                 <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float:right"><span class="glyphicon glyphicon-flag"></span></button>
             </div>
