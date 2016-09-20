@@ -96,3 +96,10 @@ footer {
 .panel-heading {
     display: flex;
 }
+
+.label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.alert {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}

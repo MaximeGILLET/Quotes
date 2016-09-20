@@ -98,7 +98,7 @@ namespace Quotes.DAL
                     param.Add(new SqlParameter() { ParameterName = "@QuoteId", SqlDbType = SqlDbType.Int, Value = quote.QuoteId });
                 }
 
-                Database.ExecuteProcedure("dbo.QuoteTag", param);
+                Database.ExecuteProcedure("dbo.QuoteTagSave", param);
        
         }
 
@@ -188,6 +188,22 @@ namespace Quotes.DAL
             catch (Exception e)
             {
                 return null;
+            }
+           
+        }
+
+        private static void MapQuoteTags(List<UserQuoteModel> quotes, DataTable dt)
+        {
+            var groupedByQuoteId = dt.AsEnumerable().GroupBy(row => row.Field<int>("QuoteId"));
+
+            foreach (var group in groupedByQuoteId)
+            {
+                var quote = quotes.Find(x => x.Quote.QuoteId == group.Key);
+                foreach (DataRow row in group)
+                {
+                    quote.Quote.Tags.Add(new Tag(){TagLabel = row.Field<string>("TagLabel"),TagType = row.Field<int>("TagType"),Amount = row.Field<int>("Amount")});
+                    
+                }
             }
            
         }

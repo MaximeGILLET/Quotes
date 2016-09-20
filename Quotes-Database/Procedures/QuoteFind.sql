@@ -9,3 +9,9 @@ AS
 	CASE		
 		WHEN LEN(@text)<>0 THEN (LEN(QuoText)-LEN( REPLACE(QuoText,@text,'')))/LEN(@text) END DESC ,
 		QuoDate DESC
+		
+	SELECT QutQuoId QuoteId,tag.TagLabel,tag.TagTtyId TagType,COUNT(tag.TagId) Amount 
+	FROM dbo.QuoteUserTag qut
+	INNER JOIN dbo.Tag  tag ON tag.TagId = qut.QutTagId
+	GROUP BY qut.QutQuoId,tag.TagLabel,tag.TagTtyId
+	ORDER BY QutQuoId

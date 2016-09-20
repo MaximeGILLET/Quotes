@@ -8,5 +8,5 @@ AS
 	INNER JOIN  dbo.QuoteUserTag qut ON quo.QuoId = qut.QutQuoId
 	WHERE QutTagId IN (1,3)
 	AND ( ( @from IS NULL AND @to IS NULL) OR ( QuoDate >= @from AND QuoDate <= @to))
-	GROUP BY QutId,UserName ORDER BY Points
+	GROUP BY UserName ORDER BY Points
 RETURN 0

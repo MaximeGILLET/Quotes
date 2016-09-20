@@ -21,7 +21,7 @@ namespace Quotes.Models
 
             Likes = model.Quote.Likes;
             Dislikes = model.Quote.Dislikes;
-            Favorites = model.Quote.Favorites;
+            Stars = model.Quote.Stars;
             Reports = model.Quote.Reports;
             
 
