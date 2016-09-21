@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuoteController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuoteModels.cs" />
+    <Compile Include="Models\UserRoleViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\UserQuoteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -862,6 +864,11 @@
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Announcement\Archives.cshtml" />
+    <Content Include="Views\UserRoles\Create.cshtml" />
+    <Content Include="Views\UserRoles\Delete.cshtml" />
+    <Content Include="Views\UserRoles\Details.cshtml" />
+    <Content Include="Views\UserRoles\Edit.cshtml" />
+    <Content Include="Views\UserRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

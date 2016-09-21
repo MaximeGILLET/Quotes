@@ -67,8 +67,7 @@ namespace Quotes.Controllers
                 return HttpNotFound();
             }
             var userDetail = new UserDetailModel(userModel);
-            userDetail.assignedRoles = userModel.Roles.ToList();
-
+            userDetail.assignedRoles = new List<string>(UserManager.GetRoles(userDetail.Id));
             return View(userDetail);
         }
 
@@ -111,8 +110,7 @@ namespace Quotes.Controllers
                 return HttpNotFound();
             }
             var userDetail = new UserDetailModel(userModel);
-            userDetail.assignedRoles = userModel.Roles.ToList();
-            userDetail.roleList = db.Roles.ToList();
+            userDetail.assignedRoles = new List<string>(UserManager.GetRoles(userDetail.Id));
             return View(userDetail);
         }
 
@@ -247,15 +245,13 @@ namespace Quotes.Controllers
                     return HttpNotFound();
                 }
                 userProfile.User = new UserDetailModel(userModel);
-                userProfile.User.assignedRoles = userModel.Roles.ToList();
-                userProfile.User.roleList = db.Roles.ToList();
+                userProfile.User.assignedRoles = new List<string>(UserManager.GetRoles(userProfile.User.Id));
 
                 return View(userProfile);
             }
             userModel = UserManager.FindByName(username);
             userProfile.User = new UserDetailModel(userModel);
-            userProfile.User.assignedRoles = userModel.Roles.ToList();
-            userProfile.User.roleList = db.Roles.ToList();
+            userProfile.User.assignedRoles = new List<string>(UserManager.GetRoles(userProfile.User.Id));
             return View(userProfile);
         }
 

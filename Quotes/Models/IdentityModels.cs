@@ -61,5 +61,7 @@ namespace Quotes.Models
             return new ApplicationDbContext();
         }
 
+        public System.Data.Entity.DbSet<Quotes.Models.CustomUserRole> CustomUserRoles { get; set; }
+
     }
 }

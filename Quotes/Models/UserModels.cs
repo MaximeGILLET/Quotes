@@ -36,14 +36,8 @@ namespace Quotes.Models
         }
 
         //Profiles of the user
-        public List<CustomUserRole> assignedRoles { get; set; }
-        //Static list of profiles
-        public IEnumerable<CustomRole> roleList { get; set; }
+        public List<string> assignedRoles { get; set; }
 
-        public List<int> selectedRoles
-        {
-            get { return assignedRoles.Select(x => x.RoleId).ToList(); }
-        }
 
     }
     /*

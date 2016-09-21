@@ -24,9 +24,8 @@
                     <li>
                         Assigned Role(s) : @foreach (var role in Model.User.assignedRoles)
                                            {
-                                               var temp = role;
-                                               <div class="label @(role.RoleId == 1 ? "label-danger":role.RoleId==2?"label-primary":"label-info")">
-                                                   @Model.User.roleList.Select(x => x.Id == temp.RoleId ? x.Name : null).First()
+                                               <div class="label @(role == "Admin" ? "label-danger":role=="Moderator"?"label-primary":"label-info")">
+                                                  @role
                                                </div>
                                            }
                     </li>
