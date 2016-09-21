@@ -103,3 +103,9 @@ footer {
 .alert {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
+
+.hideme
+{
+    opacity:0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
+}

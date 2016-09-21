@@ -4,27 +4,24 @@
     ViewBag.Title = "AdminList";
 }
 
-    <h2>AdminList</h2>
+<h2>AdminList</h2>
 
-    <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12">
+        @{
+            var grid = new WebGrid(canPage: true, canSort: true, defaultSort: "QuoteDate", pageFieldName: "Page", sortDirectionFieldName: "SortDir", sortFieldName: "SortField");
+            grid.Bind(Model, autoSortAndPage: false, rowCount: Model.Count);
+        }
+        @{
+            var columns = new List<WebGridColumn>
+                {
+                    grid.Column("QuoteId", "Quote Id"),
+                    grid.Column("QuoteDate", "Submission date"),
+                    grid.Column("Username", "Author"),
+                    grid.Column("QuoteText", "Text")
+                };
 
-            @{
-                var grid = new WebGrid(canPage: true, canSort: true, defaultSort: "QuoteDate", pageFieldName: "Page", sortDirectionFieldName: "SortDir", sortFieldName: "SortField");
-                grid.Bind(Model, autoSortAndPage: false, rowCount: Model.Count);
-            }
-            @{
-                var columns = new List<WebGridColumn>
-                    {
-                        grid.Column("QuoteId", "Quote Id"),
-                        grid.Column("QuoteDate", "Submission date"),
-                        grid.Column("Username", "Author"),
-                        grid.Column("QuoteText", "Text")
-                    };
-
-                @grid.GetHtml(htmlAttributes: new { id = "AdminQuoteList" }, tableStyle: "table table-striped table-bordered", columns: columns)
-            }
-
-
-        </div>
+            @grid.GetHtml(htmlAttributes: new { id = "AdminQuoteList" }, tableStyle: "table table-striped table-bordered", columns: columns)
+        }
     </div>
+</div>

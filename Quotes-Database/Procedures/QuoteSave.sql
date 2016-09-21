@@ -12,7 +12,7 @@ AS
 		END
 		ELSE
 		BEGIN
-			INSERT INTO dbo.Quote (QuoUsrId,QuoText,QuoDate) VALUES (@UsrId,@text,SYSUTCDATETIME())
+			INSERT INTO dbo.Quote (QuoUsrId,QuoText,QuoDate,QuoStatus) VALUES (@UsrId,@text,SYSUTCDATETIME(),2)
 		END
 	END
 

@@ -3,22 +3,23 @@
     ViewBag.Title = "Home Page";
     var isAdmin = Request.IsAuthenticated && User.IsInRole("Admin");
 }
+
 <script src="../../Scripts/ckeditor/ckeditor.js"></script>
 <div class="page-header">
     <h1>Welcome to MyQuotes</h1>
 </div>
 <div class="row">
     <div class="col-lg-3">
-        <div class="panel panel-default panel-info" style="border-color: #0759A5;">
-            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
+        <div class="panel panel-default panel-info">
+            <div class="panel-heading" >
                 <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span>&ensp;Top Tags of the Day</h3>
             </div>
             <div  class="panel-body">
                 <ul id="topTags"></ul>
             </div>
         </div>
-        <div class="panel panel-default panel-info" style="border-color: #0759A5;">
-            <div class="panel-heading" style="background-image:url('/Content/img/blue-leather.jpg');color: white;">
+        <div class="panel panel-default panel-info" >
+            <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>&ensp;Key Figures</h3>
             </div>
             <div class="panel-body">
@@ -34,26 +35,29 @@
         @{
             Html.RenderAction("List","Announcement");
         }
+        <form method="GET" action="/Announcement/Archives">
+            <button id="viewArchives" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-folder-open"></span>&ensp;Archives</button>
+        </form>
     </div>
     <div class="col-lg-3">
-        <div class="panel panel-default panel-success" style="border-color: goldenrod;">
-            <div class="panel-heading" style="background-image:url('/Content/img/gold-leather.jpg');color: black;">
+        <div class="panel panel-default panel-success">
+            <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of All Time</h3>
             </div>
             <div class="panel-body">
                 <ul id="topUsers"></ul>
             </div>
         </div>
-        <div class="panel panel-default panel-success" style="border-color: silver;">
-            <div class="panel-heading" style="background-image:url('/Content/img/silver-leather2.jpg');color: black;">
+        <div class="panel panel-default panel-success" >
+            <div class="panel-heading" >
                 <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of Last Month</h3>
             </div>
             <div class="panel-body">
                 <ul id="topUsersMonth"></ul>
             </div>
         </div>
-        <div class="panel panel-default panel-success" style="border-color: coral;">
-            <div class="panel-heading" style="background-image:url('/Content/img/coral-leather.jpg');color: black;">
+        <div class="panel panel-default panel-success" >
+            <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-king"></span>&ensp;Top Users of Last Week</h3>
             </div>
             <div class="panel-body">
@@ -99,7 +103,7 @@
                 $.each(data.users, function (i) {
                     $("#lastRegisterUsers").append(
                         $('<li>')
-                        .text(data.users[i].Username + " : " + data.users[i].Label)
+                        .html("<a href='Users/Profile?username=" + data.users[i].Username + "' style='color:black'>" + data.users[i].Username + "</a> : " + data.users[i].Label)
                     );
                 });
             } else {
@@ -119,7 +123,7 @@
                 $.each(data.users, function (i) {
                     $("#topUsers").append(
                       $('<li>')
-                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                      .html("<a href='Users/Profile?username=" + data.users[i].Username + "' style='color:black'>" + data.users[i].Username + "</a> : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
                   );
                 });
                 //Top month
@@ -127,7 +131,7 @@
                 $.each(data.monthUsers, function (i) {
                     $("#topUsersMonth").append(
                       $('<li>')
-                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                      .html("<a href='Users/Profile?username=" + data.users[i].Username + "' style='color:black'>" + data.users[i].Username + "</a> : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
                   );
                 });
                 //Top week
@@ -135,7 +139,7 @@
                 $.each(data.weekUsers, function (i) {
                     $("#topUsersWeek").append(
                       $('<li>')
-                      .html(data.users[i].Username + " : " + data.users[i].Points + "&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
+                      .html("<a href='Users/Profile?username=" + data.users[i].Username + "' style='color:black'>" + data.users[i].Username + "</a> : " + data.users[i].Points + "</a>&ensp;<span><img src='Content/img/Coin.png' height='16'/></span>")
                   );
                 });
             } else {

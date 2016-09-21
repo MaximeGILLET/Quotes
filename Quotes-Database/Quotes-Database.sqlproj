@@ -90,6 +90,7 @@
     <Build Include="Procedures\UserFollow.sql" />
     <Build Include="Procedures\UserUnFollow.sql" />
     <Build Include="Tables\TagType.sql" />
+    <Build Include="Tables\Country.sql" />
     <Build Include="View\QuoteDetail.sql" />
     <Build Include="Procedures\QuoteTagList.sql" />
   </ItemGroup>
