@@ -28,10 +28,14 @@ namespace Quotes.DAL
             return true;
         }
 
-        public static List<AnnouncementModel> GetList()
+        public static List<AnnouncementModel> GetList(string status = null)
         {
+            var parameters = new List<SqlParameter>();
+            if (status != null)
+                parameters.Add(new SqlParameter("@status", SqlDbType.VarChar) { Value = status });
+
             var annList = new List<AnnouncementModel>();
-            var ds = Database.ExecuteProcedureDataSet("dbo.AnnouncementList", null);
+            var ds = Database.ExecuteProcedureDataSet("dbo.AnnouncementList", parameters);
             if (ds != null)
                 annList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new AnnouncementModel()
                 {

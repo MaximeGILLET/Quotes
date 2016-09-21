@@ -82,5 +82,11 @@ namespace Quotes.Controllers
 
         }
 
+        public ActionResult Archives()
+        {
+
+            return View();
+        }
+
     }
 }

@@ -9,8 +9,8 @@
     {
         continue;
     }
-    <div class="panel panel-default @(ann.Status == "Published" ? "panel-primary" : ann.Status == "Backlog"?"panel-info":"panel-warning")" style="border-color: black">
-        <div class="panel-heading" style="background-image:url('/Content/img/leather.png')">
+    <div class="panel panel-default hideme @(ann.Status == "Published" ? "panel-primary" : ann.Status == "Backlog"?"panel-info":"panel-warning")" style="border-color: black">
+        <div class="panel-heading">
             <h3 name="@ann.Id" id="head-title@(ann.Id)" class="panel-title col-lg-12" style="font-weight: bold;color: white">@ann.Title</h3>
             <input name="title@(ann.Id)" class="col-lg-12" id="input-title@(ann.Id)" type="text" maxlength="256" style="color: black;display: none" />
             @if (isAdmin)
@@ -64,8 +64,6 @@
                     <button id="deleteAnn" type="button" class="btn btn-default" data-dismiss="modal">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
-                
-                  
             </div>
         </div>
     </div>
@@ -193,3 +191,37 @@
 
     </script>
 }
+<script>
+    function triggerFadeIn() {
+
+        $('.hideme').each(function (i) {
+
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+            /* If the object is completely visible in the window, fade it it */
+            if (bottom_of_window > bottom_of_object) {
+
+                $(this).animate({ 'opacity': '1' }, 500);
+
+            }
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        /* Show initial elements */
+        triggerFadeIn();
+
+        /* Every time the window is scrolled ... */
+        $(window).scroll(function () {
+
+            /* Check the location of each desired element */
+            triggerFadeIn();
+
+        });
+
+    });
+
+</script>

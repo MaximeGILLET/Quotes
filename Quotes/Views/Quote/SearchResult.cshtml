@@ -1,6 +1,8 @@
 ﻿@using Quotes.Models
 @model List<UserQuoteModel>
-
+@{
+    ViewBag.Title = "Search";
+}
 <h2>Search Result : </h2>
 
 <div class="row">
@@ -12,8 +14,8 @@
                 {
                     <li class="media">
                         <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="@item.User.ProfileIconPath" alt="">
+                            <a href="/Users/Profile?username=@item.User.UserName">
+                                <img class="media-object" src="@item.User.ProfileIconPath" alt="@item.User.UserName" height="128" width="128">
                             </a>
                         </div>
                         <div class="media-body">
@@ -24,12 +26,12 @@
                                 </div>
                                 <div class="panel-footer">
                                     <span class="badge badge-like">@item.Quote.Likes</span>
-                                    <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick=" TagQuote(@item.Quote.QuoteId, 'Like') "><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                    <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="TagQuote(@item.Quote.QuoteId, 'Like') "><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                     <span class="badge badge-dislike">@item.Quote.Dislikes</span>
-                                    <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick=" TagQuote(@item.Quote.QuoteId, 'Dislike') "><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                    <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="TagQuote(@item.Quote.QuoteId, 'Dislike') "><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                     <span class="badge badge-star">@item.Quote.Stars</span>
-                                    <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick=" TagQuote(@item.Quote.QuoteId, 'Star') "><span class="glyphicon glyphicon-star-empty"></span></button>
-                                    <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float: right" onclick=" TagQuote(@item.Quote.QuoteId, 'Flag') "><span class="glyphicon glyphicon-flag"></span></button>
+                                    <button id="favorite" type="button" title="Add to Favorites!" class="btn btn-default btn-star" onclick="TagQuote(@item.Quote.QuoteId, 'Star') "><span class="glyphicon glyphicon-star-empty"></span></button>
+                                    <button id="report" type="button" title="Report Quote!" class="btn btn-default btn-flag" style="float: right" onclick="TagQuote(@item.Quote.QuoteId, 'Flag') "><span class="glyphicon glyphicon-flag"></span></button>
                                 </div>
                             </div>
                         </div>

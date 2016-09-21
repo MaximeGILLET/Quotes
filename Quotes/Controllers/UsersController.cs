@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
 using Quotes.DAL;
@@ -18,20 +19,32 @@ namespace Quotes.Controllers
     public class UsersController : Controller
     {
 
-        private ApplicationRoleManager _roleManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public UsersController()
         {
 
 
         }
+
         public UsersController(ApplicationRoleManager roleManager, ApplicationUserManager userManager)
         {
-            _roleManager = roleManager;
             _userManager = userManager;
         }
-        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
 
         // GET: UserModels
         [CustomAuthorize(Roles = "Admin")]
@@ -111,7 +124,7 @@ namespace Quotes.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,UserName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount")] ApplicationUser userModel)
         {
-            //TODO carefull with the binding, some values are missing and those we erase the value in database, to be fixed!!
+            //TODO carefull with the editings, if some values are missing those will erase the value in database!!
             if (ModelState.IsValid)
             {
                 db.Entry(userModel).State = EntityState.Modified;
@@ -220,6 +233,10 @@ namespace Quotes.Controllers
         [CustomAuthorize]
         public ActionResult Profile(string username)
         {
+            if (String.IsNullOrEmpty(username) || username == User.Identity.Name)
+            {
+                ViewBag.IsMine = true;
+            }
             ApplicationUser userModel = null;
             var userProfile = new UserProfileViewModel();
             if (username == null)
@@ -235,11 +252,11 @@ namespace Quotes.Controllers
 
                 return View(userProfile);
             }
-            userModel = _userManager.FindByName(username);
-            userProfile.User = new UserDetailModel();
+            userModel = UserManager.FindByName(username);
+            userProfile.User = new UserDetailModel(userModel);
             userProfile.User.assignedRoles = userModel.Roles.ToList();
             userProfile.User.roleList = db.Roles.ToList();
-            return View();
+            return View(userProfile);
         }
 
         protected override void Dispose(bool disposing)

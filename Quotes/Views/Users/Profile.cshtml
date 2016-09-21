@@ -1,6 +1,7 @@
 ﻿@model Quotes.Models.UserProfileViewModel
 @{
     ViewBag.Title = "Profile";
+                    
 }
 
 <h2>Profile</h2>
@@ -15,6 +16,7 @@
                 <ul class="list-unstyled">
                     <li>
                         <img src="" alt="Profile Picture" height="128" width="128" />
+                        <button id="follow" type="button" title="Follow User!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-pushpin"></span></button>
                     </li>
                     <li><hr></li>
                     <li> Registration Date : @Model.User.RegistrationDate</li>
