@@ -158,7 +158,7 @@ namespace Quotes.DAL
                     Quote = new QuoteModel()
                     {
                         QuoteId = item.Field<int>("QuoId"),
-                        UserId = item.Field<int>("QuousrId"),
+                        UserId = item.Field<int>("QuoUsrId"),
                         QuoteText = item.Field<string>("QuoText"),
                         OriginalDate = item.Field<DateTime>("QuoDate")
                     },
@@ -190,6 +190,24 @@ namespace Quotes.DAL
                 return null;
             }
            
+        }
+
+        public static QuoteModel FindRandomQuote()
+        {
+
+            var ds = Database.ExecuteProcedureDataSet("dbo.QuoteRandomFind", null);
+            if(ds.Tables[0].Rows.Count == 1)
+            {
+                DataRow item = ds.Tables[0].Rows[0];
+                return new QuoteModel()
+                {
+                    QuoteId = item.Field<int>("QuoId"),
+                    UserId = item.Field<int>("QuoUsrId"),
+                    QuoteText = item.Field<string>("QuoText"),
+                    OriginalDate = item.Field<DateTime>("QuoDate")
+                };
+            }
+            return null;
         }
 
         private static void MapQuoteTags(List<UserQuoteModel> quotes, DataTable dt)

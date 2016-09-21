@@ -9,8 +9,8 @@
     {
         continue;
     }
-    <div class="panel panel-default hideme @(ann.Status == "Published" ? "panel-primary" : ann.Status == "Backlog"?"panel-info":"panel-warning")" style="border-color: black">
-        <div class="panel-heading">
+    <div class="panel panel-default hideme panel-@(ann.Status)">
+        <div class="panel-heading head-@(ann.Status)">
             <h3 name="@ann.Id" id="head-title@(ann.Id)" class="panel-title col-lg-12" style="font-weight: bold;color: white">@ann.Title</h3>
             <input name="title@(ann.Id)" class="col-lg-12" id="input-title@(ann.Id)" type="text" maxlength="256" style="color: black;display: none" />
             @if (isAdmin)

@@ -8,15 +8,18 @@
 
 <div class="row">
     <div class="col-lg-4">
-        <div class="panel panel-info">
+        <div class="panel panel-profile">
             <div class="panel-heading">
-                @Model.User.UserName
+                <h4>@Model.User.UserName</h4>
             </div>
             <div class="panel-body">
                 <ul class="list-unstyled">
                     <li>
                         <img src="" alt="Profile Picture" height="128" width="128" />
-                        <button id="follow" type="button" title="Follow User!" class="btn btn-default" style="float:right"><span class="glyphicon glyphicon-pushpin"></span></button>
+                        <div class="btn-group" style="float:right">
+                            <button id="pm" type="button" title="PM User!" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span>&ensp;PM</button>
+                            <button id="follow" type="button" title="Follow User!" class="btn btn-default" ><span class="glyphicon glyphicon-user"></span>+</button>                           
+                        </div>
                     </li>
                     <li><hr></li>
                     <li> Registration Date : @Model.User.RegistrationDate</li>
@@ -60,7 +63,7 @@
                 </ul>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-profile">
             <div class="panel-body">
                 <ul class="list-unstyled">
                     @foreach (var tag in Model.Tags)
@@ -70,7 +73,7 @@
                 </ul>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-profile">
             <div class="panel-body">
                 <ul class="list-unstyled">
                     @foreach (var badge in Model.Badges)
@@ -83,9 +86,9 @@
 
     </div>
     <div class="col-lg-8">
-        <div class="panel panel-info">
+        <div class="panel panel-profile">
             <div class="panel-heading">
-                Statistics :
+                <h4>Statistics :</h4>              
             </div>
             <div class="panel-body">
 
@@ -94,4 +97,14 @@
         </div>
     </div>
 </div>
+<style>
+    .panel-profile {
+        border-color: #546694;
+    }
+   .panel-profile>.panel-heading{
+        color: white;
+        background-color: #546694;
+        border-color: #000000;
+    }
+</style>
 

@@ -39,6 +39,11 @@ namespace Quotes.Controllers
         [HttpPost]
         public ActionResult SearchQuote(string searchText)
         {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                return View("SearchResult",null);
+            }
+
             ViewData["research"] = searchText;
             //search quote in database and Load result page
             return View("SearchResult", QuoteDAL.FindQuotes(searchText));
@@ -171,6 +176,12 @@ namespace Quotes.Controllers
         public ActionResult MyFeed()
         {
             return View();
+        }
+
+        [CustomAuthorize]
+        public PartialViewResult Random()
+        {
+            return PartialView("_Quote",QuoteDAL.FindRandomQuote());
         }
 
     }

@@ -109,3 +109,24 @@ footer {
     opacity:0;
     filter: alpha(opacity=0); /* For IE8 and earlier */
 }
+
+.panel-Backlog{
+    border-color : #9194a2!important;
+}
+.head-Backlog{
+    background-color : #9194a2!important;
+}
+
+.panel-Published{
+    border-color : #546694!important;
+}
+.head-Published{
+    background-color : #546694!important;
+}
+
+.panel-Archived{
+    border-color : #0f2d1e!important;
+}
+.head-Archived{
+    background-color : #0f2d1e!important;
+}
