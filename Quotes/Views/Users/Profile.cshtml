@@ -15,11 +15,18 @@
             <div class="panel-body">
                 <ul class="list-unstyled">
                     <li>
-                        <img src="" alt="Profile Picture" height="128" width="128" />
+                        <img src="/Content/Users/Images/@(Model.User.Id).jpg" alt="128x128" height="128" width="128" />
                         <div class="btn-group" style="float:right">
                             <button id="pm" type="button" title="PM User!" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span>&ensp;PM</button>
                             <button id="follow" type="button" title="Follow User!" class="btn btn-default" ><span class="glyphicon glyphicon-user"></span>+</button>                           
                         </div>
+                    </li>
+                    <li>
+                        <label for="uploader">Upload Image:</label>  
+                        <form method="POST" action="/Users/UploadImage" id="uploader">
+                            <input id="file" type="file" name="file" required />
+                        </form>
+                        <button id="upload" type="button" title="Upload Image!" class="btn btn-default" onclick="uploadFile()"><span class="glyphicon glyphicon-open"></span>Upload Image</button>
                     </li>
                     <li><hr></li>
                     <li> Registration Date : @Model.User.RegistrationDate</li>
@@ -28,7 +35,7 @@
                         Assigned Role(s) : @foreach (var role in Model.User.assignedRoles)
                                            {
                                                <div class="label @(role == "Admin" ? "label-danger":role=="Moderator"?"label-primary":"label-info")">
-                                                  @role
+                                                   @role
                                                </div>
                                            }
                     </li>
@@ -68,7 +75,7 @@
                 <ul class="list-unstyled">
                     @foreach (var tag in Model.Tags)
                     {
-                      //TODO
+                        //TODO
                     }
                 </ul>
             </div>
@@ -97,14 +104,74 @@
         </div>
     </div>
 </div>
+
+<div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="top: 50%">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content text-center">
+            Uploading File ...
+            <div class="progress">
+                <div id="barFile" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    0%
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     .panel-profile {
         border-color: #546694;
     }
-   .panel-profile>.panel-heading{
+    .panel-profile>.panel-heading{
         color: white;
         background-color: #546694;
         border-color: #000000;
     }
 </style>
+<script>
+
+    function uploadFile() {
+        $("#uploadModal").modal('show');
+        /*
+        $("#uploader").submit();
+
+        var formData = new FormData(new FormData($("#uploader")));
+        */
+        var formData = new FormData();
+        var file = $("#file")[0].files[0];
+        formData.append("file", file);
+        var ajax = new XMLHttpRequest();
+        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax.addEventListener("load", completeHandler, false);
+        ajax.open("POST", "/Users/UploadImage");
+        ajax.send(formData);
+
+    }
+    function progressHandler(event) {
+        var percent = (event.loaded / event.total) * 100;
+        $('#barFile').width(percent+'%');
+        $('#barFile').text(percent+'%');
+    }
+
+    function completeHandler() {
+        $('#barFile').width(100);
+        $("#uploadModal").modal('hide');
+
+    }
+
+    var _URL = window.URL || window.webkitURL;
+    $("#file").change(function (e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            var extension = file.name.split('.').pop().toLowerCase();
+            img = new Image();
+            img.src = _URL.createObjectURL(file);
+            if (this.width > 128 || this.height > 128 || file.size > 100000 || (extension != "jpg" || extension != "png")) {
+                alert("Image must be max. 128x128, not exceed 100Ko and be a jpg or png format.");
+                $('#file').val("");
+            }
+        }
+    });
+
+
+</script>
 

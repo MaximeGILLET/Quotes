@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -253,6 +254,28 @@ namespace Quotes.Controllers
             userProfile.User = new UserDetailModel(userModel);
             userProfile.User.assignedRoles = new List<string>(UserManager.GetRoles(userProfile.User.Id));
             return View(userProfile);
+        }
+
+        [CustomAuthorize]
+        [HttpPost]
+        public JsonResult UploadImage(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/Content/Users/Images"), User.Identity.GetUserId<int>()+".jpg");
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message;
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return Json(new { success = true, }, JsonRequestBehavior.AllowGet); 
         }
 
         protected override void Dispose(bool disposing)

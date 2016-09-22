@@ -875,7 +875,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\profile-pictures\" />
+    <Folder Include="Content\Users\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
