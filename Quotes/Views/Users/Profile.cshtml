@@ -1,6 +1,7 @@
 ﻿@model Quotes.Models.UserProfileViewModel
 @{
     ViewBag.Title = "Profile";
+    bool isMyProfile = ViewBag.IsMine;
                     
 }
 
@@ -16,18 +17,24 @@
                 <ul class="list-unstyled">
                     <li>
                         <img src="/Content/Users/Images/@(Model.User.Id).jpg" alt="128x128" height="128" width="128" />
+                        @if (!isMyProfile)
+                        {
                         <div class="btn-group" style="float:right">
                             <button id="pm" type="button" title="PM User!" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span>&ensp;PM</button>
-                            <button id="follow" type="button" title="Follow User!" class="btn btn-default" ><span class="glyphicon glyphicon-user"></span>+</button>                           
+                            <button id="follow" type="button" title="Follow User!" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>+</button>
                         </div>
+                        }
                     </li>
+                    @if (isMyProfile)
+                    {
                     <li>
-                        <label for="uploader">Upload Image:</label>  
+                        <label for="uploader">Upload Image:</label>
                         <form method="POST" action="/Users/UploadImage" id="uploader">
                             <input id="file" type="file" name="file" required />
                         </form>
                         <button id="upload" type="button" title="Upload Image!" class="btn btn-default" onclick="uploadFile()"><span class="glyphicon glyphicon-open"></span>Upload Image</button>
                     </li>
+                    }
                     <li><hr></li>
                     <li> Registration Date : @Model.User.RegistrationDate</li>
                     <li> Last Seen : N/A</li>
@@ -165,7 +172,7 @@
             var extension = file.name.split('.').pop().toLowerCase();
             img = new Image();
             img.src = _URL.createObjectURL(file);
-            if (this.width > 128 || this.height > 128 || file.size > 100000 || (extension != "jpg" || extension != "png")) {
+            if (this.width > 128 || this.height > 128 || file.size > 100000 || file.size < 512 || (extension != "jpg" || extension != "png")) {
                 alert("Image must be max. 128x128, not exceed 100Ko and be a jpg or png format.");
                 $('#file').val("");
             }
