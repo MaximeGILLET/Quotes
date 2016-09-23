@@ -92,12 +92,13 @@ namespace Quotes.Controllers
             DateTime? fromDate = null;
             DateTime? toDate = null;
             var calendar = new CalendarModel();
+            var startTime = new DateTime(1970, 1, 1);
             try
             {
                 if (from != null)
-                    fromDate = DateTime.Parse(from);
+                    fromDate = startTime.Add(TimeSpan.FromMilliseconds(Convert.ToDouble(from.Substring(0,13))));
                 if (to != null)
-                    toDate = DateTime.Parse(to);
+                    toDate = startTime.Add(TimeSpan.FromMilliseconds(Convert.ToDouble(to.Substring(0, 13))));
 
 
                 var quoteList = QuoteDAL.QuoteFilterList(searchText, userName, fromDate, toDate, maxRecords, order);
@@ -126,7 +127,7 @@ namespace Quotes.Controllers
 
             calendar.success = 1;
             var ouput = JsonConvert.SerializeObject(calendar);
-            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            var json_serializer = new JavaScriptSerializer();
             //return json result in success
             return new JsonResult
             {
@@ -143,10 +144,11 @@ namespace Quotes.Controllers
         }
 
         [CustomAuthorize]
-        public JsonResult MyCalendar()
+        public JsonResult MyCalendar(string userName, string searchText = null, string from = null,
+            string to = null, int maxRecords = 1000, string order = "DESC")
         {
 
-            return SearchForCalendar(User.Identity.Name);
+            return SearchForCalendar(User.Identity.Name, searchText,from,to,maxRecords,order);
         }
 
         [HttpPost]

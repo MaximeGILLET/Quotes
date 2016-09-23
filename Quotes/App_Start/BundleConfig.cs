@@ -29,7 +29,9 @@ namespace Quotes
                         "~/Scripts/UI/Quotes/Quotes.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/Calendar").Include(
-                      "~/Scripts/Plugins/Calendar/calendar.js"));
+                      "~/Scripts/Plugins/Calendar/calendar.js",
+                       "~/Scripts/UI/calendarInit.js"
+                      ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/DataTable").Include(

@@ -789,6 +789,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UI\calendarInit.js" />
     <Content Include="Scripts\UI\Quotes\Quotes.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="favicon.ico" />
@@ -801,6 +802,9 @@
     <Content Include="tmpls\week.html" />
     <Content Include="tmpls\year-month.html" />
     <Content Include="tmpls\year.html" />
+    <Content Include="Views\Quote\Calendar.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -860,7 +864,6 @@
     <Content Include="NotFound.htm" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Account\Login2.cshtml" />
-    <Content Include="Views\Quote\Calendar.cshtml" />
     <Content Include="Views\Quote\AdminQuoteList.cshtml" />
     <Content Include="Views\Announcement\_Announcements.cshtml" />
     <Content Include="Views\Quote\MyFeed.cshtml" />

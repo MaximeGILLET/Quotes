@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Quotes.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -51,6 +52,36 @@ namespace Quotes.DAL
             return annList;
 
         }
+
+        public static AnnouncementModel AnnouncementFind(int id)
+        {
+            return null;
+        }
+
+        public static List<AnnouncementModel> AnnouncementFilterList(string text, string userName, DateTime? fromDate, DateTime? toDate, int maxRecords, string order)
+        {
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@text",SqlDbType = SqlDbType.NVarChar, Value = text},
+                    new SqlParameter() {ParameterName = "@userName",SqlDbType = SqlDbType.VarChar, Value = userName},
+                    new SqlParameter() {ParameterName = "@from",SqlDbType = SqlDbType.DateTime2, Value = fromDate},
+                    new SqlParameter() {ParameterName = "@to",SqlDbType = SqlDbType.DateTime2, Value = toDate},
+                    new SqlParameter() {ParameterName = "@maxRecords",SqlDbType = SqlDbType.Int, Value = maxRecords}
+                };
+
+            var annList = new List<AnnouncementModel>();
+            var ds = Database.ExecuteProcedureDataSet("dbo.AnnouncementFilterList", param);
+            if (ds != null)
+                annList.AddRange(Enumerable.Select(ds.Tables[0].AsEnumerable(), item => new AnnouncementModel()
+                {
+                        Id = item.Field<int>("AnnId"),
+                        Title = item.Field<string>("AnnTitle"),
+                        Author = item.Field<string>("UserName"),
+                        CreationTime = item.Field<DateTime>("AnnCreationDate")
+                }));
+
+            return annList;
+        } 
 
         internal static void Delete(int id)
         {
