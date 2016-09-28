@@ -434,10 +434,12 @@ namespace Quotes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Relog()
+
+        public ActionResult Relog(string returnUrl)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "Account");
+            ViewBag.ReturnUrl = returnUrl;
+            return View("Login");
         }
 
         //

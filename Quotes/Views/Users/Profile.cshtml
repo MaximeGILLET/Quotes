@@ -266,7 +266,7 @@
             //get data-id attribute of the clicked element
             $("#confirmRelog").click(function (event) {
                 event.preventDefault();
-                $.get("/Account/Relog");
+                $.get("/Account/Relog?returnUrl=" + window.location.href);
             });
 
         });
