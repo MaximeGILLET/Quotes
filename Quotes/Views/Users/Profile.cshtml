@@ -11,7 +11,15 @@
     <div class="col-lg-4">
         <div class="panel panel-profile">
             <div class="panel-heading">
-                <h4>@Model.User.UserName</h4>
+                <h4 id="head-username" class="col-lg-12">@Model.User.UserName</h4>
+                <input name="username" class="col-lg-12" id="input-username" type="text" maxlength="256" style="color: black;display: none;font-size: 18px;" />
+                @if (isMyProfile)
+                {
+                    <button id="username-edit" type="button" class="btn-edit-profile" onclick="editUsername()"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button id="username-save" type="button" class="btn-edit-profile" onclick="saveUsername()" style="display: none"><span class="glyphicon glyphicon-ok"></span></button>
+                    <button id="username-close" type="button" class="btn-edit-profile" onclick="closeUsername()" style="display: none"><span class="glyphicon glyphicon-remove"></span></button>
+                    
+                }
             </div>
             <div class="panel-body">
                 <ul class="list-unstyled">
@@ -29,10 +37,10 @@
                     {
                     <li>
                         <label for="uploader">Upload Image:</label>
-                        <form method="POST" action="/Users/UploadImage" id="uploader">
+                        <form id="uploader" class="form-group" method="POST" action="/Users/UploadImage">
                             <input id="file" type="file" name="file" required />
                         </form>
-                        <button id="upload" type="button" title="Upload Image!" class="btn btn-default" onclick="uploadFile()"><span class="glyphicon glyphicon-open"></span>Upload Image</button>
+                        <button id="upload" type="button" title="Upload Image!" class="btn btn-default" onclick="uploadFile()" style="display:none"><span class="glyphicon glyphicon-open"></span>Upload Image</button>
                     </li>
                     }
                     <li><hr></li>
@@ -134,51 +142,139 @@
         border-color: #000000;
     }
 </style>
-<script>
 
-    function uploadFile() {
-        $("#uploadModal").modal('show');
-        /*
-        $("#uploader").submit();
+<div id="modalConfirm" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title text-center" id="mySmallModalLabel">Username Updated!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    Your username has been updated successfully, you will have to relog to confirm your change.
+                </div>
+                <br>
+                <div class="text-center">
+                    <button id="confirmRelog" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (isMyProfile)
+{
+    <script>
+        function uploadFile() {
+            $("#uploadModal").modal('show');
+            /*
+            $("#uploader").submit();
 
-        var formData = new FormData(new FormData($("#uploader")));
-        */
-        var formData = new FormData();
-        var file = $("#file")[0].files[0];
-        formData.append("file", file);
-        var ajax = new XMLHttpRequest();
-        ajax.upload.addEventListener("progress", progressHandler, false);
-        ajax.addEventListener("load", completeHandler, false);
-        ajax.open("POST", "/Users/UploadImage");
-        ajax.send(formData);
+            var formData = new FormData(new FormData($("#uploader")));
+            */
+            var formData = new FormData();
+            var file = $("#file")[0].files[0];
+            formData.append("file", file);
+            var ajax = new XMLHttpRequest();
+            ajax.upload.addEventListener("progress", progressHandler, false);
+            ajax.addEventListener("load", completeHandler, false);
+            ajax.open("POST", "/Users/UploadImage");
+            ajax.send(formData);
 
-    }
-    function progressHandler(event) {
-        var percent = (event.loaded / event.total) * 100;
-        $('#barFile').width(percent+'%');
-        $('#barFile').text(percent+'%');
-    }
-
-    function completeHandler() {
-        $('#barFile').width(100);
-        $("#uploadModal").modal('hide');
-
-    }
-
-    var _URL = window.URL || window.webkitURL;
-    $("#file").change(function (e) {
-        var file, img;
-        if ((file = this.files[0])) {
-            var extension = file.name.split('.').pop().toLowerCase();
-            img = new Image();
-            img.src = _URL.createObjectURL(file);
-            if (this.width > 128 || this.height > 128 || file.size > 100000 || file.size < 512 || (extension != "jpg" || extension != "png")) {
-                alert("Image must be max. 128x128, not exceed 100Ko and be a jpg or png format.");
-                $('#file').val("");
-            }
         }
-    });
+        function progressHandler(event) {
+            var percent = (event.loaded / event.total) * 100;
+            $('#barFile').width(percent + '%');
+            $('#barFile').text(percent + '%');
+        }
+
+        function completeHandler() {
+            $('#barFile').width(100);
+            $("#uploadModal").modal('hide');
+
+        }
+
+        var _URL = window.URL || window.webkitURL;
+        $("#file").change(function (e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                var extension = file.name.split('.').pop().toLowerCase();
+                img = new Image();
+                img.src = _URL.createObjectURL(file);
+                img.onload = function () {
+                    if (this.width > 128 || this.height > 128) {
+                        alert("Image must be max. 128x128");
+                        $('#file').val("");
+                        $("#upload").hide();
+                        return;
+
+                    } else if (file.size > 100000 || file.size < 512 || (extension !== "jpg" && extension !== "png")) {
+                        alert("The file must not exceed 100Ko and be a jpg or png format.");
+                        $('#file').val("");
+                        $("#upload").hide();
+                        return;
+                    }
+                    $("#upload").show();
+                };
+
+            }
+        });
+        function editUsername() {
+            $("#input-username").val($("#head-username").text());
+            $("#username-edit").hide();
+            $("#head-username").hide();
+            $("#username-close").show();
+            $("#username-save").show();
+            $("#input-username").show();
+
+        }
+
+        function closeUsername() {
+            $("#input-username").hide();
+            $("#username-save").hide();
+            $("#username-close").hide();
+            $("#username-edit").show();
+            $("#head-username").show();
+        }
+
+        function saveUsername() {
+            $("#head-username").text($("#input-username").val());
+            $("#input-username").hide();
+            $("#username-save").hide();
+            $("#username-close").hide();
+            $("#username-edit").show();
+            $("#head-username").show();
+
+            $.post("Rename", { newName: $("#head-username").text() }, function (data) {
+                if (data.success) {
+                    $("#successMessage").text("Username Updated succesfully.");
+                    $("#successBox").show();
+                    setTimeout(function () {
+                        $('#successBox').fadeOut('fast');
+                    }, 3000);
+                    $('#modalConfirm').modal('show');
+                } else {
+                    $("#errorMessage").text("There was an error updating Username :" + data.message);
+                    $("#errorBox").show();
+                }
+            }, "json");
+        }
+
+        $('#modalConfirm').on('show.bs.modal', function (e) {
+            //get data-id attribute of the clicked element
+            $("#confirmRelog").click(function (event) {
+                event.preventDefault();
+                $.get("/Account/Relog");
+            });
+
+        });
+    </script>
 
 
-</script>
+}
+
+
+
 

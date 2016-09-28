@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.Provider;
 using Quotes.FrameworkExtension;
 using Quotes.Models;
 using Quotes.DAL;
@@ -256,8 +257,8 @@ namespace Quotes.Controllers
             return View(userProfile);
         }
 
-        [CustomAuthorize]
         [HttpPost]
+        [CustomAuthorize]
         public JsonResult UploadImage(HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
@@ -276,6 +277,36 @@ namespace Quotes.Controllers
                 ViewBag.Message = "You have not specified a file.";
             }
             return Json(new { success = true, }, JsonRequestBehavior.AllowGet); 
+        }
+
+        [HttpPost]
+        [CustomAuthorize]
+        public JsonResult Rename(string newName)
+        {
+            if (newName != null && newName != User.Identity.Name)
+            {
+                try
+                {
+                    //Check name availability
+                    if (UserManager.FindByName(newName) != null)
+                    {
+                        return Json(new { success = false, message = "Username already in use" }, JsonRequestBehavior.AllowGet);
+                    }
+                    //Proceed the update
+                    var userToUpdate = new ApplicationUser { Id = User.Identity.GetUserId<int>(), UserName = newName };
+                    db.Users.Attach(userToUpdate);
+                    db.Entry(userToUpdate).Property(u => u.UserName).IsModified = true;
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
+
+                }
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = false, message = "Please chose a username different from the actual one"}, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

@@ -434,6 +434,12 @@ namespace Quotes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Relog()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Account");
+        }
+
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]

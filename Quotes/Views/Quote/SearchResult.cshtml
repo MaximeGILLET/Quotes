@@ -14,14 +14,14 @@
                 {
                     <li class="media">
                         <div class="media-left">
-                            <a href="/Users/Profile?username=@item.User.UserName">
-                                <img class="media-object" src="@item.User.ProfileIconPath" alt="@item.User.UserName" height="128" width="128">
+                            <a id="userInfo" href="/Users/Profile?username=@item.User.UserName">
+                                <img class="media-object" src="/Content/Users/Images/@(item.Quote.UserId).jpg" alt="@item.User.UserName" height="128" width="128">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">@item.Quote.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>
+                            <h4 id="quoteTitle" class="media-heading">@item.Quote.OriginalDate <a href="#">Reactions <span class="badge">42</span></a></h4>
                             <div class="panel panel-default">
-                                <div class="panel-body">
+                                <div id="quoteText" class="panel-body">
                                     @item.Quote.QuoteText
                                 </div>
                                 <div class="panel-footer">
@@ -36,11 +36,22 @@
                             </div>
                         </div>
                     </li>
-
                 }
             </ul>
         </div>
     </div>
+    <script>
+        /* Highlight the Occurences of the Search. */
+        var str = "@ViewData["research"]";
+        $("#quoteTitle").html( $("#quoteTitle").html().replace(str,"<span class='highlight'>"+str+"</span>"));
+        $("#quoteText").html($("#quoteText").text().replace(str, "<span class='highlight'>" + str + "</span>"));
+
+    </script>
+    <style>
+        .highlight {
+            background-color: khaki;
+        }
+    </style>
 }
 else
 {

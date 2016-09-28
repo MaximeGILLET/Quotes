@@ -117,6 +117,7 @@ namespace Quotes.DAL
                 {
                     Quote = new QuoteModel()
                     {
+                        UserId = item.Field<int>("QuoUsrId"), 
                         QuoteId = item.Field<int>("QuoId"), 
                         QuoteText = item.Field<string>("QuoText"), 
                         OriginalDate = item.Field<DateTime>("QuoDate")

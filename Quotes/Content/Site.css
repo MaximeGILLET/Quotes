@@ -93,6 +93,11 @@ footer {
     color: black;
 }
 
+.btn-edit-profile {
+    float: right;
+    color: black;
+}
+
 .panel-heading {
     display: flex;
 }

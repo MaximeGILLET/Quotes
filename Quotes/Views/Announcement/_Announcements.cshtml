@@ -16,8 +16,9 @@
             @if (isAdmin)
             {
                 <button id="title@(ann.Id)-edit" type="button" class="btn-edit" onclick="editTitle('title@(ann.Id)')"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button id="title@(ann.Id)-close" type="button" class="btn-edit" onclick="closeTitle('title@(ann.Id)')" style="display: none"><span class="glyphicon glyphicon-remove"></span></button>
                 <button id="title@(ann.Id)-save" type="button" class="btn-edit" onclick="saveTitle('title@(ann.Id)')" style="display: none"><span class="glyphicon glyphicon-ok"></span></button>
+                <button id="title@(ann.Id)-close" type="button" class="btn-edit" onclick="closeTitle('title@(ann.Id)')" style="display: none"><span class="glyphicon glyphicon-remove"></span></button>
+
             }
         </div>
         <div class="panel-body" style="background-image:url('/Content/img/paper.jpg')">
