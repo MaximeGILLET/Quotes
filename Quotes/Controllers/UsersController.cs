@@ -309,6 +309,14 @@ namespace Quotes.Controllers
             return Json(new { success = false, message = "Please chose a username different from the actual one"}, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthorize]
+        public ActionResult MailBox()
+        {
+
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

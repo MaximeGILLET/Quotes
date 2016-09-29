@@ -67,7 +67,6 @@ namespace Quotes.Controllers
             }
         }
 
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -434,12 +433,12 @@ namespace Quotes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Relog(string returnUrl)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            ViewBag.ReturnUrl = returnUrl;
-            return View("Login");
+            return RedirectToAction("Login");
         }
 
         //

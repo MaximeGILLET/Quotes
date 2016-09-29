@@ -19,6 +19,7 @@ namespace Quotes.Models
         }
 
         public DateTime? RegistrationDate { get; set; }
+        public string RefCountry { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }
