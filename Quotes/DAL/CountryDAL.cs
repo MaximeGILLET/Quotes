@@ -45,8 +45,8 @@ namespace Quotes.DAL
                 }
             }
 
-            CacheItemPolicy cacheItemPolicy = new CacheItemPolicy { AbsoluteExpiration = DateTime.Now.AddHours(1) };
-            Cache.Add("CountriesForMasterData", countries, cacheItemPolicy);
+            var cacheItemPolicy = new CacheItemPolicy { AbsoluteExpiration = DateTime.Now.AddHours(1) };
+            Cache.Add("CountryList", countries, cacheItemPolicy);
         }
 
         public static CountryModel GetCountry(string key)

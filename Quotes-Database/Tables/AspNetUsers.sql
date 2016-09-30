@@ -12,6 +12,7 @@
     [LockoutEnabled]       BIT            NOT NULL,
     [AccessFailedCount]    INT            NOT NULL,
 	[RegistrationDate]	   Datetime2	  NULL,
+	[RefCountry]		   char(2)		  NULL
     CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

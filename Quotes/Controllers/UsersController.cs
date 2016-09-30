@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -239,6 +240,7 @@ namespace Quotes.Controllers
             }
             ApplicationUser userModel = null;
             var userProfile = new UserProfileViewModel();
+                        userProfile.CountryList = CountryDAL.CountryList;
             if (username == null)
             {
                 userModel = db.Users.Find(User.Identity.GetUserId<int>());
@@ -246,15 +248,43 @@ namespace Quotes.Controllers
                 {
                     return HttpNotFound();
                 }
+                            userProfile.CountryList = CountryDAL.CountryList;
                 userProfile.User = new UserDetailModel(userModel);
                 userProfile.User.assignedRoles = new List<string>(UserManager.GetRoles(userProfile.User.Id));
+                userProfile.CountryList = CountryDAL.CountryList;
 
                 return View(userProfile);
             }
             userModel = UserManager.FindByName(username);
+            if (userModel == null)
+            {
+                return HttpNotFound();
+            }
             userProfile.User = new UserDetailModel(userModel);
             userProfile.User.assignedRoles = new List<string>(UserManager.GetRoles(userProfile.User.Id));
             return View(userProfile);
+        }
+
+        [HttpPost]
+        [CustomAuthorize]
+        public JsonResult CountrySave(string newRefCountry)
+        {
+            if (newRefCountry == null)
+                return Json(new { success = false , message="New Country reference was not specified." }, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var userToUpdate = new ApplicationUser { Id = User.Identity.GetUserId<int>(),UserName = User.Identity.Name,RefCountry = newRefCountry };
+                db.Users.Attach(userToUpdate);
+                db.Entry(userToUpdate).Property(u => u.RefCountry).IsModified = true;
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false , message = e.Message}, JsonRequestBehavior.AllowGet);
+            }
+           
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -270,13 +300,13 @@ namespace Quotes.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Message = "ERROR:" + ex.Message;
+                    ViewBag.Message = "ERROR : " + ex.Message;
                 }
             else
             {
                 ViewBag.Message = "You have not specified a file.";
             }
-            return Json(new { success = true, }, JsonRequestBehavior.AllowGet); 
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet); 
         }
 
         [HttpPost]

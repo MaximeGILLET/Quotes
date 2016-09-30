@@ -33,7 +33,7 @@ DELETE dbo.TagType
 INSERT INTO dbo.TagType(TtyId,TtyLabel) VALUES (1,'Main'),(2,'Dynamic')
 
 DELETE dbo.Country
-DBCC CHECKIDENT ('dbo.Country', RESEED, 0);  
+DBCC CHECKIDENT ('dbo.Country', RESEED, 1);  
 INSERT INTO dbo.Country (CtyRef,CtyLabel) VALUES('AD', 'AD-Andorra')
 ,('AE', 'AE-United arab emirates')
 ,('AF', 'AF-Afghanistan')

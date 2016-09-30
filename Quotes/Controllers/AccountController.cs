@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Quotes.DAL;
 using Quotes.Models;
 
 namespace Quotes.Controllers
@@ -175,7 +176,11 @@ namespace Quotes.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            string region = RegionInfo.CurrentRegion.DisplayName;
+            var firstOrDefault = CountryDAL.CountryList.FirstOrDefault(x => x.LibCountry.Contains(region));
+            if (firstOrDefault != null)
+                return View(new RegisterViewModel() { CountryList = CountryDAL.CountryList ,SelectedCountry = firstOrDefault.LibCountry});
+            return View(new RegisterViewModel() { CountryList = CountryDAL.CountryList, SelectedCountry = "" });
         }
 
         //

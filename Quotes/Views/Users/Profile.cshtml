@@ -46,15 +46,32 @@
                     <li><hr></li>
                     <li> Registration Date : @Model.User.RegistrationDate</li>
                     <li> Last Seen : N/A</li>
-                    <li>
-                        Assigned Role(s) : @foreach (var role in Model.User.assignedRoles)
+                    <li>Assigned Role(s) : @foreach (var role in Model.User.assignedRoles)
                                            {
                                                <div class="label @(role == "Admin" ? "label-danger":role=="Moderator"?"label-primary":"label-info")">
                                                    @role
                                                </div>
                                            }
                     </li>
-                    <li>Country : <img src="/Content/Flags/@(Model.User.RefCountry.ToLower()).png" alt="@(Model.User.RefCountry.ToUpper())"/></li>
+                    @if (Model.User.RefCountry != null)
+                    {
+                        <li>Country : <img src="/Content/Flags/@(Model.User.RefCountry.ToLower()).png" alt="@(Model.User.RefCountry.ToUpper())" />
+                            @if (isMyProfile)
+                            {
+                                <button id="country-edit" type="button" class="btn-edit-profile" onclick="editCountry()"><span class="glyphicon glyphicon-pencil"></span></button>
+                            }
+                         
+                        </li>
+                        <li class="input-group" id="country-editor" style="display: none;">
+                            @Html.DropDownListFor(m => m.User.RefCountry, Model.CountryList.Select(x => new SelectListItem() { Text = x.LibCountry, Value = x.RefCountry, Selected = (x.RefCountry == Model.User.RefCountry) }),new {@Class="form-control",@style="max-width: 75%"})
+                            <button id="country-save" type="button" class="btn btn-default" onclick="saveCountry()"><span class="glyphicon glyphicon-ok"></span></button>
+                            <button id="country-close" type="button" class="btn btn-default" onclick="closeCountry()"><span class="glyphicon glyphicon-remove"></span></button>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>Country : N/A</li>
+                    }
                     <li>Status : N/A</li>
                     <li>Level : N/A</li>
                     <li>Experience :</li>
@@ -151,18 +168,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title text-center" id="mySmallModalLabel">Username Updated!</h4>
+                <h4 class="modal-title text-center" id="mySmallModalLabel">Title</h4>
             </div>
             <div class="modal-body">
-                <div class="text-center">
-                    Your username has been updated successfully, you will have to relog to confirm your change.
+                <div id="modalMessage" class="text-center">
+                    Message
                 </div>
                 <br>
                 <div class="text-center">
-                    <form action="" id="relogForm" method="POST">
+                    <form action="" id="genericForm" method="POST">
                         @Html.AntiForgeryToken()
                     </form>
-                    <button id="confirmRelog" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    <button id="confirmAction" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
@@ -171,79 +188,114 @@
 @if (isMyProfile)
 {
     <script>
-        function uploadFile() {
-            $("#uploadModal").modal('show');
-            /*
-            $("#uploader").submit();
+    function uploadFile() {
+        $("#uploadModal").modal('show');
+        /*
+        $("#uploader").submit();
 
-            var formData = new FormData(new FormData($("#uploader")));
-            */
-            var formData = new FormData();
-            var file = $("#file")[0].files[0];
-            formData.append("file", file);
-            var ajax = new XMLHttpRequest();
-            ajax.upload.addEventListener("progress", progressHandler, false);
-            ajax.addEventListener("load", completeHandler, false);
-            ajax.open("POST", "/Users/UploadImage");
-            ajax.send(formData);
+        var formData = new FormData(new FormData($("#uploader")));
+        */
+        var formData = new FormData();
+        var file = $("#file")[0].files[0];
+        formData.append("file", file);
+        var ajax = new XMLHttpRequest();
+        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax.addEventListener("load", completeHandler, false);
+        ajax.open("POST", "/Users/UploadImage");
+        ajax.send(formData);
 
-        }
-        function progressHandler(event) {
-            var percent = (event.loaded / event.total) * 100;
-            $('#barFile').width(percent + '%');
-            $('#barFile').text(percent + '%');
-        }
+    }
+    function progressHandler(event) {
+        var percent = (event.loaded / event.total) * 100;
+        $('#barFile').width(percent + '%');
+        $('#barFile').text(percent + '%');
+    }
 
-        function completeHandler() {
-            $('#barFile').width(100);
-            $("#uploadModal").modal('hide');
+    function completeHandler() {
+        $('#barFile').width(100);
+        $("#uploadModal").modal('hide');
 
-        }
+    }
 
-        var _URL = window.URL || window.webkitURL;
-        $("#file").change(function (e) {
-            var file, img;
-            if ((file = this.files[0])) {
-                var extension = file.name.split('.').pop().toLowerCase();
-                img = new Image();
-                img.src = _URL.createObjectURL(file);
-                img.onload = function () {
-                    if (this.width > 128 || this.height > 128) {
-                        alert("Image must be max. 128x128");
-                        $('#file').val("");
-                        $("#upload").hide();
-                        return;
+    var _URL = window.URL || window.webkitURL;
+    $("#file").change(function (e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            var extension = file.name.split('.').pop().toLowerCase();
+            img = new Image();
+            img.src = _URL.createObjectURL(file);
+            img.onload = function () {
+                if (this.width > 128 || this.height > 128) {
+                    alert("Image must be max. 128x128");
+                    $('#file').val("");
+                    $("#upload").hide();
+                    return;
 
-                    } else if (file.size > 100000 || file.size < 512 || (extension !== "jpg" && extension !== "png")) {
-                        alert("The file must not exceed 100Ko and be a jpg or png format.");
-                        $('#file').val("");
-                        $("#upload").hide();
-                        return;
-                    }
-                    $("#upload").show();
-                };
-
-            }
-        });
-        function editUsername() {
-            $("#input-username").val($("#head-username").text());
-            $("#username-edit").hide();
-            $("#head-username").hide();
-            $("#username-close").show();
-            $("#username-save").show();
-            $("#input-username").show();
+                } else if (file.size > 100000 || file.size < 512 || (extension !== "jpg" && extension !== "png")) {
+                    alert("The file must not exceed 100Ko and be a jpg or png format.");
+                    $('#file').val("");
+                    $("#upload").hide();
+                    return;
+                }
+                $("#upload").show();
+            };
 
         }
+    });
+    function editUsername() {
+        $("#input-username").val($("#head-username").text());
+        $("#username-edit").hide();
+        $("#head-username").hide();
+        $("#username-close").show();
+        $("#username-save").show();
+        $("#input-username").show();
 
-        function closeUsername() {
-            $("#input-username").hide();
-            $("#username-save").hide();
-            $("#username-close").hide();
-            $("#username-edit").show();
-            $("#head-username").show();
+    }
+
+    function closeUsername() {
+        $("#input-username").hide();
+        $("#username-save").hide();
+        $("#username-close").hide();
+        $("#username-edit").show();
+        $("#head-username").show();
+    }
+
+    function editCountry() {
+        $("#country-editor").show();
+        $("#country-edit").hide();
+
+    }
+
+    function closeCountry() {
+        $("#country-edit").show();
+        $("#country-editor").hide();
+    }
+
+    function saveCountry() {
+        $("#country-edit").show();
+        $("#country-editor").hide();
+
+        $.post("CountrySave", { newRefCountry: $("#User_RefCountry").val() }, function (data) {
+                if (data.success) {
+                    $("#successMessage").text("Country Updated succesfully.");
+                    $("#successBox").show();
+                    setTimeout(function () {
+                        $('#successBox').fadeOut('fast');
+                    }, 3000);
+                } else {
+                    $("#errorMessage").text("There was an error updating Country : " + data.message);
+                    $("#errorBox").show();
+                }
+            }, "json");
         }
+        
 
         function saveUsername() {
+            if ($("#input-username").val().length == 0) {
+                alert("Username can't be empty!");
+                return;
+            }
+
             $("#head-username").text($("#input-username").val());
             $("#input-username").hide();
             $("#username-save").hide();
@@ -258,9 +310,12 @@
                     setTimeout(function () {
                         $('#successBox').fadeOut('fast');
                     }, 3000);
+                    $("#mySmallModalLabel").text("Username Updated!");
+                    $("#modalMessage").text("Your username has been updated successfully, you will have to relog to confirm your change.");
+                    $("#genericForm").attr("action", "/Account/Relog?returnUrl=" + window.location.href);
                     $('#modalConfirm').modal('show');
                 } else {
-                    $("#errorMessage").text("There was an error updating Username :" + data.message);
+                    $("#errorMessage").text("There was an error updating Username : " + data.message);
                     $("#errorBox").show();
                 }
             }, "json");
@@ -268,10 +323,9 @@
 
         $('#modalConfirm').on('show.bs.modal', function (e) {
             //get data-id attribute of the clicked element
-            $("#confirmRelog").click(function (event) {
+            $("#confirmAction").click(function (event) {
                 event.preventDefault();
-                $("#relogForm").attr("action", "/Account/Relog?returnUrl=" + window.location.href);
-                $("#relogForm").submit();
+                $("#genericForm").submit();
             });
 
         });

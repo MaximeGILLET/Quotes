@@ -1,6 +1,7 @@
 ﻿@{
     var isAdmin = Request.IsAuthenticated && User.IsInRole("Admin");
 }
+@using Quotes.Models
 @model List<Quotes.Models.AnnouncementModel>
 
 @foreach (var ann in Model)
@@ -38,7 +39,8 @@
             Author : @ann.Author - @ann.CreationTime
             @if (isAdmin)
             {
-                 @Html.DropDownList("status" + ann.Id, ann.StatusList.Select(x => new SelectListItem() { Value = x, Text = x, Selected = (x == ann.Status) }))
+                AnnouncementModel localAnn = ann;
+                @Html.DropDownList("status" + ann.Id, ann.StatusList.Select(x => new SelectListItem() { Value = x, Text = x, Selected = (x == localAnn.Status) }))
                 <button type="button" class="btn btn-default" onclick="saveStatus(@(ann.Id))">Submit</button>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConfirm" data-ann-id="@(ann.Id)">Delete</button>
 

@@ -22,6 +22,7 @@ namespace Quotes.Models
             this.Email = userModel.Email;
             this.EmailConfirmed = userModel.EmailConfirmed;
             this.RegistrationDate = userModel.RegistrationDate;
+            this.RefCountry = userModel.RefCountry;
             this.PhoneNumber = userModel.PhoneNumber;
             this.PhoneNumberConfirmed = userModel.PhoneNumberConfirmed;
             this.TwoFactorEnabled = userModel.TwoFactorEnabled;
@@ -80,6 +81,8 @@ namespace Quotes.Models
         public int TotalReactions { get; set; }
         public int TotalFollowers { get; set; }
         public int TotalSubs { get; set; }
+
+        public List<CountryModel> CountryList { get; set; }
 
         public UserProfileViewModel()
         {

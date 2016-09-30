@@ -76,6 +76,12 @@ namespace Quotes.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Country")]
+        public string SelectedCountry { get; set; }
+
+        public List<CountryModel> CountryList { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "This field {0} must contain {2} characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
