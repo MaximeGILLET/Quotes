@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
@@ -27,7 +28,7 @@ namespace Quotes
         // Use NuGet to install SendGrid (Basic C# client lib) 
         private async Task configSendGridasync(IdentityMessage message)
         {
-            var sg = new SendGridAPIClient("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", "https://api.sendgrid.com");
+            var sg = new SendGridAPIClient(ConfigurationManager.AppSettings["SendGridKey"], "https://api.sendgrid.com");
             Email from = new Email("confirm@myquotes.com");
             string subject = message.Subject;
             Email to = new Email(message.Destination);
