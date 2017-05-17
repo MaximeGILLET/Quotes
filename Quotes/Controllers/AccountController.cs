@@ -192,7 +192,7 @@ namespace Quotes.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email ,RegistrationDate = DateTime.Now};
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, RegistrationDate = DateTime.Now, RefCountry = model.SelectedCountry };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -212,7 +212,7 @@ namespace Quotes.Controllers
                 }
                 AddErrors(result);
             }
-
+            model.CountryList = CountryDAL.CountryList;
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
             return View(model);
         }

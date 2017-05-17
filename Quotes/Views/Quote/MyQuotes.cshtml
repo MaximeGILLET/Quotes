@@ -47,13 +47,13 @@ else
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">@item.OriginalDate - Reactions : <span class="badge">42</span></h4>                                
+                            <h4 class="media-heading">@item.OriginalDate - Reactions : <span class="badge">@item.SumActivity()</span></h4>                                
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     @item.QuoteText
                                 </div>
                                 <div class="panel-footer">
-                                    <span class="badge badge-like">@item.Likes</span>
+                                    <span class="badge badge-like" id="badge-like-@(item.QuoteId)">@item.Likes</span>
                                     <button id="like" type="button" title="Like!" class="btn btn-default btn-like" onclick="TagQuote(@item.QuoteId,'Like')"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                     <span class="badge badge-dislike">@item.Dislikes</span>
                                     <button id="dislike" type="button" title="Dislike!" class="btn btn-default btn-dislike" onclick="TagQuote(@item.QuoteId,'Dislike')"><span class="glyphicon glyphicon-thumbs-down"></span></button>

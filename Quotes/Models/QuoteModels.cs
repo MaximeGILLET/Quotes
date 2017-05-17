@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quotes.Models
 {
@@ -35,6 +36,11 @@ namespace Quotes.Models
         public SocialModel()
         {
             Tags = new List<Tag>();
+        }
+
+        public double SumActivity()
+        {
+            return Likes + Dislikes + Stars+ Tags.Sum(x => x.Amount);
         }
     }
 
