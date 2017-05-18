@@ -61,9 +61,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +69,9 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NonFactors.Mvc.Grid, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.3.4.0\lib\net45\NonFactors.Mvc.Grid.dll</HintPath>
     </Reference>
     <Reference Include="SendGrid, Version=8.0.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.8.0.4\lib\SendGrid.dll</HintPath>
@@ -481,7 +481,6 @@
     <Content Include="Content\Flags\za.png" />
     <Content Include="Content\Flags\zm.png" />
     <Content Include="Content\Flags\zw.png" />
-    <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\Images\anonymous-128.png" />
     <Content Include="Content\Images\charts.jpg" />
     <Content Include="Content\img\bck1.jpg" />
@@ -503,6 +502,7 @@
     <Content Include="Content\img\tick.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Content\speech-bubble-dots-outline-128.png" />
     <Content Include="Content\speech32x32.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -526,7 +526,6 @@
     <Content Include="fonts\ComicNeue_Bold.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Grid.mvc.readme" />
     <None Include="Properties\PublishProfiles\MyQuote.pubxml" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\basic_config.js" />
@@ -778,9 +777,6 @@
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\gridmvc.js" />
-    <Content Include="Scripts\gridmvc.lang.ru.js" />
-    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -791,6 +787,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Scripts\Plugins\calendar\calendar.js" />
     <Content Include="Scripts\Plugins\calendar\calendar.min.js" />
     <Content Include="Scripts\Plugins\DataTables\datatables.js">
@@ -894,8 +892,9 @@
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Mail\_Detail.cshtml" />
     <Content Include="Views\Mail\_List.cshtml" />
-    <Content Include="Views\Shared\_GridPager.cshtml" />
-    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_AjaxGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

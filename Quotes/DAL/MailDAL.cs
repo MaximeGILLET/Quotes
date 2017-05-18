@@ -19,7 +19,7 @@ namespace Quotes.DAL
             {
                 new SqlParameter
                 {
-                    ParameterName = "@UsrId",
+                    ParameterName = "@UserId",
                     SqlDbType = SqlDbType.Int,
                     Value = userId
                 }

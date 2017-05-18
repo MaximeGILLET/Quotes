@@ -1,13 +1,28 @@
 ﻿@model List<Quotes.Models.MailViewModel>
+@using NonFactors.Mvc.Grid;
 @{
     ViewBag.Title = "_List";
 }
 
-<div class="panel panel-default">
-@foreach (var item in Model)
-{
-
-
-}    
+<div class="panel panel-default" style="margin-bottom:0px;">
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.senderName).Titled("Sender");
+        columns.Add(model => model.Label).Titled("Label");
+        columns.Add(model => model.Object).Titled("Object");
+        columns.Add(model => model.CreationDate).Titled("Date");
+    })
+    .Filterable()
+    .Sortable()
+    .Pageable(pager =>
+    {
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 20;
+    })
+)
 </div>
+
 

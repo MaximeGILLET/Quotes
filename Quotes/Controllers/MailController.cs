@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Quotes.Models
 {
+    [Authorize]
     public class MailController : Controller
     {
         // GET: Mail
@@ -14,7 +15,7 @@ namespace Quotes.Models
         {
 
 
-            return View();
+            return View(DAL.MailDAL.UserMailList(User.Identity.GetUserId<int>()));
         }
 
         public PartialViewResult Create()

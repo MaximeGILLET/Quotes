@@ -20,14 +20,14 @@ AS
 	BEGIN 
 		SELECT 
 		MaiId,
-		asp.UserName
+		asp.UserName,
 		MaiObject,
 		MaiContent,
 		MaiCreatedDate
 		FROM dbo.Mail 
 		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiSenderId
 		WHERE MaiRecipientId = @UserId
-		AND MailIsDeleted = 0
+		AND ISNULL(MailIsDeleted,0) !=1
 		AND (@Archived IS NULL OR @Archived = MailIsArchived)
 	END
 	
