@@ -61,6 +61,9 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -202,6 +205,7 @@
     <Compile Include="DAL\AnnouncementDAL.cs" />
     <Compile Include="DAL\CountryDAL.cs" />
     <Compile Include="DAL\Database.cs" />
+    <Compile Include="DAL\MailDAL.cs" />
     <Compile Include="DAL\QuoteDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="FrameworkExtension\CustomAuthorizeAttribute.cs" />
@@ -213,6 +217,8 @@
     <Compile Include="Models\CalendarModels.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuoteModels.cs" />
     <Compile Include="Models\UserRoleViewModel.cs" />
@@ -475,6 +481,7 @@
     <Content Include="Content\Flags\za.png" />
     <Content Include="Content\Flags\zm.png" />
     <Content Include="Content\Flags\zw.png" />
+    <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\Images\anonymous-128.png" />
     <Content Include="Content\Images\charts.jpg" />
     <Content Include="Content\img\bck1.jpg" />
@@ -519,8 +526,10 @@
     <Content Include="fonts\ComicNeue_Bold.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Grid.mvc.readme" />
     <None Include="Properties\PublishProfiles\MyQuote.pubxml" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
+    <Content Include="Scripts\ckeditor\basic_config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
@@ -769,6 +778,9 @@
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -878,6 +890,12 @@
     <Content Include="Views\UserRoles\Edit.cshtml" />
     <Content Include="Views\UserRoles\Index.cshtml" />
     <Content Include="Views\Users\MailBox.cshtml" />
+    <Content Include="Views\Mail\_Create.cshtml" />
+    <Content Include="Views\Mail\Index.cshtml" />
+    <Content Include="Views\Mail\_Detail.cshtml" />
+    <Content Include="Views\Mail\_List.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

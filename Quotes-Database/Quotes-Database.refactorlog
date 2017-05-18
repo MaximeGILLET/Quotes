@@ -49,4 +49,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="TtyId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4894e792-b685-48b3-baea-b8f45331d323" ChangeDateTime="05/18/2017 11:45:16">
+    <Property Name="ElementName" Value="[dbo].[Mail].[MaiIsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Mail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaiIIsDeleted" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="45e6339e-4294-4345-a930-96fe45937b62" ChangeDateTime="05/18/2017 11:45:24">
+    <Property Name="ElementName" Value="[dbo].[Mail].[MaiIIsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Mail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MailIsDeleted" />
+  </Operation>
 </Operations>

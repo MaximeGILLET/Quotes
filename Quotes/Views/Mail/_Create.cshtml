@@ -1,0 +1,47 @@
+﻿@model Quotes.Models.MailModel
+@{
+    ViewBag.Title = "ViewMail";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Message To</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Object</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                </div>
+            </div>                    
+        </div>
+        <div class="panel-body"> 
+            <div id="textarea.editor">
+
+            </div>                   
+        </div> 
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-send"></span>&nbsp;Send</button>
+        </div> 
+    </div>
+
+}
+
+<style>
+    input {
+      max-width:none;        
+    }
+</style>
+<script src="../../Scripts/ckeditor/ckeditor.js"></script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace("textarea.editor", {
+            customConfig: 'basic_config.js'
+        });         
+    });
+   
+</script>

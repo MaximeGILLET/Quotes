@@ -95,6 +95,8 @@
     <Build Include="Procedures\QuoteTagList.sql" />
     <Build Include="Procedures\AnnouncementFilterList.sql" />
     <Build Include="Procedures\CountryList.sql" />
+    <Build Include="Tables\Mail.sql" />
+    <Build Include="Procedures\MailList.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />
