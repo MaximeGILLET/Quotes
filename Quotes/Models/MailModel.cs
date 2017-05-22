@@ -16,7 +16,7 @@ namespace Quotes.Models
         public string Label { get; set; }
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ReceptionDate { get; set; }
+        public DateTime? ReceptionDate { get; set; }
         public bool IsDeleted { get; set; }
         public int ParentId { get; set; }
     }

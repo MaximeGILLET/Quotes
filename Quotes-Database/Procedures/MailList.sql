@@ -10,7 +10,9 @@ AS
 		asp.UserName
 		MaiObject,
 		MaiContent,
-		MaiCreatedDate
+		MaiLabel,
+		MaiCreatedDate,
+		MaiReceptionDate
 		FROM dbo.Mail 
 		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiRecipientId
 		WHERE MaiSenderId = @UserId
@@ -23,7 +25,9 @@ AS
 		asp.UserName,
 		MaiObject,
 		MaiContent,
-		MaiCreatedDate
+		MaiLabel,
+		MaiCreatedDate,
+		MaiReceptionDate
 		FROM dbo.Mail 
 		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiSenderId
 		WHERE MaiRecipientId = @UserId

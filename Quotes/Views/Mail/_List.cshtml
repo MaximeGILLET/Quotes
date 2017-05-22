@@ -1,4 +1,4 @@
-﻿@model List<Quotes.Models.MailViewModel>
+﻿@model IEnumerable<Quotes.Models.MailViewModel>
 @using NonFactors.Mvc.Grid;
 @{
     ViewBag.Title = "_List";
@@ -9,20 +9,46 @@
     .Grid(Model)
     .Build(columns =>
     {
+        columns.Add(model => Html.CheckBox("Check_" + model.MailId)).Titled(Html.CheckBox("CheckAll")).Sortable(false).Filterable(false);
         columns.Add(model => model.senderName).Titled("Sender");
-        columns.Add(model => model.Label).Titled("Label");
+        columns.Add(model => model.Label).Titled("Label").Encoded(false);
         columns.Add(model => model.Object).Titled("Object");
         columns.Add(model => model.CreationDate).Titled("Date");
     })
-    .Filterable()
+    .RowCss(model => model.ReceptionDate== null? "notRead" : "")
     .Sortable()
+    .Filterable()
     .Pageable(pager =>
     {
-        pager.PagesToDisplay = 3;
+        pager.PagesToDisplay = 5;
         pager.CurrentPage = 1;
         pager.RowsPerPage = 20;
     })
 )
 </div>
+
+<style>
+    tbody > tr:hover {
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+
+    .notRead{
+        background-color: lightskyblue;
+        font-weight: bold;
+
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+
+        $('.mvc-grid').mvcgrid();
+    });
+</script>
+
+@Scripts.Render("~/Scripts/MvcGrid/mvc-grid.js")
+@Styles.Render("~/Content/MvcGrid/mvc-grid.css")
+
+
 
 

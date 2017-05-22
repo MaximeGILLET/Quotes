@@ -39,8 +39,10 @@ namespace Quotes.DAL
                             MailId = item.Field<int>("MaiId"),
                             senderName = item.Field<string>("UserName"),
                             Object = item.Field<string>("MaiObject"),
+                            Label = item.Field<string>("MaiLabel"),
                             Content = item.Field<string>("MaiContent"),
-                            CreationDate = item.Field<DateTime>("MaiCreatedDate")
+                            CreationDate = item.Field<DateTime>("MaiCreatedDate"),
+                            ReceptionDate = item.Field<DateTime?>("MaiReceptionDate")
                         }
                     );
                 }

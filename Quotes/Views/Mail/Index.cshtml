@@ -22,12 +22,15 @@
 </div>
 <div class="col-lg-9 col-md-2">
     <div class="panel panel-default">
-        <div class="panel-heading">
-            Messages
+        <div class="panel-heading">             
+             <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-envelope"></span>&nbsp; New Message</a>
         </div>
-        
-            @Html.Partial("_List",Model)
-       
+        <div class="MainDisplay">
+            @Html.Partial("_List", Model)
+        </div> 
+        <div  class="AltDisplay">
+           
+        </div> 
         <div class="panel-footer">
             <div class="progress">
                 <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
