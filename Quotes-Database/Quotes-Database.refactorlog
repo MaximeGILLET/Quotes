@@ -91,4 +91,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MarReceptionDate" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="fb5e0fab-00f3-46a2-950d-75d8e64d3d3a" ChangeDateTime="05/23/2017 14:20:25">
+    <Property Name="ElementName" Value="[dbo].[Friends].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Friends]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dd193515-138a-4418-a681-17670cd5684f" ChangeDateTime="05/23/2017 14:21:33">
+    <Property Name="ElementName" Value="[dbo].[FriendStatus].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FriendStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FrsId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ad4c5d12-a826-4d53-8fb9-4fdf787126e5" ChangeDateTime="05/23/2017 14:23:48">
+    <Property Name="ElementName" Value="[dbo].[FriendStatusHistory].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FriendStatusHistory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FriendsId" />
+  </Operation>
 </Operations>

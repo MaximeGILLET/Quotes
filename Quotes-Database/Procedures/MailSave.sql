@@ -7,6 +7,7 @@
 	@MailParentId int null,
 	@RecipientListId dbo.[ListId] readonly
 AS
+	SET NOCOUNT ON; 
 	-- Update Mail
 	IF @MailId IS NOT NULL
 	BEGIN

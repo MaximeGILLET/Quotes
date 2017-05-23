@@ -102,6 +102,9 @@
     <Build Include="Tables\MailRecipient.sql" />
     <Build Include="Procedures\MailSave.sql" />
     <Build Include="UserObjects\ListId.sql" />
+    <Build Include="Tables\Friends.sql" />
+    <Build Include="Tables\FriendStatus.sql" />
+    <Build Include="Tables\FriendStatusHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />

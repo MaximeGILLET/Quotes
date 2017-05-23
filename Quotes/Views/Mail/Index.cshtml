@@ -23,7 +23,7 @@
 <div class="col-lg-9 col-md-2">
     <div class="panel panel-default">
         <div class="panel-heading">             
-             <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-envelope"></span>&nbsp; New Message</a>
+            <button class="btn btn-default btn-sm" onclick="OpenNewMail()"><span class="glyphicon glyphicon-envelope"></span>&nbsp; New Message</button>
         </div>
         <div class="MainDisplay">
             @Html.Partial("_List", Model)
@@ -40,11 +40,29 @@
         </div>
     </div>
 </div>
+<script>
+    function GoToList() {
+        $(".AltDisplay").hide();
+        $(".MainDisplay").show();
+    }
+    function OpenNewMail() {
+        $.ajax({
+            url: "/Mail/Create",
+            type: "GET"
+        })
+            .done(function (partialViewResult) {
+                $(".AltDisplay").html(partialViewResult);
+                $(".AltDisplay").show();
+                $(".MainDisplay").hide();
+            });
 
+    }
+</script>
 <style>
     .pagination {
         float:right;
         margin:0px;
         margin-left:20px;
     }
+
 </style>
