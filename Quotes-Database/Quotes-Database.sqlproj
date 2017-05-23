@@ -61,6 +61,7 @@
     <Folder Include="Procedures" />
     <Folder Include="MigrationScripts" />
     <Folder Include="View" />
+    <Folder Include="UserObjects" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Quote.sql" />
@@ -97,6 +98,10 @@
     <Build Include="Procedures\CountryList.sql" />
     <Build Include="Tables\Mail.sql" />
     <Build Include="Procedures\MailList.sql" />
+    <Build Include="Procedures\MailRecipientFind.sql" />
+    <Build Include="Tables\MailRecipient.sql" />
+    <Build Include="Procedures\MailSave.sql" />
+    <Build Include="UserObjects\ListId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />

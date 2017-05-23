@@ -9,6 +9,7 @@
     .Grid(Model)
     .Build(columns =>
     {
+        columns.Add(model => model.MailId).Css("hidden");
         columns.Add(model => Html.CheckBox("Check_" + model.MailId)).Titled(Html.CheckBox("CheckAll")).Sortable(false).Filterable(false);
         columns.Add(model => model.senderName).Titled("Sender");
         columns.Add(model => model.Label).Titled("Label").Encoded(false);
@@ -42,7 +43,20 @@
     $(document).ready(function () {
 
 
-        $('.mvc-grid').mvcgrid();
+        $('.mvc-grid').mvcgrid({
+            rowClicked: function (grid, row, data) {
+                $.ajax({
+                    url: "/Mail/Detail",
+                    type: "GET",
+                    data: { id: data.MailId }
+                })
+                .done(function (partialViewResult) {
+                    $(".AltDisplay").html(partialViewResult);
+                    $(".AltDisplay").show();
+                    $(".MainDisplay").hide();
+                });
+            }
+        });
     });
 </script>
 

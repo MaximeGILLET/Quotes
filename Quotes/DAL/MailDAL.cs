@@ -57,5 +57,23 @@ namespace Quotes.DAL
 
 
         }
+
+        public static void MailFindById(int id)
+        {
+
+
+        }
+
+        public static void MailRecipientFindById(int mailId, int userId)
+        {
+
+
+        }
+
+        public static void MailUserFindById(int mailId,int userId)
+        {
+
+
+        }
     }
 }

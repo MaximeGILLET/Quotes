@@ -11,12 +11,11 @@ AS
 		MaiObject,
 		MaiContent,
 		MaiLabel,
-		MaiCreatedDate,
-		MaiReceptionDate
+		MaiCreatedDate
 		FROM dbo.Mail 
-		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiRecipientId
+		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiSenderId
 		WHERE MaiSenderId = @UserId
-		AND MailIsDeleted = 0
+		AND ISNULL(MailIsDeleted,0) = 0
 	END 
 	ELSE
 	BEGIN 
@@ -26,11 +25,10 @@ AS
 		MaiObject,
 		MaiContent,
 		MaiLabel,
-		MaiCreatedDate,
-		MaiReceptionDate
+		MaiCreatedDate
 		FROM dbo.Mail 
+		INNER JOIN dbo.MailRecipient mar ON mar.MarMaiId = MaiId AND mar.MarRecipientId = @UserId
 		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiSenderId
-		WHERE MaiRecipientId = @UserId
 		AND ISNULL(MailIsDeleted,0) !=1
 		AND (@Archived IS NULL OR @Archived = MailIsArchived)
 	END

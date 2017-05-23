@@ -63,4 +63,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MailIsDeleted" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9fb1de26-a4bf-4e97-be4f-80ea85046b29" ChangeDateTime="05/23/2017 13:20:16">
+    <Property Name="ElementName" Value="[dbo].[MailRecipient].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MailRecipient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MarId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="49f15f49-12d3-40da-ba80-7e62353c47b5" ChangeDateTime="05/23/2017 13:20:50">
+    <Property Name="ElementName" Value="[dbo].[MailRecipient].[MarMaiId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MailRecipient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MarMailId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5408fcc5-0d8e-49e1-b10f-ec6797ef4acf" ChangeDateTime="05/23/2017 13:26:06">
+    <Property Name="ElementName" Value="[dbo].[MailRecipient].[MarMailId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MailRecipient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MarMaiId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6d539bc4-7642-49f8-abb5-7a962733833f" ChangeDateTime="05/23/2017 13:53:56">
+    <Property Name="ElementName" Value="[dbo].[MailRecipient].[MarIsRead]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MailRecipient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MarReceptionDate" />
+  </Operation>
 </Operations>
