@@ -50,13 +50,13 @@
             url: "/Mail/Create",
             type: "GET"
         })
-            .done(function (partialViewResult) {
-                $(".AltDisplay").html(partialViewResult);
-                $(".AltDisplay").show();
-                $(".MainDisplay").hide();
-            });
-
+        .done(function (partialViewResult) {
+            $(".AltDisplay").html(partialViewResult);
+            $(".AltDisplay").show();
+            $(".MainDisplay").hide();          
+        });
     }
+   
 </script>
 <style>
     .pagination {

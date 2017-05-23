@@ -105,6 +105,7 @@
     <Build Include="Tables\Friends.sql" />
     <Build Include="Tables\FriendStatus.sql" />
     <Build Include="Tables\FriendStatusHistory.sql" />
+    <Build Include="Procedures\FriendList.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Quotes-Database.refactorlog" />

@@ -33,5 +33,21 @@ namespace Quotes.Models
             return PartialView("_Detail", DAL.MailDAL.UserMailList(User.Identity.GetUserId<int>()));
         }
 
+        [HttpPost]
+        public JsonResult Send(MailModel model)
+        {
+
+            try
+            {
+                DAL.MailDAL.SaveMail(model);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e });
+            }
+            return Json(new { success = true, message = "Mail Sent successfully." }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

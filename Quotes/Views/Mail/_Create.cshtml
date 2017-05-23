@@ -10,11 +10,11 @@
             <div class="col-lg-12">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Message To</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                    <input id="recipient" name="recipient" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Object</span>
-                    <input type="text" class="form-control" placeholder="Oject" aria-describedby="basic-addon1">
+                    <input type="text" name="object" class="form-control" placeholder="Oject" aria-describedby="basic-addon1">
                 </div>
             </div>                    
         </div>
@@ -41,7 +41,49 @@
     $(document).ready(function () {
         CKEDITOR.replace("textarea.editor", {
             customConfig: 'basic_config.js'
-        });         
-    });
+        });   
+        $('#recipient').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '/Users/MyFriendList',
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            }
+        });
+
+        jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+            var ul = this.menu.element;
+            ul.outerWidth(this.element.outerWidth());
+        }
+
+        $(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
+                    $.ajax({
+                        url: "/Mail/Send",
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            if (data.success) {
+                                GoToList();
+                                $("#successMessage").text(data.message);
+                                $("#successBox").show();
+                                setTimeout(function () {
+                                    $('#successBox').fadeOut('fast');
+                                }, 3000);
+                            } else {
+                                $("#errorMessage").text("There was an error sending mail : "+ data.message);
+                                $("#errorBox").show();
+                            }
+                        }
+                    });                
+                return false;
+            });
+        });
+    });   
    
 </script>

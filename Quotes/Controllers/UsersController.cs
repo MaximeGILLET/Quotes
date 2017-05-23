@@ -340,10 +340,18 @@ namespace Quotes.Controllers
         }
 
         [CustomAuthorize]
-        public ActionResult MailBox()
+        public JsonResult MyFriendList()
         {
-
-            return View();
+            var result = new List<UserModel>();
+            try
+            {
+                result = UserDAL.QuickFriendList(User.Identity.GetUserId<int>());
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, responseText = e });
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 

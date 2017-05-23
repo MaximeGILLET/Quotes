@@ -19,7 +19,7 @@ AS
 	ELSE -- New Mail
 	BEGIN
 		INSERT INTO dbo.Mail
-		VALUES (@UserId,@Object,@Label,@Content,SYSDATETIME(),@MailParentId);
+		VALUES (@UserId,@Object,@Label,@Content,SYSDATETIME(),@MailParentId,NULL,NULL);
 
 		-- SQL Merging Recipients TODO
 	END

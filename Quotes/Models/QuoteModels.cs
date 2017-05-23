@@ -72,6 +72,7 @@ namespace Quotes.Models
 
         public string ProfileIconPath { get; set; }
         public string UserName { get; set; }
+        public int UserId { get; set; }
 
     }
 

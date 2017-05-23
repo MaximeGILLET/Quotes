@@ -133,6 +133,34 @@ namespace Quotes.DAL
 
             return userCluster;
         }
+
+        public static List<UserModel> QuickFriendList(int UserId)
+        {
+            var friendList = new List<UserModel>();
+            var param = new List<SqlParameter>
+                {
+                    new SqlParameter() {ParameterName = "@UserId",SqlDbType = SqlDbType.Int, Value = UserId},
+                };
+            var dataSet = Database.ExecuteProcedureDataSet("dbo.FriendList", param);
+
+            if (dataSet.Tables.Count != 0)
+            {
+                foreach (var item in dataSet.Tables[0].AsEnumerable())
+                {
+                    friendList.Add(
+                        new UserModel
+                        {
+                            UserId = item.Field<int>("Id"),
+                            UserName = item.Field<string>("UserName")
+
+                        }
+                    );
+                }
+            }
+
+            return friendList;
+
+        }
  
     }
 }
