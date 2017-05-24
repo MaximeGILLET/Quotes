@@ -112,4 +112,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="FriendsId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1c7bd397-467f-4c22-850e-16531d179629" ChangeDateTime="05/24/2017 08:01:53">
+    <Property Name="ElementName" Value="[dbo].[Mail].[MailIsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Mail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaiIsDeleted" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8bf0dbe5-9df6-4230-b440-1c90e2736ca1" ChangeDateTime="05/24/2017 08:01:57">
+    <Property Name="ElementName" Value="[dbo].[Mail].[MailIsArchived]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Mail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaiIsArchived" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3b65159f-c5e7-483b-8e7a-7ba851ff1f11" ChangeDateTime="05/24/2017 08:02:14">
+    <Property Name="ElementName" Value="[dbo].[Mail].[MaiIs]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Mail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaiSentDate" />
+  </Operation>
 </Operations>

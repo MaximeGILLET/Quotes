@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="container body-content">
-            <div class="row" style="position: fixed;z-index: 1000;width: 70%;">
+            <div class="row" style="position: fixed;z-index: 1000;width:auto;">
                 <div id="errorBox" class="alert alert-danger" style="display: none">
                     <span class="glyphicon glyphicon-alert"></span>
                     <div id="errorMessage" class="label label-danger" >This is the error box!</div>
@@ -70,8 +70,8 @@
                         <span aria-hidden="true">×</span>
                     </button> 
                 </div>
-            </div>           
-            @RenderBody()
+            </div>
+            @RenderBody()          
             @{
                 if ((bool)(ViewData["OpenAuthorizationPopup"] ?? false))
                 {

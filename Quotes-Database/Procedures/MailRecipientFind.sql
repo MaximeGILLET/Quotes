@@ -12,4 +12,4 @@ AS
 		FROM dbo.Mail 
 		INNER JOIN dbo.MailRecipient mar ON mar.MarMaiId = MaiId AND mar.MarRecipientId = @UserId
 		INNER JOIN dbo.AspNetUsers asp ON asp.Id = MaiSenderId
-		AND MailIsDeleted = 0
+		AND MaiIsDeleted = 0
