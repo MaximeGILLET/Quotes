@@ -18,19 +18,20 @@
             </ul>
         </div>
     </div>
-
 </div>
 <div class="col-lg-9 col-md-2">
     <div class="panel panel-default">
         <div class="panel-heading">             
             <button class="btn btn-default btn-sm" onclick="OpenNewMail()"><span class="glyphicon glyphicon-envelope"></span>&nbsp; New Message</button>
         </div>
-        <div class="MainDisplay">
-            @Html.Partial("_List", Model)
-        </div> 
-        <div  class="AltDisplay">
-           
-        </div> 
+        <div class="panel-body" style="min-height:400px;margin:0;padding:0">
+            <div class="MainDisplay">
+                @Html.Partial("_List", Model)
+            </div>
+            <div class="AltDisplay">
+
+            </div>
+        </div>
         <div class="panel-footer">
             <div class="progress">
                 <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
@@ -42,8 +43,10 @@
 </div>
 <script>
     function GoToList() {
-        $(".AltDisplay").hide();
-        $(".MainDisplay").show();
+        $(".AltDisplay").hide('slide', { direction: 'right' }, 500, function () {
+            $(".MainDisplay").fadeIn();
+        })
+        
     }
     function OpenNewMail() {
         $.ajax({
@@ -51,9 +54,10 @@
             type: "GET"
         })
         .done(function (partialViewResult) {
+            $(".MainDisplay").fadeOut(); 
             $(".AltDisplay").html(partialViewResult);
-            $(".AltDisplay").show();
-            $(".MainDisplay").hide();          
+            $(".AltDisplay").show('slide', { direction: 'right' }, 500);
+                     
         });
     }
    

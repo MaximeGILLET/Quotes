@@ -486,6 +486,7 @@
     <Content Include="Content\Images\anonymous-128.png" />
     <Content Include="Content\Images\charts.jpg" />
     <Content Include="Content\img\bck1.jpg" />
+    <Content Include="Content\img\BG.jpg" />
     <Content Include="Content\img\blue-leather.jpg" />
     <Content Include="Content\img\Coin.png" />
     <Content Include="Content\img\copper-leather.jpg" />
