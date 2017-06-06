@@ -11,10 +11,8 @@ namespace Quotes.Models
     public class MailController : Controller
     {
         // GET: Mail
-        public ActionResult Index()
+        public ActionResult Index(bool? sent = null, bool? archived = null)
         {
-
-
             return View(DAL.MailDAL.UserMailList(User.Identity.GetUserId<int>()));
         }
 
@@ -28,7 +26,7 @@ namespace Quotes.Models
             return PartialView("_Detail",new MailViewModel());
         }
 
-        public PartialViewResult List()
+        public PartialViewResult List(bool? sent = null,bool? archived = null)
         {
             return PartialView("_Detail", DAL.MailDAL.UserMailList(User.Identity.GetUserId<int>()));
         }

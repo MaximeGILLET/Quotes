@@ -21,7 +21,7 @@ AS
 	IF @MailId IS NOT NULL
 	BEGIN
 		BEGIN TRAN;
-		UPDATE dbo.Mail SET MaiContent = @Content, MaiLabel = @Label , MaiObject = @Object, MaiParentId = @MailParentId,
+		UPDATE dbo.Mail SET MaiContent = ISNULL(@Content,MaiContent), MaiLabel = ISNULL(@Label,MaiLabel) , MaiObject = ISNULL(@Object,MaiObject), MaiParentId = ISNULL(@MailParentId,MaiParentId),
 		MaiSentDate = @MailSendDate
 		WHERE MaiId = @MailId AND MaiSenderId = @UserId;
 
