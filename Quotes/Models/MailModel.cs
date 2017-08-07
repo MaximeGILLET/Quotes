@@ -11,7 +11,7 @@ namespace Quotes.Models
         [Key]
         public int MailId { get; set; }
         public int SenderId { get; set; }
-        public int RecipientId { get; set; }
+        public List<int> RecipientListId { get; set; }
         public string Object { get; set; }
         public string Label { get; set; }
         public string Content { get; set; }

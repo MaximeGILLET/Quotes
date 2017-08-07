@@ -275,4 +275,6 @@ INSERT INTO dbo.Country (CtyRef,CtyLabel) VALUES('AD', 'AD-Andorra')
 ,('YE', 'YE-Yemen')
 ,('ZA', 'ZA-South Africa')
 ,('ZM', 'ZM-Zambia')
-,('ZW', 'ZW-Zimbabwe')
+,('ZW', 'ZW-Zimbabwe');
+
+INSERT INTO dbo.FriendStatus VALUES (1,'Requested') ,(2,'Accepted'),(3,'Deleted'),(4,'blocked');

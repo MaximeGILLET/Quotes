@@ -52,9 +52,29 @@ namespace Quotes.DAL
 
         }
 
-        public static void SaveMail(MailModel model)
+        public static void SaveMail(MailModel newMail)
         {
+            try
+            {
+                var param = new List<SqlParameter>
+                {
+                    
+                    new SqlParameter { ParameterName = "@UsrId", SqlDbType = SqlDbType.Int, Value = newMail.SenderId },
+                    new SqlParameter { ParameterName = "@Content", SqlDbType = SqlDbType.Text, Value = newMail.Content },
+                    new SqlParameter { ParameterName = "@Label", SqlDbType = SqlDbType.Text, Value = newMail.Label },
+                    new SqlParameter { ParameterName = "@Object", SqlDbType = SqlDbType.Text, Value = newMail.Object },
+                    new SqlParameter { ParameterName = "@MailId", SqlDbType = SqlDbType.Text, Value = newMail.MailId },
+                    new SqlParameter { ParameterName = "@MailParentId", SqlDbType = SqlDbType.Text, Value = newMail.ParentId },
+                    new SqlParameter { ParameterName = "@MailSendDate", SqlDbType = SqlDbType.Text, Value = newMail.CreationDate },
+                    new SqlParameter { ParameterName = "@RecipientListId", SqlDbType = SqlDbType.Text, Value = newMail.RecipientListId },
+                };
 
+                Database.ExecuteProcedure("dbo.MailSave", param);
+            }
+            catch (SqlException e)
+            {
+                   //TODO
+            }
 
         }
 

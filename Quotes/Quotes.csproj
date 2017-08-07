@@ -939,7 +939,6 @@
     <Content Include="Views\UserRoles\Details.cshtml" />
     <Content Include="Views\UserRoles\Edit.cshtml" />
     <Content Include="Views\UserRoles\Index.cshtml" />
-    <Content Include="Views\Users\MailBox.cshtml" />
     <Content Include="Views\Mail\_Create.cshtml" />
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Mail\_Detail.cshtml" />
